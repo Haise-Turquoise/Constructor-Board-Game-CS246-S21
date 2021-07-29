@@ -2,6 +2,9 @@ NEVER ADD using namespace std IN .h FILE!!!
 NEVER ADD using namespace std IN .h FILE!!!
 NEVER ADD using namespace std IN .h FILE!!!
 
+check nullptr every time before using "->"
+
+
 How to use tabnine and tab for autocomplete:
 ...
 How to use __LINE__ to fast debug:
