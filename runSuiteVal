@@ -1,0 +1,55 @@
+#!/bin/bash
+if [ ${#} -ne 2 ]; then
+    echo "argument missing" >&2
+    exit 1
+fi
+
+if [ ! -r $1 ]; then
+    echo "file stem cannot read" >&2
+    exit 1
+fi
+
+if [ ! -x $2 ]; then
+    echo "student given program cannot execute" >&2
+    exit 1
+fi
+flag=0
+
+all_pass=true
+for word in $(cat $1); do
+    tmpout=$(mktemp)
+    if [ -r ${word}.args ]; then
+        if [ -r ${word}.in ]; then
+            valgrind $2 $(cat ${word}.args) < ${word}.in 2> ${tmpout} 1>/dev/null
+        elif [ ! -e ${word}.in ]; then
+            valgrind $2 $(cat ${word}.args) 2> ${tmpout} 1>/dev/null
+        else
+            echo "${word}.in file not readable" >&2
+            flag=1
+            continue
+        fi
+    elif [ ! -e ${word}.args ]; then 
+        if [ -r ${word}.in ]; then
+            valgrind $2 < ${word}.in 2> ${tmpout} 1>/dev/null
+        elif [ ! -e ${word}.in ]; then
+            valgrind $2 2> ${tmpout} 1>/dev/null
+        else
+            echo "${word}.in file not readable" >&2
+            flag=1
+            continue
+        fi
+    else
+        if [ ! -r ${word}.in ] && [ -e ${word}.in ]; then
+            echo "${word}.in file not readable" >&2
+        fi
+        echo "${word}.arg file not readable" >&2
+        flag=1
+        continue
+    fi
+
+    echo "--${word}--" >> 0t0
+    tail -4 ${tmpout} | head -1 | awk '{print $2}' >> 0t0
+    tail -1 ${tmpout} | awk '{print $4 " " $5}' >> 0t0
+    echo "______________________________________________" >> 0t0
+    rm ${tmpout}
+done
