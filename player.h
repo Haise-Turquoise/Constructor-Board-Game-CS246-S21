@@ -15,6 +15,7 @@ class Player {
     std::vector<Vertex*> ownVertices;
     std::vector<Edge*> ownEdges;
     // Dice dice;
+    std::vector<char> generateResBoard(); //刘书辰的helper
 
     public:
     Player();
@@ -30,8 +31,9 @@ class Player {
     void decResource(char resourceType);  // need to check non-0
     bool existResource();
 
-    char beStolen();
+    char beStolen(int seed);
     int rollDice( int value );
+    void loseHalfResource(int seed);
 };
 
 #endif
