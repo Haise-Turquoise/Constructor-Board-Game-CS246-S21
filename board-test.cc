@@ -15,56 +15,182 @@ void Board::initAttachBoard() {
     }
     // resource type on Tile still need to be set
 
-    // start attach, take Tile 16 and Tile 14 for example:
-    // Tile neighbours attach to Tile
-    tiles[14]->attach(vertices[32]);
-    tiles[14]->attach(vertices[33]);
-    tiles[14]->attach(vertices[38]);
-    tiles[14]->attach(vertices[39]);
-    tiles[14]->attach(vertices[44]);
-    tiles[14]->attach(vertices[45]);
 
-    tiles[16]->attach(vertices[37]);
-    tiles[16]->attach(vertices[38]);
-    tiles[16]->attach(vertices[43]);
-    tiles[16]->attach(vertices[44]);
-    tiles[16]->attach(vertices[48]);
-    tiles[16]->attach(vertices[49]);
+    // attach Vertex neighbours to Tile
+    tiles[0]->attach(vertices[0]);              // tile 0
+    tiles[0]->attach(vertices[1]);
+    tiles[0]->attach(vertices[3]);
+    tiles[0]->attach(vertices[4]);
+    tiles[0]->attach(vertices[8]);
+    tiles[0]->attach(vertices[9]);
 
-    // Vertex neighbours attach to Vertex
-    vertices[32]->attachEdge(edges[39]);
-    vertices[32]->attachEdge(edges[44]);
-    vertices[32]->attachEdge(edges[48]);
+    for (int i = 1; i < 3; i++){                // tile 1,2
+        tiles[i]->attach(vertices[i*2]);
+        tiles[i]->attach(vertices[i*2+1]);
+        tiles[i]->attach(vertices[i*2+5]);
+        tiles[i]->attach(vertices[i*2+6]);
+        tiles[i]->attach(vertices[i*2+11]);
+        tiles[i]->attach(vertices[i*2+12]);
+    }
 
-    vertices[38]->attachEdge(edges[48]);
-    vertices[38]->attachEdge(edges[52]);
-    vertices[38]->attachEdge(edges[56]);
+    for (int i = 3; i < 16; i++) {               // tile 3-15
+        int j = 0;
+        if (i > 5) j += 1;
+        if (i > 7) j += 1;
+        if (i > 10) j += 1;
+        if (i > 12) j += 1;
+        tiles[i]->attach(vertices[i*2+j]);
+        tiles[i]->attach(vertices[i*2+1+j]);
+        tiles[i]->attach(vertices[i*2+6+j]);
+        tiles[i]->attach(vertices[i*2+7+j]);
+        tiles[i]->attach(vertices[i*2+12+j]);
+        tiles[i]->attach(vertices[i*2+13+j]);
+    }
+ 
+    for (int i = 16; i < 18; i++) {               // tile 16,17
+        tiles[i]->attach(vertices[i*2+5]);
+        tiles[i]->attach(vertices[i*2+6]);
+        tiles[i]->attach(vertices[i*2+11]);
+        tiles[i]->attach(vertices[i*2+12]);
+        tiles[i]->attach(vertices[i*2+16]);
+        tiles[i]->attach(vertices[i*2+17]);
+    }
 
-    vertices[48]->attachEdge(edges[63]);
-    vertices[48]->attachEdge(edges[67]);
-    
-    vertices[38]->attachVertex(vertices[32]);
-    vertices[38]->attachVertex(vertices[37]);
-    vertices[38]->attachVertex(vertices[44]);
-
-    vertices[48]->attachVertex(vertices[43]);
-    vertices[48]->attachVertex(vertices[49]);
+    tiles[18]->attach(vertices[44]);            // tile 18
+    tiles[18]->attach(vertices[45]);
+    tiles[18]->attach(vertices[49]);
+    tiles[18]->attach(vertices[50]);
+    tiles[18]->attach(vertices[52]);
+    tiles[18]->attach(vertices[53]);
 
 
-    // attach edge to the neighbour edges
-    edges[56]->attachEdge(edges[48]);
-    edges[56]->attachEdge(edges[52]);
-    edges[56]->attachEdge(edges[61]);
-    edges[56]->attachEdge(edges[64]);
+    // attach Edge neighbours to Vertex
+    vertices[0]->attachEdgeDoubly(edges[0]);
+    vertices[0]->attachEdgeDoubly(edges[1]); 
 
-    edges[63]->attachEdge(edges[55]);
-    edges[63]->attachEdge(edges[60]);
-    edges[63]->attachEdge(edges[67]);
+    vertices[1]->attachEdgeDoubly(edges[0]);
+    vertices[1]->attachEdgeDoubly(edges[2]);
 
-    edges[56]->attachVertex(vertices[38]);
-    edges[56]->attachVertex(vertices[44]);
+    vertices[2]->attachEdgeDoubly(edges[3]);
+    vertices[2]->attachEdgeDoubly(edges[5]);
 
-    edges[63]->attachVertex(vertices[43]);
-    edges[63]->attachVertex(vertices[48]);
-    
+    for (int i = 3; i < 5; i++) {
+        vertices[i]->attachEdgeDoubly(edges[i-2]);
+        vertices[i]->attachEdgeDoubly(edges[i]);
+        vertices[i]->attachEdgeDoubly(edges[i+3]);
+    }
+
+    vertices[5]->attachEdgeDoubly(edges[4]);
+    vertices[5]->attachEdgeDoubly(edges[8]);
+
+    vertices[6]->attachEdgeDoubly(edges[9]);
+    vertices[6]->attachEdgeDoubly(edges[12]);
+
+    for (int i = 7; i < 11; i++) {
+        int j = 2;
+        if (i > 8) j -= 1;
+        vertices[i]->attachEdgeDoubly(edges[i-2]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+6]);
+    }
+
+    vertices[11]->attachEdgeDoubly(edges[11]);
+    vertices[11]->attachEdgeDoubly(edges[17]);
+
+    vertices[12]->attachEdgeDoubly(edges[12]);
+    vertices[12]->attachEdgeDoubly(edges[20]);
+
+    for (int i = 13; i < 17; i++) {
+        int j = 5;
+        if (i > 13) j -= 1;
+        if (i > 15) j -= 1;
+        vertices[i]->attachEdgeDoubly(edges[i]);
+        vertices[i]->attachEdgeDoubly(edges[i+4]);
+        vertices[i]->attachEdgeDoubly(edges[i+8]);
+    }
+
+    vertices[17]->attachEdgeDoubly(edges[17]);
+    vertices[17]->attachEdgeDoubly(edges[25]); 
+
+    for (int i = 18; i < 24; i++) {
+        int j = 8;
+        if (i > 18) j -= 1;
+        if (i > 20) j -= 1;
+        if (i > 22) j -= 1;
+        vertices[i]->attachEdgeDoubly(edges[i+2]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+11]);
+    }
+
+    vertices[24]->attachEdgeDoubly(edges[29]);
+    vertices[24]->attachEdgeDoubly(edges[37]);
+
+    for (int i = 25; i < 29; i++) {
+        int j = 10;
+        if (i > 25) j -= 1;
+        if (i > 27) j -= 1; 
+        vertices[i]->attachEdgeDoubly(edges[i+5]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+13]);
+    }
+
+    vertices[29]->attachEdgeDoubly(edges[34]);
+    vertices[29]->attachEdgeDoubly(edges[42]);
+
+    for (int i = 30; i < 36; i++) {
+        int j = 13;
+        if (i > 30) j -= 1;
+        if (i > 32) j -= 1; 
+        if (i > 34) j -= 1;
+        vertices[i]->attachEdgeDoubly(edges[i+7]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+16]);
+    }
+
+    vertices[36]->attachEdgeDoubly(edges[46]);
+    vertices[36]->attachEdgeDoubly(edges[54]);
+
+    for (int i = 37; i < 41; i++) {
+        int j = 15;
+        if (i > 37) j -= 1;
+        if (i > 39) j -= 1; 
+        vertices[i]->attachEdgeDoubly(edges[i+10]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+18]);
+    }
+
+    vertices[41]->attachEdgeDoubly(edges[51]);
+    vertices[41]->attachEdgeDoubly(edges[59]);
+
+    vertices[42]->attachEdgeDoubly(edges[54]);
+    vertices[42]->attachEdgeDoubly(edges[60]);
+
+    for (int i = 43; i < 47; i++) {
+        int j = 17;
+        if (i > 44) j -= 1; 
+        vertices[i]->attachEdgeDoubly(edges[i+12]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
+        vertices[i]->attachEdgeDoubly(edges[i+20]);
+    }
+
+    vertices[47]->attachEdgeDoubly(edges[59]);
+    vertices[47]->attachEdgeDoubly(edges[62]);
+
+    vertices[48]->attachEdgeDoubly(edges[63]);
+    vertices[48]->attachEdgeDoubly(edges[67]);
+
+    for (int i = 49; i < 51; i++) { 
+        vertices[i]->attachEdgeDoubly(edges[i+15]);
+        vertices[i]->attachEdgeDoubly(edges[i+18]);
+        vertices[i]->attachEdgeDoubly(edges[i+20]);
+    }
+
+    vertices[51]->attachEdgeDoubly(edges[66]);
+    vertices[51]->attachEdgeDoubly(edges[68]);
+
+    vertices[52]->attachEdgeDoubly(edges[69]);
+    vertices[52]->attachEdgeDoubly(edges[71]);
+
+    vertices[53]->attachEdgeDoubly(edges[70]);
+    vertices[53]->attachEdgeDoubly(edges[71]);
 }
