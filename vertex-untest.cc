@@ -1,5 +1,8 @@
 #include "vertex.h"
 #include "tile.h"
+#include "edge.h"
+#include <iostream>
+using namespace std;
 
 Vertex::Vertex(int idx): index{idx}, buildType{'-'}, owner{nullptr} {}
 Vertex::~Vertex() {}
