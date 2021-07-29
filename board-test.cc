@@ -105,7 +105,7 @@ void Board::initAttachBoard() {
         if (i > 13) j -= 1;
         if (i > 15) j -= 1;
         vertices[i]->attachEdgeDoubly(edges[i]);
-        vertices[i]->attachEdgeDoubly(edges[i+4]);
+        vertices[i]->attachEdgeDoubly(edges[i+j]);
         vertices[i]->attachEdgeDoubly(edges[i+8]);
     }
 
