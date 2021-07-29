@@ -7,12 +7,12 @@ EXEC = ctor
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 
-board.o: board.cc board.h player.h vertex.h edge.h subject.h observer.h
-player.o: player.cc player.h vertex.h edge.h subject.h observer.h
-edge.o: edge.cc edge.h vertex.h
-subject.o: subject.cc subject.h observer.h
-tile.o: tile.cc tile.h subject.h observer.h
-vertex.o: vertex.cc vertex.h observer.h
+board.o: board-untest.cc board.h player.h vertex.h edge.h subject.h observer.h
+player.o: player-untest.cc player.h vertex.h edge.h subject.h observer.h
+edge.o: edge-untest.cc edge.h vertex.h
+subject.o: subject-untest.cc subject.h observer.h
+tile.o: tile-untest.cc tile.h subject.h observer.h
+vertex.o: vertex-untest.cc vertex.h observer.h
 main.o: main.cc board.h player.h vertex.h edge.h subject.h observer.h
 
 .PHONY: clean
