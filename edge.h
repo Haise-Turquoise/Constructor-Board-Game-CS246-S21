@@ -21,6 +21,7 @@ class Edge {
     void setOwnerPos(int op);
     void attachVertex( Vertex* ptrv );
     void attachEdge( Edge* ptre );
+    void attachVertexDoubly( Vertex* ptrv );
 };
 
 #endif
