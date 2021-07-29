@@ -15,11 +15,19 @@ void Vertex::setOwnerPos(int op) { ownerPos = op; }
 void Vertex::setOwner( Player* ptrp ) { owner = ptrp; }
 
 void Vertex::attachVertex( Vertex* ptrv ) {
+    if ( ptrv == nullptr ) cout << "WARNING: NULLPTR parameter in Vertex::attachVertex!" << endl;
     neighbourVertices.emplace_back(ptrv);
 }
 
 void Vertex::attachEdge( Edge* ptre ) {
+    if ( ptre == nullptr ) cout << "WARNING: NULLPTR parameter in Vertex::attachEdge!" << endl;
     neighbourEdges.emplace_back(ptre);
+}
+
+void Vertex::attachEdgeDoubly( Edge* ptre ) {
+    if ( ptre == nullptr ) cout << "WARNING: NULLPTR parameter in Vertex::attachEdgeDoubly!" << endl;
+    neighbourEdges.emplace_back(ptre);
+    ptre->attachVertex(this);
 }
 
 void Vertex::wasNotified( Tile& whoNotified ) {
