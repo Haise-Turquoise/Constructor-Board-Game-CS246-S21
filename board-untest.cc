@@ -1,4 +1,8 @@
 #include "board-test.h"
+#include <random>
+#include <algorithm>
+#include <vector>
+#include <utility>
 
 void Board::initAttachBoard() {
     for ( size_t i = 0; i++; i < 19 ) {
@@ -195,4 +199,72 @@ void Board::initAttachBoard() {
     vertices[53]->attachEdgeDoubly(edges[71]);
 }
 
-//
+
+//刘书辰
+
+// helper function: generate random number
+int myrandom (int i) { return std::rand()%i;}
+
+// helper function: initialize resource vector
+std::vector<std::string> initResourse() {
+    std::vector<std::string> resource(3, "WIFI");
+    resource.insert(resource.end(), 3, "HEAT");
+    resource.insert(resource.end(), 4, "BRICK");
+    resource.insert(resource.end(), 4, "ENERGY");
+    resource.insert(resource.end(), 4, "CLASS");
+    resource.emplace_back("PARK");
+    return resource;
+}
+
+
+void Board::initRandBoard() {
+    srand(time(0));
+
+    // create resourse vector and shuffle with the above random generated seed
+    std::vector<std::string> resource = initResourse();
+    std::random_shuffle(resource.begin(), resource.end(), myrandom);
+
+    //create value vector and shuffle with the above random generated seed
+    std::vector<int> value = {2,12,7,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11};
+    std::random_shuffle(value.begin(), value.end(), myrandom);
+
+    // deal with park
+    int parkIdx = std::find(resource.begin(), resource.end(), "PARK") - resource.begin();
+    int sevenIdx = std::find(value.begin(), value.end(), 7) - value.begin();
+    std::swap(value[sevenIdx], value[parkIdx]);
+    
+    //create Tile
+    for (int i = 0; i < 19; i++) {
+        Tile newTile = Tile{i};
+        newTile.setResourceType(resource[i]);
+        newTile.setValue(value[i]);
+        tiles.emplace_back(newTile);
+    }
+}
+
+// 刘书辰
+void Board::initSeedBoard( int seed ) {
+    // set seed
+    unsigned sd = seed;
+
+    // create random resource with seed
+    std::vector<std::string> resource = initResourse();
+    std::shuffle(resource.begin(), resource.end(), std::default_random_engine(sd));
+
+    // create random value with seed
+    std::vector<int> value = {2,12,7,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11};
+    std::shuffle(value.begin(), value.end(), std::default_random_engine(sd));
+
+    // deal with park
+    int parkIdx = std::find(resource.begin(), resource.end(), "PARK") - resource.begin();
+    int sevenIdx = std::find(value.begin(), value.end(), 7) - value.begin();
+    std::swap(value[sevenIdx], value[parkIdx]);
+
+    // create Tile
+    for (int i = 0; i < 19; i++) {
+        Tile newTile = Tile{i};
+        newTile.setResourceType(resource[i]);
+        newTile.setValue(value[i]);
+        tiles.emplace_back(newTile);
+    }
+}
