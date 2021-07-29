@@ -78,3 +78,40 @@ void Player::addResource(char resourceType) {
     }
 }
 int Player::rollDice( int value ) { return value; }
+
+
+// helper function: generate resource vector
+vector<char> Player::generateResBoard() {
+    vector<char> generateBoard(numHeat,'H');
+    generateBoard.insert(generateBoard.end(), numWifi, 'W');
+    generateBoard.insert(generateBoard.end(), numEnergy, 'E');
+    generateBoard.insert(generateBoard.end(), numBrick, 'B');
+    generateBoard.insert(generateBoard.end(), numGlass, 'G');
+    return generateBoard;
+}
+
+
+char Player::beStolen(int seed) {
+    vector<char> generateBoard = generateResBoard();
+    int totalRes = numHeat + numWifi + numEnergy + numBrick + numGlass;
+    unsigned sd = seed;
+    std::default_random_engine g{sd};
+    std::uniform_int_distribution<int> distribution(0,totalRes - 1);
+    int ranIdx = distribution(g);
+    return generateBoard[ranIdx];
+}
+
+void Player::loseHalfResource(int seed) {
+    unsigned sd = seed;
+    vector<char> generateBoard = generateResBoard();
+    std::shuffle(generateBoard.begin(), generateBoard.end(), std::default_random_engine(sd));
+    // the first half of generateResBoard
+    size_t half_size = generateBoard.size() / 2;
+    vector<char> firstHalf(generateBoard.begin(), generateBoard.begin() + half_size);
+    // update number of resource
+    numHeat = count(firstHalf.begin(), firstHalf.end(), 'H');
+    numWifi = count(firstHalf.begin(), firstHalf.end(), 'W');
+    numEnergy = count(firstHalf.begin(), firstHalf.end(), 'E');
+    numBrick = count(firstHalf.begin(), firstHalf.end(), 'B');
+    numGlass = count(firstHalf.begin(), firstHalf.end(), 'G');
+}
