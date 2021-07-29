@@ -1,5 +1,8 @@
 #include "player.h"
 #include <iostream>
+#include <random>
+#include <vector>
+#include  <iterator>
 using namespace std;
 
 
