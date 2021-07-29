@@ -43,12 +43,20 @@ void Player::buildRes( Vertex* ptrv ) {
     ptrv->setBuildType('B');
     // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
     ptrv->setOwner(this);
+    cout<< "line:" << __LINE__ << endl;
 }
 
 
 
 void Player::buildRoad( Edge* ptre ) {  }
 void Player::improveRes( Vertex* ptrv ) {  }
+
+void Player::addResource(char resourceType) {}
+void Player::decResource(char resourceType) {} // need to check non-0
+bool Player::existResource() {return false;}
+
+char Player::beStolen() {return '-';}
+int Player::rollDice( int value ) {}
 
 
 

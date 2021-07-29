@@ -26,9 +26,11 @@ class Player {
     void buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
     void buildRoad( Edge* ptre ); 
     void improveRes( Vertex* ptrv );
-    // char beStolen();
     void addResource(char resourceType);
     void decResource(char resourceType);  // need to check non-0
+    bool existResource();
+
+    char beStolen();
     int rollDice( int value );
 };
 
