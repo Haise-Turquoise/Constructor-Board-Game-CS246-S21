@@ -1,6 +1,11 @@
+NEVER ADD using namespace std IN .h FILE!!!
+NEVER ADD using namespace std IN .h FILE!!!
+NEVER ADD using namespace std IN .h FILE!!!
+
 How to use tabnine and tab for autocomplete:
 ...
 How to use __LINE__ to fast debug:
 ...
 How to use auto valgrind runSuite:
 ...
+
