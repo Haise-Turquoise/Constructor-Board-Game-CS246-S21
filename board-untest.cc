@@ -194,3 +194,5 @@ void Board::initAttachBoard() {
     vertices[53]->attachEdgeDoubly(edges[70]);
     vertices[53]->attachEdgeDoubly(edges[71]);
 }
+
+//
