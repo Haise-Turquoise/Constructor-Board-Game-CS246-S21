@@ -96,11 +96,12 @@ bool CtorGame::play() {
         // roll dice
         bool fairDice = false;
         bool rolled = false;
+        int dice = 0;
         while (true) {
             if (rolled) break;
             if (!(cin>>cmd)) { endGame(board); return 0; }
             if (cmd == "roll") {
-                board.rollDice(fairDice);
+                //dice = board.rollDice(fairDice);
                 rolled = true;
                 cout << "finsih rolling" << endl;
             } else if (cmd == "fair") {
@@ -114,6 +115,17 @@ bool CtorGame::play() {
             } 
         }
 
+        // obtaining resources or move geese
+        if (dice != 7) {
+            cout<<"dice not 7, builder gain resources"<< endl;
+            //board.gainResources(dice);
+        } else {    // move geese
+            cout<<"dice is 7, lose half and move geese"<<endl;
+            //int movePos = board.geeseRolled();
+            //board.moveGeese(movePos);
+        }
+
+
         // during the turn 
         while (true) {
             if (!(cin>>cmd)) { endGame(board); return 0; }
@@ -122,7 +134,7 @@ bool CtorGame::play() {
                 cout << "Valid commands:" << endl;
                 cout << "board" << endl << "status" << endl << "residences" << endl;
                 cout << "build-road <edge#>" << endl << "build-res <housing#>" << endl;
-                cout << "improve <housing>" << endl << "trade <colour> <give> <take>" << endl;
+                cout << "improve <housing#>" << endl << "trade <colour> <give> <take>" << endl;
                 cout << "next" << endl << "save <file>" << "help" << endl;
             } 
             else if (cmd == "board") {
