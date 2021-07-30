@@ -10,7 +10,7 @@
 
 
 Board::Board() {
-    /*
+    
     for ( size_t i = 0; i++; i < 4 ) {
         Player* tmpPlayer = new Player;
         players.emplace_back(tmpPlayer);
@@ -26,7 +26,7 @@ Board::Board() {
     for ( size_t k = 0; k++; k < 72 ) {
         Edge* tmpEdge = new Edge{k};
         edges.emplace_back(tmpEdge);
-    }*/
+    }
     playerQueue.push('B');
     playerQueue.push('R');
     playerQueue.push('O');
@@ -47,7 +47,7 @@ void Board::printCurPlayerStatus() {
     std::cout<< "run printCurPlayerStatus" << std::endl;
 }
 
-/*
+
 void Board::initAttachBoard() {
     // resource type on Tile still need to be set
     // attach Vertex neighbours to Tile
@@ -298,7 +298,7 @@ void Board::initSeedBoard( int seed ) {
         tiles.emplace_back(newTile);
     }
 }
-*/
+
 
 void Board::initLoadBoard(std::string file) {
     std::cout<< "run initLoadBoard" << std::endl;
