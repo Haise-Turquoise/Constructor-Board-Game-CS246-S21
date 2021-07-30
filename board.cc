@@ -26,6 +26,10 @@ Board::Board() {
         Edge* tmpEdge = new Edge{k};
         edges.emplace_back(tmpEdge);
     }
+    playerQueue.push('B');
+    playerQueue.push('R');
+    playerQueue.push('O');
+    playerQueue.push('Y');
 }
 
 int Board::getCurTurn() const {return this->curTurn; }
