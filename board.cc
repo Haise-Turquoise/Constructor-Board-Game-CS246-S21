@@ -326,6 +326,7 @@ void Board::buildRoad( int pos ){}
 void Board::improveRes( int pos ){}
 
 void Board::trade( std::string otherplayer, std::string ownResources, std::string otherResource ){}
+void Board::loseHalf(){}
 void Board::moveGeese( int pos ){}
 
 bool Board::checkWon() {
