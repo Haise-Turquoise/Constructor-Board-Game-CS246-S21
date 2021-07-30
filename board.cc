@@ -1,10 +1,14 @@
-#include "board-test.h"
+#include "board.h"
 #include <random>
 #include <algorithm>
 #include <vector>
 #include <utility>
+#include "tile.h"
+#include "vertex.h"
+#include "edge.h"
 
-void Board::initAttachBoard() {
+
+Board::Board() {
     for ( size_t i = 0; i++; i < 19 ) {
         Tile* tmpTile = new Tile{i};
         tiles.emplace_back(tmpTile);
@@ -17,9 +21,25 @@ void Board::initAttachBoard() {
         Edge* tmpEdge = new Edge{k};
         edges.emplace_back(tmpEdge);
     }
+}
+
+int Board::getCurTurn() const {return this->curTurn; }
+void Board::setCurTurn(int ind) {this->curTurn = ind; }
+
+void Board::clearBoard() {}
+void Board::printBoard() {
+    std::cout<< "run print board" << std::endl;
+}
+void Board::printAllPlayerStatus() {
+    std::cout<< "run printAllPlayerStatus" << std::endl;
+}
+void Board::printCurPlayerStatus() {
+    std::cout<< "run printCurPlayerStatus" << std::endl;
+}
+
+
+void Board::initAttachBoard() {
     // resource type on Tile still need to be set
-
-
     // attach Vertex neighbours to Tile
     tiles[0]->attach(vertices[0]);              // tile 0
     tiles[0]->attach(vertices[1]);
@@ -267,4 +287,35 @@ void Board::initSeedBoard( int seed ) {
         newTile.setValue(value[i]);
         tiles.emplace_back(newTile);
     }
+}
+
+void Board::initLoadBoard(std::string file) {
+    std::cout<< "run initLoadBoard" << std::endl;
+}
+
+void Board::loadGame(string file) {
+    std::cout<< "run loadGame" << std::endl;
+}
+
+std::string Board::saveGame() {
+    std::cout<< "run savGame" << std::endl;
+}
+
+void Board::rollDice(bool fair) {
+    std::cout<< "run rollDice" << std::endl;
+}
+
+void Board::buildRes( int pos ){}
+void Board::buildRoad( int pos ){}
+void Board::improveRes( int pos ){}
+
+void Board::trade( std::string otherplayer, std::string ownResources, std::string otherResource ){}
+void Board::moveGeese( int pos ){}
+
+bool Board::checkWon() {
+    return true;
+}
+
+void endCurTurn() {
+    
 }
