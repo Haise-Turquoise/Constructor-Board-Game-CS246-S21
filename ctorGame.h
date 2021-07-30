@@ -1,6 +1,7 @@
 #ifndef _CTORGAME_H_
 #define _CTORGAME_H_
 #include <string>
+#include <iostream>
 
 class Board;
 
@@ -20,8 +21,8 @@ class CtorGame {
     void setRandBoard(bool randBoard);
     
     
-    int setUp(Board & board, const vector<string> fourPlayers); // return -1 when get EOF
-    void endGame(Board & board, string fileName = "backup.sv");
+    int setUp(Board & board, const std::vector<std::string> fourPlayers); // return -1 when get EOF
+    void endGame(Board & board, std::string fileName = "backup.sv");
     bool play();
     
     // for debug
