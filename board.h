@@ -14,8 +14,8 @@ class Board {
     std::vector<Tile*> tiles;
     std::vector<Vertex*> vertices;
     std::vector<Edge*> edges;
-    //std::vector<Player*> players;
-    //std::queue<char> playerQueue;
+    std::vector<Player*> players;
+    std::queue<char> playerQueue;
     int curTurn = 0;
 
     public:
@@ -37,12 +37,14 @@ class Board {
     std::string saveGame();
 
     void rollDice(bool fair);
+    void gainResources(int tileVal);
 
     void buildRes( int pos );
     void buildRoad( int pos );
     void improveRes( int pos );
 
     void trade( std::string otherplayer, std::string ownResources, std::string otherResource );
+    int geeseRolled();
     void moveGeese( int pos );
 
     bool checkWon();
