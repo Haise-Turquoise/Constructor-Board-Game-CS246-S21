@@ -1,13 +1,14 @@
 #include "ctorGame.h"
 #include "board.h"
 #include <string>
+#include <iostream>
 #include <vector>
 #include <fstream>
 using namespace std;
 
 
-//CtorGame::CtorGame( string file, int seed, bool load, bool boardGiven, bool randBoard):
-//    file{file}, seed{seed}, load{load}, boardGiven{boardGiven}, randBoard{randBoard} {}
+CtorGame::CtorGame( string file, int seed, bool load, bool boardGiven, bool randBoard):
+    file{file}, seed{seed}, load{load}, boardGiven{boardGiven}, randBoard{randBoard} {}
 
 void CtorGame::setFile( string file){ this->file = file; }
 void CtorGame::setSeed(int seed){ this->seed = seed; }
@@ -103,13 +104,13 @@ bool CtorGame::play() {
             if (cmd == "roll") {
                 //dice = board.rollDice(fairDice);
                 rolled = true;
-                cout << "finsih rolling" << endl;
+                cout << "finish rolling" << endl;
             } else if (cmd == "fair") {
                 fairDice = true;
-                cout<< "Player " << fourPlayers[board.getCurTurn();] << " uses fair dice now" << endl;
-            } else if (cmd != "load") {
+                cout<< "Player " << fourPlayers[board.getCurTurn()] << " uses fair dice now" << endl;
+            } else if (cmd == "load") {
                 fairDice = false;
-                cout<< "Player " << fourPlayers[board.getCurTurn();] << " uses loaded dice now" << endl;
+                cout<< "Player " << fourPlayers[board.getCurTurn()] << " uses loaded dice now" << endl;
             } else {
                 cerr << "Please first roll the Dice, remember to enter 'fair' if needed" << endl;
             } 
@@ -135,7 +136,7 @@ bool CtorGame::play() {
                 cout << "board" << endl << "status" << endl << "residences" << endl;
                 cout << "build-road <edge#>" << endl << "build-res <housing#>" << endl;
                 cout << "improve <housing#>" << endl << "trade <colour> <give> <take>" << endl;
-                cout << "next" << endl << "save <file>" << "help" << endl;
+                cout << "next" << endl << "save <file>" << endl << "help" << endl;
             } 
             else if (cmd == "board") {
                 cout<<"print Board"<<endl;
