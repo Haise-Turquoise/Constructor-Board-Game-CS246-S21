@@ -44,7 +44,6 @@ class Board {
     void improveRes( int pos );
 
     void trade( std::string otherplayer, std::string ownResources, std::string otherResource );
-    
     void loseHalf();
     void moveGeese( int pos );
 
