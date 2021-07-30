@@ -44,14 +44,11 @@ class Board {
     void improveRes( int pos );
 
     void trade( std::string otherplayer, std::string ownResources, std::string otherResource );
-    int geeseRolled();
+    void loseHalf();
     void moveGeese( int pos );
 
     bool checkWon();
 
     void endCurTurn();
     
-    
-
-
 };
