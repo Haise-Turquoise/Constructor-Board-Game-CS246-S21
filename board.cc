@@ -6,9 +6,14 @@
 #include "tile.h"
 #include "vertex.h"
 #include "edge.h"
+#include "player.h"
 
 
 Board::Board() {
+    for ( size_t i = 0; i++; i < 4 ) {
+        Player* tmpPlayer = new Player;
+        players.emplace_back(tmpPlayer);
+    }
     for ( size_t i = 0; i++; i < 19 ) {
         Tile* tmpTile = new Tile{i};
         tiles.emplace_back(tmpTile);
@@ -303,6 +308,11 @@ std::string Board::saveGame() {
 
 void Board::rollDice(bool fair) {
     std::cout<< "run rollDice" << std::endl;
+}
+
+void Board::void gainResources(int tileVal){
+    // notify observers of tileVal
+    // only notify which has been build 
 }
 
 void Board::buildRes( int pos ){}
