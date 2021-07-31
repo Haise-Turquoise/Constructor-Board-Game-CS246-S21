@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-Vertex::Vertex(int idx): index{idx}, buildType{'-'}, owner{nullptr} {}
+Vertex::Vertex(int idx): index{idx}, buildType{'-'}, ownerPos{-1}, owner{nullptr} {}
 Vertex::~Vertex() {}
 
 int Vertex::getIndex() { return index; }
