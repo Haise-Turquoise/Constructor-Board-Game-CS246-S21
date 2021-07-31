@@ -33,6 +33,7 @@ Board::Board() {
     playerQueue.push('R');
     playerQueue.push('O');
     playerQueue.push('Y');
+    initAttachBoard();
 }
 
 int Board::getCurTurn() const {return this->curTurn; }
@@ -570,8 +571,7 @@ char charResourceIdentifier(int resourceType) {
 }
 
 void Board::initLoadBoard(string file) {
-    cout<< "run initLoadBoard" << endl;
-    initAttachBoard();
+    cout<< "run initLoadBoard" << endl; 
     ifstream fileIn{file};
     int resourceType;
     int value; 
@@ -586,7 +586,6 @@ void Board::initLoadBoard(string file) {
 
 void Board::loadGame(string file) {
     cout<< "run loadGame" << endl;
-    initAttachBoard();
     ifstream fileIn{file}; 
     string line;
     getline(fileIn, line);
