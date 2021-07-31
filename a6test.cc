@@ -5,6 +5,8 @@
 #include "subject.h"
 #include "observer.h"
 #include "player.h"
+#include "dice.h"
+#include "strategy.h"
 #include <iostream>
 using namespace std;
 
@@ -14,3 +16,4 @@ int main() {
     b.printAllPlayerStatus();
     b.printCurPlayerRes();
 }
+
