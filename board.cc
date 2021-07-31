@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include <vector>
+#include <fstream>
 #include <utility>
 #include "tile.h"
 #include "vertex.h"
@@ -52,13 +53,13 @@ void Board::clearBoard() {
 }
 
 void Board::printBoard() {
-    std::cout<< "run print board" << std::endl;
+    cout<< "run print board" << endl;
 }
 void Board::printAllPlayerStatus() {
-    std::cout<< "run printAllPlayerStatus" << std::endl;
+    cout<< "run printAllPlayerStatus" << endl;
 }
 void Board::printCurPlayerStatus() {
-    std::cout<< "run printCurPlayerStatus" << std::endl;
+    cout<< "run printCurPlayerStatus" << endl;
 }
 
 
@@ -310,24 +311,9 @@ void Board::initSeedBoard( int seed ) {
 
 
 // Ivy
-void Board::initLoadBoard(std::string file) {
-    std::cout<< "run initLoadBoard" << std::endl;
-    // load resource 
- 
-
-    // create Tile
-    for (int i = 0; i < 19; i++) { 
-        tiles[i]->setResourceType();
-        tiles[i]->setValue(); 
-    }
-}
-
-void Board::loadGame(std::string file) {
-    std::cout<< "run loadGame" << std::endl;
-}
 
 // a helper
-int intResourceIdentifier(char resource) {
+int intResourceIdentifier(char resource) { 
     switch( resourceType ) {
         case 'B':
             return 0; break;
@@ -338,14 +324,52 @@ int intResourceIdentifier(char resource) {
         case 'H':
             return 3; break;
         case 'W':
-            return 4; break; 
+            return 4; break;
         case 'P':
             return 5; break;
-    }
+    } 
 }
 
-std::string Board::saveGame() {
-    std::cout<< "run savGame" << std::endl;
+char charResourceIdentifier(int resourceType) { 
+    switch( resourceType ) {
+        case 0:
+            return 'B'; break;
+        case 1:
+            return 'E'; break;
+        case 2:
+            return 'G'; break;
+        case 3:
+            return 'H'; break;
+        case 4:
+            return 'W'; break;
+        case 5:
+            return 'P'; break;
+    } 
+}
+
+void Board::initLoadBoard(string file) {
+    cout<< "run initLoadBoard" << endl;
+    initAttachBoard();
+    ifstream fileIn{file};
+    int resourceType;
+    int value; 
+    int i = 0;
+    while (fileIn >> resourceType >> value) {
+        char type = charResourceIdentifier(resourceType);
+        tiles[i]->setResourceType = type;
+        tiles[i]->setValue = value;
+        i += 1;
+    } 
+}
+
+void Board::loadGame(string file) {
+    cout<< "run loadGame" << endl;
+    initAttachBoard();
+
+}
+
+string Board::saveGame() {
+    cout<< "run savGame" << endl;
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
     for (int i = 0; i < players.size(); i++) {          // <builder i's Data>
@@ -358,7 +382,7 @@ std::string Board::saveGame() {
     }
     for (int i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
-        out << intResourceIdentifier(type) << " ";
+        out << intResourceIdentifier(type).first << " ";
         out << tiles[i]->getValue() << " ";
         if (i == tiles.size()-1) out << endl;
     }
@@ -376,7 +400,6 @@ void Board::setDice(bool fair) {
         players[curTurn]->setStrategyState('R');
     }
 }
-
 
 int Board::rollDice(int value) {
     return players[curTurn]->rollDice(value, seed);
@@ -436,7 +459,7 @@ void Board::improveRes( int pos ) {
     return;
 }
 
-void Board::trade( std::string otherplayer, std::string ownResources, std::string otherResource ){}
+void Board::trade( string otherplayer, string ownResources, string otherResource ){}
 void Board::loseHalf(){}
 void Board::moveGeese( int pos ){}
 
