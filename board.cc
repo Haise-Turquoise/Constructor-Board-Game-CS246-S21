@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <utility>
+#include <iomanip>
 #include "tile.h"
 #include "vertex.h"
 #include "edge.h"
@@ -50,16 +51,6 @@ void Board::clearBoard() {
     for ( size_t k = 0; k < 72; k++ ) {
         delete edges[k];
     }
-}
-
-void Board::printBoard() {
-    cout<< "run print board" << endl;
-}
-void Board::printAllPlayerStatus() {
-    cout<< "run printAllPlayerStatus" << endl;
-}
-void Board::printCurPlayerStatus() {
-    cout<< "run printCurPlayerStatus" << endl;
 }
 
 
@@ -244,7 +235,214 @@ void Board::initAttachBoard() {
     vertices[53]->attachEdgeDoubly(edges[71]);
 }
 
-//刘书辰
+// Jim Part_________________________________________________________________
+
+char ownerPosToChar( int ownerPos ) {
+    switch( ownerPos ) {
+        case 0:
+            return 'B'; break;
+        case 1:
+            return 'R'; break;
+        case 2:
+            return 'O'; break;
+        case 3:
+            return 'Y'; break;
+        default:
+            throw "WRONG ownerPos TYPE FOR ownerPosToChar"; return '-'; break;
+    }
+}
+
+
+string Board::ttype(int pos) {
+    char tileType = tiles[pos]->getResourceType();
+    switch( tileType ) {
+        case 'H':
+            return "  HEAT   "; break;
+        case 'W':
+            return "  WIFI   "; break;
+        case 'E':
+            return " ENERGY  "; break;
+        case 'B':
+            return "  BRICK  "; break;
+        case 'G':
+            return "  GLASS  "; break;
+        case 'P':
+            return "  PARK   "; break;
+        default:
+            cout << "WRONG RESOURCE TYPE FOR Board::ttype" << endl;
+            throw -1; break;
+    }
+}
+
+
+string Board::tval(int pos) {
+    string ret = "  ";
+    int tileVal = tiles[pos]->getValue();
+    if ( tiles[pos]->getResourceType() == 'P' ) {
+        ret += " ";
+    } else {
+        if ( tileVal < 10 ) ret += " ";
+        ret += to_string(tileVal);
+    }
+    ret += "  ";
+    return ret;
+}
+
+
+string Board::vfo(int pos) {
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return "-";}
+    string ret = "|";
+    if ( vertices[pos]->getOwner() == nullptr ) {
+        if ( pos < 10 ) ret += " ";
+        ret += to_string(pos);
+    } else {
+        int ownerPos = vertices[pos]->getOwnerPos();
+        ret += ownerPosToChar(ownerPos);
+        ret += vertices[pos]->getBuildType();
+    }
+    ret += "|";
+    return ret;
+}
+
+
+string Board::efo(int pos) {
+    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return "-";}
+    string ret;
+    if ( edges[pos]->getOwner() == nullptr ) {
+        if ( pos < 10 ) ret += " ";
+        ret += to_string(pos);
+    } else {
+        ret += " ";
+        int ownerPos = edges[pos]->getOwnerPos();
+        ret += ownerPosToChar(ownerPos);
+    }
+    return ret;
+}
+
+
+string Board::gfo(int pos) {
+    if (posGeese == pos) return "  GEESE  ";
+    return "         ";
+}
+
+
+void Board::printBoard() {
+    cout << "                          "<<vfo(0)<<"--"<<efo(0)<<"--"<<vfo(1)<<endl;
+    cout << "                            |         |"<<endl;
+    cout << "                           "<<efo(1)<<"    0   "<<efo(2)<<endl;
+    cout << "                            |"<<ttype(0)<<"|"<<endl;
+    cout << "                "<<vfo(2)<<"--"<<efo(3)<<"--"<<vfo(3)<<tval(0)<<vfo(4)<<"--"<<efo(4)<<"--"<<vfo(5)<<endl;
+    cout << "                  |         |"<<gfo(0)<<"|         |"<<endl;
+    cout << "                 "<<efo(5)<<"    1   "<<efo(6)<<"        "<<efo(7)<<"    2   "<<efo(8)<<endl;
+    cout << "                  |"<<ttype(1)<<"|         |"<<ttype(2)<<"|"<<endl;
+    cout << "      "<<vfo(6)<<"--"<<efo(9)<<"--"<<vfo(7)<<tval(1)<<vfo(8)<<"--"<<efo(10)<<"--"<<vfo(9)<<tval(2)<<vfo(10)<<"--"<<efo(11)<<"--"<<vfo(11)<< endl;
+    cout << "        |         |"<<gfo(1)<<"|         |"<<gfo(2)<<"|         |"<<endl;
+    cout << "       "<<efo(12)<<"    3   "<<efo(13)<<"        "<<efo(14)<<"    4   "<<efo(15)<<"        "<<efo(16)<<"    5   "<<efo(17)<<endl;
+    cout << "        |"<<ttype(3)<<"|         |"<<ttype(4)<<"|         |"<<ttype(5)<<"|"<< endl;
+    cout << "      "<<vfo(12)<<tval(3)<<vfo(13)<<"--"<<efo(18)<<"--"<<vfo(14)<<tval(4)<<vfo(15)<<"--"<<efo(19)<<"--"<<vfo(16)<<tval(5)<<vfo(17)<<endl;
+    cout << "        "<<"|"<<gfo(3)<<"|         |"<<gfo(4)<<"|"<<"         "<<"|"<<gfo(5)<<"|"<<endl;
+    cout << "       "<<efo(20)<<"        "<<efo(21)<<"    6   "<<efo(22)<<"        "<<efo(23)<<"    7   "<<efo(24)<<"        "<<efo(25) << endl;
+    cout << "        |         |"<<ttype(6)<<"|         |"<<ttype(7)<<"|         |" << endl;
+    cout << "      "<<vfo(18)<<"--"<<"26"<<"--"<<vfo(19)<<tval(6)<<vfo(20)<<"--"<<"27"<<"--"<<vfo(21)<<tval(7)<<vfo(22)<<"--"<<"28"<<"--"<<vfo(23) << endl;
+}
+
+
+void Board::printAllPlayerStatus() {
+    for ( int i = 0; i < 4; i++ ) {
+        cout << "Builder ";
+        switch( i ) {
+            case 0:
+                cout << "Blue     "; break;
+            case 1:
+                cout << "Red      "; break;
+            case 2:
+                cout << "Orange   "; break;
+            case 3:
+                cout << "Yellow   "; break;
+            default:
+                throw "WRONG curTurn TYPE FOR Board::printAllPlayerStatus"; return; break;
+        }
+        cout << "has " << setfill(' ')  << setw(2) << players[i]->getBuildPoint();
+        cout << " building points";
+        cout << ", " << setfill(' ')  << setw(2) << players[i]->getNumResource('B') << " BRICK";
+        cout << ", " << setfill(' ')  << setw(2) << players[i]->getNumResource('E') << " ENERGY";
+        cout << ", " << setfill(' ')  << setw(2) << players[i]->getNumResource('G') << " GLASS";
+        cout << ", " << setfill(' ')  << setw(2) << players[i]->getNumResource('H') << " HEAT";
+        cout << ", " << setfill(' ')  << setw(2) << players[i]->getNumResource('W') << " WIFI";
+        cout << '.' << endl;
+    }
+}
+
+
+void Board::printCurPlayerRes() {
+    switch( curTurn ) {
+        case 0:
+            cout << "Blue "; break;
+        case 1:
+            cout << "Red "; break;
+        case 2:
+            cout << "Orange "; break;
+        case 3:
+            cout << "Yellow "; break;
+        default:
+            throw "WRONG curTurn TYPE FOR Board::printCurPlayerRes"; return; break;
+    }
+    cout << "has built:" << endl;
+    for ( int i = 0; i < 54; i++ ) {
+        if ( vertices[i]->getOwnerPos() == curTurn ) {
+            cout << setfill(' ')  << setw(2) << i <<" "<< vertices[i]->getBuildType() << endl;
+        }
+    }
+}
+
+
+bool Board::buildResFree( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return false;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildResFree access nullptr to pass ";return false;}
+    bool tmp = players[curTurn]->buildResFree(destVertex);
+    if (tmp == true) destVertex->setOwnerPos(curTurn);
+    return tmp;
+}
+
+
+void Board::buildRes( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildRes access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->buildRes(destVertex);
+    if (tmp == true) destVertex->setOwnerPos(curTurn);
+    return;
+}
+
+
+void Board::buildRoad( int pos ) {
+    Edge* destEdge = edges[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
+    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
+    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::buildRoad access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->buildRoad(destEdge);
+    if (tmp == true) destEdge->setOwnerPos(curTurn);
+    return;
+}
+
+
+void Board::improveRes( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->improveRes(destVertex);
+    return;
+}
+
+//刘书辰____________________________________________________________________
 
 // helper function: generate random number
 int myrandom (int i) { return std::rand()%i;}
@@ -365,50 +563,7 @@ void Board::initLoadBoard(string file) {
 void Board::loadGame(string file) {
     cout<< "run loadGame" << endl;
     initAttachBoard();
-    ifstream fileIn{file}; 
-    string line;
-    getline(fileIn, line);
-    setCurTurn(stoi(line));                 // curTurn
-
-    int v1,v2,v3,v4,v5,builtRoads,builtHouse;
-    string temp;
-    int i = 0;
-    while (getline(fileIn, line)) {
-        istringstream curLine{line};
-        curLine >> v1 >> v2 >> v3 >> v4 >> v5 >> temp;
-        if (temp != "r") break;             // finish checking player status
-        players[i]->setResource('B', v1);
-        players[i]->setResource('E', v2);
-        players[i]->setResource('G', v3);
-        players[i]->setResource('H', v4);
-        players[i]->setResource('W', v5);
-        while (curLine >> builtRoads) {
-            load(builtRoads);
-        }
-        cin.ignore();
-        cin.clear(); 
-        char type;
-        while (curLine >> v1 >> type) {
-            buildResFree(v1, type);
-        }
-        buildResFree()
-        i += 1;
-
-    }
-    for (int i = 0; i < numPlayer; i++) {   // player Data
-
-    }
-
-    getline(fileIn, line);                  // board
-    int resourceType;
-    int value; 
-    int i = 0;
-    while (fileIn >> resourceType >> value) {
-        char type = charResourceIdentifier(resourceType);
-        tiles[i]->setResourceType = type;
-        tiles[i]->setValue = value;
-        i += 1;
-    } 
+    ifstream fileIn{file};
     
 }
 
@@ -416,31 +571,13 @@ string Board::saveGame() {
     cout<< "run savGame" << endl;
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
-
-    vector<vector<int>> res;                            // house info
-    for ( int i = 0; i < vertices.size(); i++ ) {
-        int owner = vertices[i]->getOwnerPos();
-        res[owner].emplace_back(i);
-    }
     for (int i = 0; i < players.size(); i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
         out << players[i]->getNumResource('H') << " ";
         out << players[i]->getNumResource('W') << " ";   
-        // print out roads
-        vector<int> roads = players[i]->getEdgeIndex();
-        sort(roads.begin(), roads.end());
-        out << "r " ;
-        for (auto r : roads) {
-            out << r << " ";
-        }
-        // print out residence
-        for (auto pos: res[i]){
-            char buildType = vertices[pos]->getBuildType();
-            out << pos << " " << buildType << " ";
-        }
-        out << endl;
+        out << players[i]->getNumBuild() << endl; 
     }
     for (int i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
@@ -478,48 +615,7 @@ void Board::gainResources(int tileVal){
     }
 }
 
-bool Board::buildResFree( int pos ) {
-    Vertex* destVertex = vertices[pos];
-    size_t position = pos;
-    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
-    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return false;}
-    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildResFree access nullptr to pass ";return false;}
-    bool tmp = players[curTurn]->buildResFree(destVertex);
-    if (tmp == true) destVertex->setOwnerPos(curTurn);
-    return tmp;
-}
 
-void Board::buildRes( int pos ) {
-    Vertex* destVertex = vertices[pos];
-    size_t position = pos;
-    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
-    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
-    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildRes access nullptr to pass ";return;}
-    bool tmp = players[curTurn]->buildRes(destVertex);
-    if (tmp == true) destVertex->setOwnerPos(curTurn);
-    return;
-}
-
-void Board::buildRoad( int pos ) {
-    Edge* destEdge = edges[pos];
-    size_t position = pos;
-    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
-    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
-    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::buildRoad access nullptr to pass ";return;}
-    bool tmp = players[curTurn]->buildRoad(destEdge);
-    if (tmp == true) destEdge->setOwnerPos(curTurn);
-    return;
-}
-
-void Board::improveRes( int pos ) {
-    Vertex* destVertex = vertices[pos];
-    size_t position = pos;
-    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
-    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
-    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return;}
-    bool tmp = players[curTurn]->improveRes(destVertex);
-    return;
-}
 
 void Board::trade( string otherplayer, string ownResources, string otherResource ){}
 void Board::loseHalf(){}
