@@ -512,7 +512,7 @@ void Board::initSeedBoard( int seed ) {
 
 // a helper
 int intResourceIdentifier(char resource) { 
-    switch( resourceType ) {
+    switch( resource ) {
         case 'B':
             return 0; break;
         case 'E':
