@@ -12,7 +12,14 @@ using namespace std;
 
 int main() {
     Board b;
+    cout << "Board with seed 231: " << endl;
     b.initSeedBoard(231);
+    b.printBoard();
+    cout << "Board with seed 232: " << endl;
+    b.initSeedBoard(232);
+    b.printBoard();
+    cout << "Board with seed 233: " << endl;
+    b.initSeedBoard(233);
     b.printBoard();
     b.printAllPlayerStatus();
     b.printCurPlayerRes();
