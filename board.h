@@ -36,7 +36,8 @@ class Board {
     void loadGame( std::string file );
     std::string saveGame();
 
-    void rollDice(bool fair);
+    void setDice(bool fair);
+    void rollDice();
     void gainResources(int tileVal);
 
     bool buildResFree( int pos );
