@@ -276,12 +276,10 @@ void Board::initRandBoard() {
     int sevenIdx = std::find(value.begin(), value.end(), 7) - value.begin();
     std::swap(value[sevenIdx], value[parkIdx]);
     
-    //create Tile
-    for (int i = 0; i < 19; i++) {
-        Tile newTile = Tile{i};
-        newTile.setResourceType(resource[i]);
-        newTile.setValue(value[i]);
-        tiles.emplace_back(newTile);
+    //create Tile 
+    for (int i = 0; i < 19; i++) { 
+        tiles[i]->setResourceType(resource[i]);
+        tiles[i]->setValue(value[i]); 
     }
 }
 
@@ -304,11 +302,9 @@ void Board::initSeedBoard( int seed ) {
     std::swap(value[sevenIdx], value[parkIdx]);
 
     // create Tile
-    for (int i = 0; i < 19; i++) {
-        Tile newTile = Tile{i};
-        newTile.setResourceType(resource[i]);
-        newTile.setValue(value[i]);
-        tiles.emplace_back(newTile);
+    for (int i = 0; i < 19; i++) { 
+        tiles[i]->setResourceType(resource[i]);
+        tiles[i]->setValue(value[i]); 
     }
 }
 
@@ -316,6 +312,14 @@ void Board::initSeedBoard( int seed ) {
 // Ivy
 void Board::initLoadBoard(std::string file) {
     std::cout<< "run initLoadBoard" << std::endl;
+    // load resource 
+ 
+
+    // create Tile
+    for (int i = 0; i < 19; i++) { 
+        tiles[i]->setResourceType();
+        tiles[i]->setValue(); 
+    }
 }
 
 void Board::loadGame(std::string file) {
@@ -343,8 +347,8 @@ int intResourceIdentifier(char resource) {
 std::string Board::saveGame() {
     std::cout<< "run savGame" << std::endl;
     ostringstream out;
-    out << curTurn << endl;
-    for (int i = 0; i < players.size(); i++) {
+    out << curTurn << endl;                             // <curTurn>
+    for (int i = 0; i < players.size(); i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
@@ -352,13 +356,13 @@ std::string Board::saveGame() {
         out << players[i]->getNumResource('W') << " ";   
         out << players[i]->getNumBuild() << endl; 
     }
-    for (int i = 0; i < tiles.size(); i++) {
+    for (int i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
         out << intResourceIdentifier(type) << " ";
         out << tiles[i]->getValue() << " ";
         if (i == tiles.size()-1) out << endl;
     }
-    out << posGeese;
+    out << posGeese;                                    // <geese>
     return out.str();
 }
 
