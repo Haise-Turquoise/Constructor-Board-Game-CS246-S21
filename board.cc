@@ -571,7 +571,7 @@ void Board::initSeedBoard( int seed ) {
 }
 
 
-// Ivy
+// Ivy_________________________________________
 
 // a helper
 int intResourceIdentifier(char resource) { 
@@ -675,12 +675,12 @@ string Board::saveGame() {
     out << curTurn << endl;                             // <curTurn>
     vector<int> temp; 
     size_t playerSize = players.size();
-    vector<vector<int>> res(playerSize,temp);                    // house info
+    vector<vector<int>> res(playerSize,temp);           // house info
     for ( size_t i = 0; i < vertices.size(); i++ ) {
         int owner = vertices[i]->getOwnerPos();
         if (owner != -1) res[owner].emplace_back(i);
     }
-    for (size_t i = 0; i < playerSize; i++) {          // <builder i's Data>
+    for (size_t i = 0; i < playerSize; i++) {           // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
@@ -706,7 +706,7 @@ string Board::saveGame() {
         out << tiles[i]->getValue() << " ";
         if (i == tiles.size()-1) out << endl;
     }
-    out << posGeese;                                    // <geese>
+    out << posGeese;                                      // <geese>
     return out.str();
 }
 
@@ -738,8 +738,42 @@ void Board::gainResources(int tileVal){
 }
 
 
-
-void Board::trade( string otherplayer, string ownResources, string otherResource ){}
+// Ivy
+int Board::trade( string otherplayer, string ownResources, string otherResource ){
+    int cur = getCurTurn();
+    vector<string> fourPlayer = {"Blue", "Red", "Orange", "Yellow"};
+    int other = 0;
+    for (int i = 0; i<4; i++) {
+        if (fourPlayer[i][0] == otherplayer[0]) {other = i; break;}
+    }
+    int numResOwn = players[cur]->getNumResource(ownResources[0]);
+    int numResOther = players[cur]->getNumResource(otherResource[0]);
+    if ((numResOwn != 0) && (numResOther != 0)) {
+        cout << fourPlayer[cur]<<" offers " << otherplayer;
+        cout << " one " << ownResources << " for one " << otherResource << "." << endl;
+        cout << "Dose " << otherplayer << " accept this offer?" << endl;
+        string choice; 
+        while (true) {
+            if (!(cin >> choice)) return -1;
+            if (choice != "yes" && choice != "no") {
+                cout << "Please enter either: yes or no" << endl;
+            } else if (choice == "yes") {
+                players[cur]->addResource(otherResource[0]);
+                players[cur]->decResource(ownResources[0]);
+                players[other]->addResource(ownResources[0]);
+                players[other]->decResource(otherResource[0]);
+                return 0;
+            } else { 
+                return 0;
+            }
+        }
+    } else if (numResOwn == 0){
+        cerr << "You do not have enough resources." << endl;
+    } else {
+        cerr << otherplayer << " do not have enough resources." << endl;
+    }
+    return 0;
+}
 
 
 
@@ -864,8 +898,6 @@ void Board::moveGeese( int pos ){
     // move GEESE display
     posGeese = pos;
 }
-
-
 
 
 void Board::setGeese( int pos ){posGeese = pos;}
