@@ -638,7 +638,7 @@ string Board::saveGame() {
     }
     for (size_t i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
-        out << intResourceIdentifier(type).first << " ";
+        out << intResourceIdentifier(type) << " ";
         out << tiles[i]->getValue() << " ";
         if (i == tiles.size()-1) out << endl;
     }
