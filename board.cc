@@ -280,7 +280,7 @@ string Board::tval(int pos) {
     string ret = "  ";
     int tileVal = tiles[pos]->getValue();
     if ( tiles[pos]->getResourceType() == 'P' ) {
-        ret += " ";
+        ret += "  ";
     } else {
         if ( tileVal < 10 ) ret += " ";
         ret += to_string(tileVal);
@@ -326,17 +326,45 @@ string Board::gfo(int pos) {
     return "         ";
 }
 
+string id( int n ) {
+    string ret;
+    if (n<10) ret+= " ";
+    ret += to_string(n);
+    return ret;
+}
 
 void Board::printBoard() {
     cout << "                          "<<vfo(0)<<"--"<<efo(0)<<"--"<<vfo(1)<<endl;
     cout << "                            |         |"<<endl;
-    cout << "                           "<<efo(1)<<"    0   "<<efo(2)<<endl;
+    cout << "                           "<<efo(1)<<"   "<< id(0) <<"   "<<efo(2)<<endl;
     cout << "                            |"<<ttype(0)<<"|"<<endl;
     cout << "                "<<vfo(2)<<"--"<<efo(3)<<"--"<<vfo(3)<<tval(0)<<vfo(4)<<"--"<<efo(4)<<"--"<<vfo(5)<<endl;
     cout << "                  |         |"<<gfo(0)<<"|         |"<<endl;
-    cout << "                 "<<efo(5)<<"    1   "<<efo(6)<<"        "<<efo(7)<<"    2   "<<efo(8)<<endl;
+    cout << "                 "<<efo(5)<<"   "<< id(1) <<"   "<<efo(6)<<"        "<<efo(7)<<"   "<< id(2) <<"   "<<efo(8)<<endl;
     cout << "                  |"<<ttype(1)<<"|         |"<<ttype(2)<<"|"<<endl;
     cout << "      "<<vfo(6)<<"--"<<efo(9)<<"--"<<vfo(7)<<tval(1)<<vfo(8)<<"--"<<efo(10)<<"--"<<vfo(9)<<tval(2)<<vfo(10)<<"--"<<efo(11)<<"--"<<vfo(11)<< endl;
+    for ( int i = 0; i < 3; i++ ) {
+    cout << "        |         |"<<gfo(5*i+1)<<"|         |"<<gfo(5*i+2)<<"|         |"<<endl;
+    cout << "       "<<efo(17*i+12)<<"   "<< id(5*i+3) <<"   "<<efo(17*i+13)<<"        "<<efo(17*i+14)<<"   "<< id(5*i+4) <<"   "<<efo(17*i+15)<<"        "<<efo(17*i+16)<<"   "<< id(5*i+5) <<"   "<<efo(17*i+17)<<endl;
+    cout << "        |"<<ttype(5*i+3)<<"|         |"<<ttype(5*i+4)<<"|         |"<<ttype(5*i+5)<<"|"<< endl;
+    cout << "      "<<vfo(12*i+12)<<tval(5*i+3)<<vfo(12*i+13)<<"--"<<efo(17*i+18)<<"--"<<vfo(12*i+14)<<tval(5*i+4)<<vfo(12*i+15)<<"--"<<efo(17*i+19)<<"--"<<vfo(12*i+16)<<tval(5*i+5)<<vfo(12*i+17)<<endl;
+    cout << "        "<<"|"<<gfo(5*i+3)<<"|         |"<<gfo(5*i+4)<<"|"<<"         "<<"|"<<gfo(5*i+5)<<"|"<<endl;
+    cout << "       "<<efo(17*i+20)<<"        "<<efo(17*i+21)<<"   "<< id(5*i+6) <<"   "<<efo(17*i+22)<<"        "<<efo(17*i+23)<<"   "<< id(5*i+7) <<"   "<<efo(17*i+24)<<"        "<<efo(17*i+25) << endl;
+    cout << "        |         |"<<ttype(5*i+6)<<"|         |"<<ttype(5*i+7)<<"|         |" << endl;
+    cout << "      "<<vfo(12*i+18)<<"--"<<efo(17*i+26)<<"--"<<vfo(12*i+19)<<tval(5*i+6)<<vfo(12*i+20)<<"--"<<efo(17*i+27)<<"--"<<vfo(12*i+21)<<tval(5*i+7)<<vfo(12*i+22)<<"--"<<efo(17*i+28)<<"--"<<vfo(12*i+23) << endl;
+    }
+    cout << "                  |         |         |         |" << endl;
+    cout << "                 "<<efo(63)<<"        "<<efo(64)<<"   18   "<<efo(65)<<"        "<<efo(66)<<endl;
+    cout << "                  |         |"<<ttype(18)<<"|         |"<<endl;
+    cout <<"                "<<vfo(48)<<"--"<<efo(67)<<"--"<<vfo(49)<<tval(18)<<vfo(50)<<"--"<<efo(68)<<"--"<<vfo(51)<<endl;
+    cout << "                            |         |" << endl;
+    cout << "                           "<<efo(69)<<"        "<<efo(70) << endl;
+    cout << "                            |         |" << endl;
+    cout << "                          "<<vfo(52)<<"--"<<efo(71)<<"--"<<vfo(53) << endl;
+}
+
+/* correct
+cout << "      "<<vfo(6)<<"--"<<efo(9)<<"--"<<vfo(7)<<tval(1)<<vfo(8)<<"--"<<efo(10)<<"--"<<vfo(9)<<tval(2)<<vfo(10)<<"--"<<efo(11)<<"--"<<vfo(11)<< endl;
     cout << "        |         |"<<gfo(1)<<"|         |"<<gfo(2)<<"|         |"<<endl;
     cout << "       "<<efo(12)<<"    3   "<<efo(13)<<"        "<<efo(14)<<"    4   "<<efo(15)<<"        "<<efo(16)<<"    5   "<<efo(17)<<endl;
     cout << "        |"<<ttype(3)<<"|         |"<<ttype(4)<<"|         |"<<ttype(5)<<"|"<< endl;
@@ -345,8 +373,18 @@ void Board::printBoard() {
     cout << "       "<<efo(20)<<"        "<<efo(21)<<"    6   "<<efo(22)<<"        "<<efo(23)<<"    7   "<<efo(24)<<"        "<<efo(25) << endl;
     cout << "        |         |"<<ttype(6)<<"|         |"<<ttype(7)<<"|         |" << endl;
     cout << "      "<<vfo(18)<<"--"<<"26"<<"--"<<vfo(19)<<tval(6)<<vfo(20)<<"--"<<"27"<<"--"<<vfo(21)<<tval(7)<<vfo(22)<<"--"<<"28"<<"--"<<vfo(23) << endl;
-}
+*/
 
+
+/*
+cout << "        |         |"<<gfo(6)<<"|         |"<<gfo(7)<<"|         |"<<endl;//--------------------------------------------------------------------------------------
+    cout << "       "<<efo(29)<<"    8   "<<efo(30)<<"        "<<efo(31)<<"    9   "<<efo(32)<<"        "<<efo(33)<<"   10   "<<efo(34)<<endl;//--------------------------------------------------------------------------------------
+    cout << "        |"<<ttype(8)<<"|         |"<<ttype(9)<<"|         |"<<ttype(10)<<"|"<< endl;//--------------------------------------------------------------------------------------
+    cout << "      "<<vfo(24)<<tval(8)<<vfo(25)<<"--"<<efo(35)<<"--"<<vfo(26)<<tval(9)<<vfo(27)<<"--"<<efo(36)<<"--"<<vfo(28)<<tval(10)<<vfo(29)<<endl;//--------------------------------------------------------------------------------------
+    cout << "        "<<"|"<<gfo(3)<<"|         |"<<gfo(4)<<"|"<<"         "<<"|"<<gfo(5)<<"|"<<endl;//--------------------------------------------------------------------------------------
+    cout << "       "<<efo(20)<<"        "<<efo(21)<<"    6   "<<efo(22)<<"        "<<efo(23)<<"    7   "<<efo(24)<<"        "<<efo(25) << endl;//--------------------------------------------------------------------------------------
+    cout << "        |         |"<<ttype(6)<<"|         |"<<ttype(7)<<"|         |" << endl;//--------------------------------------------------------------------------------------
+*/
 
 void Board::printAllPlayerStatus() {
     for ( int i = 0; i < 4; i++ ) {
@@ -395,6 +433,7 @@ void Board::printCurPlayerRes() {
         }
     }
 }
+
 
 void Board::loadRes( int posPlayer, int pos, char buildType ) {
     Vertex* destVertex = vertices[pos];
@@ -464,6 +503,7 @@ void Board::improveRes( int pos ) {
     players[curTurn]->improveRes(destVertex);
     return;
 }
+
 
 //刘书辰____________________________________________________________________
 
