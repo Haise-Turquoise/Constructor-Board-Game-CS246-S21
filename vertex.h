@@ -22,6 +22,8 @@ class Vertex : public Observer {
     char getBuildType();
     int getOwnerPos();
     Player* getOwner();
+    std::vector<Edge*> getNeighbourEdges();
+
     void setIndex(int idx);
     void setBuildType(char bt);
     void setOwnerPos(int op);
