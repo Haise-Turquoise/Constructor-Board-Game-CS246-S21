@@ -28,6 +28,8 @@ class Player {
     int getBuildPoint();
     std::vector<int> getEdgeIndex();
     
+    void loadRes( Vertex* ptrv, char buildType );
+    void loadRoad( Edge* ptre );
     bool buildResFree( Vertex* ptrv );
     bool buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
     bool buildRoad( Edge* ptre ); 
