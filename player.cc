@@ -204,6 +204,24 @@ bool Player::existResource() {
 }
 
 
+void Player::setResource(char resourceType, int n) {
+    switch( resourceType ) {
+        case 'H':
+            numHeat = n; break;
+        case 'W':
+            numWifi = n; break;
+        case 'E':
+            numEnergy = n; break;
+        case 'B':
+            numBrick = n; break;
+        case 'G':
+            numGlass = n; break;
+        default:
+            throw "WRONG RESOURCE TYPE FOR Player::setResource"; break;
+    }
+}
+
+
 void Player::addResource(char resourceType) {
     switch( resourceType ) {
         case 'H':
