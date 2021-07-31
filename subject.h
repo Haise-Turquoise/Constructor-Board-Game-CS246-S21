@@ -8,6 +8,7 @@ class Subject {
     protected:
     std::vector<Observer*> observers;
     public:
+    virtual ~Subject() = default;
     void attach(Observer * o);
     virtual void notifyObservers() = 0;
 };
