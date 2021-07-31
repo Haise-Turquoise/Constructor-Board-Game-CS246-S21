@@ -526,6 +526,7 @@ int intResourceIdentifier(char resource) {
         case 'P':
             return 5; break;
     } 
+    return -1;
 }
 
 char charResourceIdentifier(int resourceType) { 
@@ -543,6 +544,7 @@ char charResourceIdentifier(int resourceType) {
         case 5:
             return 'P'; break;
     } 
+    return '';
 }
 
 void Board::initLoadBoard(string file) {
@@ -554,8 +556,8 @@ void Board::initLoadBoard(string file) {
     int i = 0;
     while (fileIn >> resourceType >> value) {
         char type = charResourceIdentifier(resourceType);
-        tiles[i]->setResourceType = type;
-        tiles[i]->setValue = value;
+        tiles[i]->setResourceType(type);
+        tiles[i]->setValue(value);
         i += 1;
     } 
 }
@@ -568,7 +570,7 @@ void Board::loadGame(string file) {
     getline(fileIn, line);
     setCurTurn(stoi(line));                 // curTurn
 
-    int v1,v2,v3,v4,v5,builtRoads,builtHouse;
+    int v1,v2,v3,v4,v5,builtRoads;
     string temp;
     int i = 0;
     while (getline(fileIn, line)) {
@@ -594,7 +596,7 @@ void Board::loadGame(string file) {
     getline(fileIn, line);                  // board
     int resourceType;
     int value; 
-    int i = 0;
+    i = 0;
     while (fileIn >> resourceType >> value) {
         char type = charResourceIdentifier(resourceType);
         tiles[i]->setResourceType = type;
@@ -634,7 +636,7 @@ string Board::saveGame() {
         }
         out << endl;
     }
-    for (int i = 0; i < tiles.size(); i++) {            // <board>
+    for (size_t i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
         out << intResourceIdentifier(type).first << " ";
         out << tiles[i]->getValue() << " ";
