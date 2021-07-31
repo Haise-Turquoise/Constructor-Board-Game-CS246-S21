@@ -17,6 +17,7 @@ class Dice {
     Dice(Strategy* strategy, int dicePoint = 0, int seed = 0);
     void setStrategy(Strategy* strategy);
     void roll();
+    void setPoint(int value);
     int getPoint();
 };
 

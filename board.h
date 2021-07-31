@@ -37,7 +37,7 @@ class Board {
     std::string saveGame();
 
     void setDice(bool fair);
-    void rollDice();
+    int rollDice(int value = 0); // if roll loaded dice, pass value
     void gainResources(int tileVal);
 
     bool buildResFree( int pos );

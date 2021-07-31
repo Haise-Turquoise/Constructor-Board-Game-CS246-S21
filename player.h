@@ -16,7 +16,8 @@ class Player {
     int buildPoints;
     std::vector<Vertex*> ownVertices;
     std::vector<Edge*> ownEdges;
-    // Dice dice;
+    Dice dice;
+    char strategy = 'L'; // 'L' -> Loaded; 'R' -> Random
     std::vector<char> generateResBoard(); //刘书辰的helper
 
     public:
@@ -35,7 +36,8 @@ class Player {
     bool existResource();
 
     char beStolen(int seed);
-    int rollDice( int value , bool randDice, int seed); // if roll random dice -> randDice set to true, otherwise set to false
+    int rollDice( int value, int seed); // if roll random dice -> randDice set to true, otherwise set to false
+    void setStrategyState(char state);
     void loseHalfResource(int seed);
 };
 
