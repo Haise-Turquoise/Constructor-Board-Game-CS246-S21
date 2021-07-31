@@ -255,7 +255,7 @@ std::vector<char> initResourse() {
     resource.insert(resource.end(), 3, 'H');
     resource.insert(resource.end(), 4, 'B');
     resource.insert(resource.end(), 4, 'E');
-    resource.insert(resource.end(), 4, 'C');
+    resource.insert(resource.end(), 4, 'G');
     resource.emplace_back('P');
     return resource;
 }
