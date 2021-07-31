@@ -636,7 +636,7 @@ string Board::saveGame() {
     vector<vector<int>> res;                            // house info
     for ( size_t i = 0; i < vertices.size(); i++ ) {
         int owner = vertices[i]->getOwnerPos();
-        res[owner].emplace_back(i);
+        if (owner != -1) res[owner].emplace_back(i);
     }
     for (size_t i = 0; i < players.size(); i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
