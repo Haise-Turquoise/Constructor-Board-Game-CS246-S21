@@ -12,19 +12,19 @@
 using namespace std;
 
 Board::Board() {
-    for ( size_t i = 0; i++; i < 4 ) {
+    for ( size_t i = 0; i < 4; i++ ) {
         Player* tmpPlayer = new Player;
         players.emplace_back(tmpPlayer);
     }
-    for ( size_t i = 0; i++; i < 19 ) {
+    for ( size_t i = 0; i < 19; i++ ) {
         Tile* tmpTile = new Tile{i};
         tiles.emplace_back(tmpTile);
     }
-    for ( size_t j = 0; j++; j < 54 ) {
+    for ( size_t j = 0; j < 54; j++ ) {
         Vertex* tmpVertex = new Vertex{j};
         vertices.emplace_back(tmpVertex);
     }
-    for ( size_t k = 0; k++; k < 72 ) {
+    for ( size_t k = 0; k < 72; k++ ) {
         Edge* tmpEdge = new Edge{k};
         edges.emplace_back(tmpEdge);
     }
@@ -38,16 +38,16 @@ int Board::getCurTurn() const {return this->curTurn; }
 void Board::setCurTurn(int ind) {this->curTurn = ind; }
 
 void Board::clearBoard() {
-    for ( size_t i = 0; i++; i < 4 ) {
+    for ( size_t i = 0; i < 4; i++ ) {
         delete players[i];
     }
-    for ( size_t i = 0; i++; i < 19 ) {
+    for ( size_t i = 0; i < 19; i++ ) {
         delete tiles[i];
     }
-    for ( size_t j = 0; j++; j < 54 ) {
+    for ( size_t j = 0; j < 54; j++ ) {
         delete vertices[j];
     }
-    for ( size_t k = 0; k++; k < 72 ) {
+    for ( size_t k = 0; k < 72; k++ ) {
         delete edges[k];
     }
 }
@@ -365,7 +365,8 @@ void Board::initLoadBoard(string file) {
 void Board::loadGame(string file) {
     cout<< "run loadGame" << endl;
     initAttachBoard();
-
+    ifstream fileIn{file};
+    
 }
 
 string Board::saveGame() {
