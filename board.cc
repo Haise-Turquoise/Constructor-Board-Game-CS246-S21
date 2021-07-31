@@ -313,9 +313,9 @@ string Board::efo(int pos) {
         if ( pos < 10 ) ret += " ";
         ret += to_string(pos);
     } else {
-        ret += " ";
         int ownerPos = edges[pos]->getOwnerPos();
         ret += ownerPosToChar(ownerPos);
+        ret += "R";
     }
     return ret;
 }
