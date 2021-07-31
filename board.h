@@ -33,6 +33,7 @@ class Board {
     int getCurTurn() const;
     void setCurTurn(int ind);
     void setGeese( int ind );
+    int getGeese() const;
 
     void clearBoard();
     void printBoard();
