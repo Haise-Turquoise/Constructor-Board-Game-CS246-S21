@@ -1,6 +1,7 @@
 #include "vertex.h"
 #include "tile.h"
 #include "edge.h"
+#include "player.h"
 #include <iostream>
 using namespace std;
 
@@ -11,6 +12,7 @@ int Vertex::getIndex() { return index; }
 char Vertex::getBuildType() { return buildType; }
 int Vertex::getOwnerPos() { return ownerPos; }
 Player* Vertex::getOwner() { return owner; }
+vector<Edge*> Vertex::getNeighbourEdges() { return neighbourEdges; }
 
 void Vertex::setIndex(int idx) { index = idx; }
 void Vertex::setBuildType(char bt) { buildType = bt; }
@@ -35,7 +37,7 @@ void Vertex::attachEdgeDoubly( Edge* ptre ) {
 
 void Vertex::wasNotified( Tile& whoNotified ) {
     if ( owner != nullptr ) {
-        // char tileResourceType = whoNotified.getResourceType();
-        // owner->addResources(tileResourceType);
+        char tileResourceType = whoNotified.getResourceType();
+        owner->addResource(tileResourceType);
     }
 }
