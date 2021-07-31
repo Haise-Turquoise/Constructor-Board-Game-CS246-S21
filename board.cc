@@ -740,8 +740,133 @@ void Board::gainResources(int tileVal){
 
 
 void Board::trade( string otherplayer, string ownResources, string otherResource ){}
-void Board::loseHalf(){}
-void Board::moveGeese( int pos ){}
+
+
+
+//刘书辰
+void Board::loseHalf() {
+    // iterate each player & find 10 or more resource
+    for (size_t i = 0; i < players.size(); i++) {
+        int oldHeat = players[i]->getNumResource('H');
+        int oldWifi = players[i]->getNumResource('W');
+        int oldEnergy = players[i]->getNumResource('E');
+        int oldBrick = players[i]->getNumResource('B');
+        int oldGlass = players[i]->getNumResource('G');
+        int totalRes = oldHeat + oldWifi + oldEnergy + oldBrick + oldGlass;
+        if (totalRes >= 10) {
+            players[i]->loseHalfResource(seed);
+            // resource lost
+            int lostHeat = oldHeat - players[i]->getNumResource('H');
+            int lostWifi = oldWifi - players[i]->getNumResource('W');
+            int lostEnergy = oldEnergy - players[i]->getNumResource('E');
+            int lostBrick = oldBrick - players[i]->getNumResource('B');
+            int lostGlass = oldGlass - players[i]->getNumResource('G');
+            int totalLost = lostHeat + lostWifi + lostEnergy + lostBrick + lostGlass;
+            char currPlayer = 'B';
+            if (i == 1) currPlayer = 'R';
+            if (i == 2) currPlayer = 'O';
+            if (i == 3) currPlayer = 'Y';
+            // print message
+            cout << "BUilder " << currPlayer << " loses " << totalLost << " resources to the geese. They lose:" << endl;
+            if (lostHeat != 0) cout << lostHeat << " HEAT" << endl;
+            if (lostWifi != 0) cout << lostWifi << " WIFI" << endl;
+            if (lostEnergy != 0) cout << lostEnergy << " Energy" << endl;
+            if (lostBrick != 0) cout << lostBrick << " BRICK" << endl;
+            if (lostGlass != 0) cout << lostGlass << " GLASS" << endl;
+        }
+    }
+}
+
+
+
+void Board::moveGeese( int pos ){
+    loseHalf();
+    cout << "Choose where to place the GEESE." << endl;
+    // get potential-to-be-stolen player
+    // getneighbour vertices
+    vector<int> neighbour;
+    if (pos == 0) neighbour = {0,1,3,4,8,9};
+    if (pos == 1) neighbour ={2,3,7,8,13,14};
+    if (pos == 2) neighbour ={4,5,9,10,15,16};
+    if (pos == 3) neighbour ={6,7,12,13,18,19};
+    if (pos == 4) neighbour ={8,9,14,15,20,21};
+    if (pos == 5) neighbour ={10,11,16,17,22,23};
+    if (pos == 6) neighbour ={13,14,19,20,25,26};
+    if (pos == 7) neighbour ={15,16,21,22,27,28};
+    if (pos == 8) neighbour ={18,19,24,25,30,31};
+    if (pos == 9) neighbour ={20,21,26,27,32,33};
+    if (pos == 10) neighbour ={22,23,28,29,34,35};
+    if (pos == 11) neighbour ={25,26,31,32,37,38};
+    if (pos == 12) neighbour ={27,28,33,34,39,40};
+    if (pos == 13) neighbour ={30,31,36,37,42,43};
+    if (pos == 14) neighbour ={32,33,38,39,44,45};
+    if (pos == 15) neighbour ={34,35,40,41,46,47};
+    if (pos == 16) neighbour ={37,38,43,44,48,49};
+    if (pos == 17) neighbour ={39,40,45,46,50,51};
+    if (pos == 18) neighbour ={44,45,49,50,52,53};
+    // get player
+    vector<char> playerqueue = {'B','R','O','Y'};
+    vector<char> neighbourPlayer;
+    for (auto idx : neighbour) {
+        int ownerIdx = vertices[idx]->getOwnerPos();
+        if (ownerIdx == -1 || ownerIdx == curTurn) {
+            continue;
+        }
+        // check 0 resource
+        int totalRes = players[ownerIdx]->getNumResource('H') + players[ownerIdx]->getNumResource('W') +
+                       players[ownerIdx]->getNumResource('E') + players[ownerIdx]->getNumResource('B') +
+                       players[ownerIdx]->getNumResource('G');
+        if (totalRes == 0) {
+            continue;
+        } else {
+            neighbourPlayer.emplace_back(playerqueue[ownerIdx]);
+        }
+    }
+    // if no neighbour player
+    if (neighbourPlayer.size() == 0) {
+        cout << "Builder <colour1> has no builders to steal from." << endl;
+    } else {
+        // remove duplicates
+        sort( neighbourPlayer.begin(), neighbourPlayer.end() );
+        neighbourPlayer.erase(unique( neighbourPlayer.begin(), neighbourPlayer.end() ), neighbourPlayer.end() );
+        // current player
+        string currPlayer;
+        if (curTurn == 0) currPlayer = "Blue";
+        if (curTurn == 1) currPlayer = "Red";
+        if (curTurn == 2) currPlayer = "Orange";
+        if (curTurn == 3) currPlayer = "Yellow";
+        // print message
+        cout << "BUilder " << currPlayer << " can choose to steal from ";
+        for (size_t i = 0; i < neighbourPlayer.size(); i++) {
+            if (neighbourPlayer[i] == 'B') cout << "Blue";
+            if (neighbourPlayer[i] == 'R') cout << "Red";
+            if (neighbourPlayer[i] == 'O') cout << "Orange";
+            if (neighbourPlayer[i] == 'Y') cout << "Yellow";
+            if (i != neighbourPlayer.size() - 1) cout << ", ";
+        }
+        cout << "." << endl;
+        cout << "Choose a builder to steal from." << endl;
+        // ask for respone
+        string response;
+        cin >> response;
+        char resourceStolen;
+        if (response == "Blue") resourceStolen = players[0]->beStolen(seed);
+        if (response == "Red") resourceStolen = players[1]->beStolen(seed);
+        if (response == "Orange") resourceStolen = players[2]->beStolen(seed);
+        if (response == "Yellow") resourceStolen = players[3]->beStolen(seed);
+        string resStolen;
+        if (resourceStolen == 'B') resStolen = "Blue";
+        if (resourceStolen == 'R') resStolen = "Red";
+        if (resourceStolen == 'O') resStolen = "Orange";
+        if (resourceStolen == 'Y') resStolen = "Yellow";
+        cout << "Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
+    }
+    // move GEESE display
+    posGeese = pos;
+}
+
+
+
 
 void Board::setGeese( int pos ){posGeese = pos;}
 
