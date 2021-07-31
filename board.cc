@@ -7,7 +7,7 @@
 #include "vertex.h"
 #include "edge.h"
 #include "player.h"
-
+using namespace std;
 
 Board::Board() {
     
@@ -318,7 +318,7 @@ void Board::gainResources(int tileVal){
     // notify observers of tileVal
     // only notify which has been build
     for ( size_t i = 0; i < tiles.size(); i++ ) {
-        if ( tiles[i] == nullptr ) { cout << "WARNING: Board::gainResources dereference nullptr at line:" << __LINE__ << endl; return false; }
+        if ( tiles[i] == nullptr ) { cout << "WARNING: Board::gainResources dereference nullptr at line:" << __LINE__ << endl; return; }
         if ( tiles[i]->getValue() == tileVal ) {
             tiles[i]->notifyObservers();
         }
