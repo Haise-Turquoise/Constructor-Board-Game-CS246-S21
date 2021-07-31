@@ -17,6 +17,13 @@ class Board {
     std::vector<Player*> players;
     std::queue<char> playerQueue;
     int curTurn = 0;
+    
+    // 5 helper function for Board::printBoard()
+    std::string ttype(int pos); 
+    std::string tval(int pos);
+    std::string vfo(int pos);
+    std::string efo(int pos);
+    std::string gfo(int pos);
 
     public:
     // ctor
