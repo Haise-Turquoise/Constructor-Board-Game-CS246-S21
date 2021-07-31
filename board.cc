@@ -395,8 +395,27 @@ void Board::printCurPlayerRes() {
     }
 }
 
-void Board::loadRes( int curTurn, int pos, char buildType ) {}
-void Board::loadRoad( int curTurn, int pos ) {}
+void Board::loadRes( int posPlayer, int pos, char buildType ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::loadRes access nullptr to pass ";return;}
+    players[posPlayer]->loadRes(destVertex, buildType);
+    destVertex->setOwnerPos(posPlayer);
+}
+
+
+void Board::loadRoad( int posPlayer, int pos ) {
+    Edge* destEdge = edges[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
+    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
+    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::loadRoad access nullptr to pass ";return;}
+    players[posPlayer]->loadRoad(destEdge);
+    destEdge->setOwnerPos(posPlayer);
+    return;
+}
 
 
 bool Board::buildResFree( int pos ) {
