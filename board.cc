@@ -363,12 +363,19 @@ std::string Board::saveGame() {
 }
 
 
+//刘书辰
+
 void Board::setDice(bool fair) {
-    std::cout<< "set Dice" << std::endl;
+    if (fair) {// set loaded strategy
+        players[curTurn]->setStrategyState('L');
+    } else {
+        players[curTurn]->setStrategyState('R');
+    }
 }
 
-int Board::rollDice() {
-    std::cout<< "run rollDice" << std::endl;
+
+int Board::rollDice(int value) {
+    return players[curTurn]->rollDice(value, seed);
 }
 
 void Board::gainResources(int tileVal){
