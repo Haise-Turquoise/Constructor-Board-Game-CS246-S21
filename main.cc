@@ -35,11 +35,7 @@ int main(int argc, char *argv[]) {
                     if (!(is >> seed)) {
                         cerr << "Usage: Seed should be Integer!" << endl;
                         return 1;
-                    }
-                    if (seed < 0) {
-                        cerr << "Usage: Seed should be non-negative!" << endl;
-                        return 1;
-                    }
+                    } 
                     game.setSeed(seed);
                     i += 1;
                 } 
