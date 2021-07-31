@@ -321,9 +321,48 @@ void Board::gainResources(int tileVal){
     // only notify which has been build 
 }
 
-void Board::buildRes( int pos ){}
-void Board::buildRoad( int pos ){}
-void Board::improveRes( int pos ){}
+bool Board::buildResFree( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return false;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildResFree access nullptr to pass ";return false;}
+    bool tmp = players[curTurn]->buildResFree(destVertex);
+    if (tmp == true) destVertex->setOwnerPos(curTurn);
+    return tmp;
+}
+
+void Board::buildRes( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildRes access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->buildRes(destVertex);
+    if (tmp == true) destVertex->setOwnerPos(curTurn);
+    return;
+}
+
+void Board::buildRoad( int pos ) {
+    Edge* destEdge = edges[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
+    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
+    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::buildRoad access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->buildRoad(destEdge);
+    if (tmp == true) destEdge->setOwnerPos(curTurn);
+    return;
+}
+
+void Board::improveRes( int pos ) {
+    Vertex* destVertex = vertices[pos];
+    size_t position = pos;
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return;}
+    bool tmp = players[curTurn]->improveRes(destVertex);
+    return;
+}
 
 void Board::trade( std::string otherplayer, std::string ownResources, std::string otherResource ){}
 void Board::loseHalf(){}
