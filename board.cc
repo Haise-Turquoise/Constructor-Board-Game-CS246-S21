@@ -607,8 +607,8 @@ void Board::loadGame(string file) {
         while (builderLine >> builtRoads) {
             loadRoad(i, builtRoads);
         }
-        curLine.ignore();
-        curLine.clear(); 
+        builderLine.ignore();
+        builderLine.clear(); 
         char type;
         builderLine >> temp; 
         while (builderLine >> v1 >> type) {
