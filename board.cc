@@ -10,7 +10,6 @@
 using namespace std;
 
 Board::Board() {
-    
     for ( size_t i = 0; i++; i < 4 ) {
         Player* tmpPlayer = new Player;
         players.emplace_back(tmpPlayer);
@@ -50,6 +49,7 @@ void Board::clearBoard() {
         delete edges[k];
     }
 }
+
 void Board::printBoard() {
     std::cout<< "run print board" << std::endl;
 }
@@ -322,8 +322,11 @@ void Board::loadGame(std::string file) {
 std::string Board::saveGame() {
     std::cout<< "run savGame" << std::endl;
 }
+void Board::setDice(bool fair) {
+    std::cout<< "set Dice" << std::endl;
+}
 
-void Board::rollDice(bool fair) {
+int Board::rollDice() {
     std::cout<< "run rollDice" << std::endl;
 }
 
