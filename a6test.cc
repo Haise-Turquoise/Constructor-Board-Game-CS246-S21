@@ -13,6 +13,7 @@ using namespace std;
 int main() {
     Board b;
     b.initSeedBoard(231);
+    b.printBoard();
     b.printAllPlayerStatus();
     b.printCurPlayerRes();
 }
