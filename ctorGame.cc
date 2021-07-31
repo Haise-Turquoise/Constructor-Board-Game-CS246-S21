@@ -16,7 +16,7 @@ void CtorGame::setLoad(bool load){ this->load = load; }
 void CtorGame::setBoard(bool boardGiven){ this->boardGiven = boardGiven; }
 void CtorGame::setRandBoard(bool randBoard){ this->randBoard = randBoard; }
 
-void CtorGame::info() {
+void CtorGame::info() { // for debug
     cout  << "file: " << file << endl;
     cout  << "seed: " << seed << endl;
     cout  << "load?: " << load << endl;
@@ -50,7 +50,7 @@ void CtorGame::endGame(Board & board, string fileName){
     ofstream fileOut{fileName}; 
     fileOut << out << endl;
     board.clearBoard();
-    cout << "Saved" << endl;
+    cout << "Saved!" << endl;
 }
 
 int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
@@ -59,20 +59,20 @@ int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
         for (int i = 0; i < 4; i++) {
             cout << "Builder " << fourPlayers[i] << ", where do you want to build a basement?" << endl;
             bool built = false;
-            while (!built) {
+            while (!built) { 
                 int pos = askForInteger(53);
-                if (pos == -1) { endGame(board); return -1;}
-                built = true; // for debug
-                //built = board.buildResFree(pos);
-            }
-            //board.endCurTurn();
+                if ( pos == -1 ) { endGame(board); return -1;}      // eof
+                //built = true; // for debug
+                built = board.buildResFree(pos);
+            } 
         }
     }
+    return 0;
 }
 
 bool CtorGame::play() {
     Board board;
-    /*if (load) {                             // given an exist game
+    if (load) {                             // given an exist game
         board.loadGame(file);
     } else if (boardGiven) {                // given board
         board.initLoadBoard(file);
@@ -82,21 +82,19 @@ bool CtorGame::play() {
         board.initRandBoard();
     } else {
         board.initLoadBoard(file);          // using default file "layout.txt"
-    }*/
+    }
 
     cout << "seting up game..." << endl;
     vector<string> fourPlayers = {"Blue", "Red", "Orange", "Yellow"};
-    if (!load) {
-        int val = setUp(board, fourPlayers);
-        if (val == -1) return 0;
+    if (!load) { 
+        if (setUp(board, fourPlayers) == -1) return 0;      // eof
     }
-    //board.printBoard();
+    board.printBoard();
 
     cout << "play game" << endl;
     while (true) {
         cout << "Builder " << fourPlayers[board.getCurTurn()] << "'s turn." << endl;
         string cmd;  
-        
         // roll dice 
         bool rolled = false;        
         bool fair = false;
@@ -106,7 +104,9 @@ bool CtorGame::play() {
             if (!(cin>>cmd)) { endGame(board); return 0; }
             if (cmd == "roll") {
                 if (!fair) {                        // load dice
-                    dice = askForInteger(2,12);
+                    cout << "Input a dice value between 2 to 12 (inclusive):"<< endl;
+                    dice = askForInteger(12,2);
+                    if (dice == -1) { endGame(board); return 0;}
                     board.rollDice(dice);
                 } else {
                     board.rollDice();
@@ -122,18 +122,30 @@ bool CtorGame::play() {
                 board.setDice(fair);
                 cout<< "Player " << fourPlayers[board.getCurTurn()] << " uses loaded dice now" << endl;
             } else {
-                cerr << "Please first roll the Dice, remember to enter 'fair' if needed" << endl;
+                cerr << "Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
             } 
         }
 
         // obtaining resources or move geese
         if (dice != 7) {
             cout<<"dice not 7, builder gain resources"<< endl;
-            //board.gainResources(dice);
+            board.gainResources(dice);
         } else {    // move geese
             cout<<"dice is 7, lose half and move geese"<<endl;
-            //int movePos = board.loseHalf();
-            //board.moveGeese(movePos);
+            
+            board.loseHalf();
+            cout << "Choose where to place the Geese" << endl;
+            while (true) {
+                int pos = askForInteger(18);
+                if (pos == -1) { endGame(board); return 0;}
+                if (pos == board.getGeese()) {
+                    cout << "Geese should be moved to the tile not previously on." << endl;
+                } else {
+                    board.moveGeese(pos);
+                    break;
+                }
+            }
+            board.moveGeese(); 
         }
 
         // during the turn 
@@ -149,44 +161,41 @@ bool CtorGame::play() {
             } 
             else if (cmd == "board") {
                 cout<<"print Board"<<endl;
-                //board.printBoard();
+                board.printBoard();
             } 
             else if (cmd == "status") {
                 cout<<"print all status"<<endl;
-                //board.printAllPlayerStatus();
+                board.printAllPlayerStatus();
             } 
             else if (cmd == "residences") {
                 cout<<"print cur status"<<endl;
-                //board.printCurPlayerRes();
+                board.printCurPlayerRes();
             } 
             else if (cmd == "build-road") {
                 int pos = askForInteger(71);
                 if (pos == -1) {endGame(board); return 0;}
                 cout<<"build road "<< pos <<endl;
-                //board.buildRoad(pos);
+                board.buildRoad(pos);
             } 
             else if (cmd == "build-res") {
                 int pos = askForInteger(53);
                 if (pos == -1) {endGame(board); return 0;}
                 cout<<"build residence "<< pos <<endl;
-                //board.buildRes(pos);
+                board.buildRes(pos);
             } 
             else if (cmd == "improve") {
                 int pos = askForInteger(53);
                 if (pos == -1) {endGame(board); return 0;}
                 cout<<"improve res "<< pos <<endl;
-                //board.improveRes(pos);
+                board.improveRes(pos);
             } 
             else if (cmd == "trade") {
                 string colour, give, take;
                 if (!(cin >> colour >> give >> take)) {     // read fail: eof
                     endGame(board); return 0;
-                }
-                // following message should be placed in trade();
-                cout << fourPlayers[board.getCurTurn()]<<" offers " << colour;
-                cout << " one " << give << " for one " << take << "." << endl;
-
-                //board.trade(colour,give,take);
+                } 
+                int pos = board.trade(colour,give,take);
+                if (pos == -1) {endGame(board); return 0;}
             } 
             else if (cmd == "next") {
                 break;
@@ -212,7 +221,7 @@ bool CtorGame::play() {
             }
         }
         break;
-        //board.endCurTurn();
+        board.endCurTurn();
     }
     return 0;
 }
