@@ -26,6 +26,7 @@ class Player {
     int getNumResource(char resourceType);
     int getNumBuild();
     int getBuildPoint();
+    std::vector<int> getEdgeIndex();
     
     bool buildResFree( Vertex* ptrv );
     bool buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
