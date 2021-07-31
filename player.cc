@@ -37,6 +37,14 @@ int Player::getNumBuild() { return numBuild; }
 
 int Player::getBuildPoint() { return buildPoints; }
 
+vector<int> Player::getEdgeIndex(){
+    vector<int> list;
+    for (int i = 0; i < ownEdges.size(); i++){
+        int ind = ownEdges[i]->getIndex();
+        list.emplace_back(ind);
+    }
+    return list;
+}
 
 // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
 bool Player::buildResFree( Vertex* ptrv ) {
