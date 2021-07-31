@@ -31,6 +31,7 @@ class Player {
     bool buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
     bool buildRoad( Edge* ptre ); 
     bool improveRes( Vertex* ptrv );
+    void setResource(char resourceType, int n);
     void addResource(char resourceType);
     bool decResource(char resourceType);  // need to check non-0
     bool existResource();
