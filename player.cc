@@ -12,7 +12,7 @@ using namespace std;
 
 Player::Player(): 
     numHeat{0}, numWifi{0}, numEnergy{0}, numBrick{0}, numGlass{0}
-    ,numBuild{0}, buildPoints{0} {}
+    ,numBuild{0}, buildPoints{0}, dice{Dice(new DiceLoad())} { }
 Player::~Player() {}
 
 int Player::getNumResource(char resourceType) { 
@@ -39,7 +39,7 @@ int Player::getBuildPoint() { return buildPoints; }
 
 vector<int> Player::getEdgeIndex(){
     vector<int> list;
-    for (int i = 0; i < ownEdges.size(); i++){
+    for (size_t i = 0; i < ownEdges.size(); i++){
         int ind = ownEdges[i]->getIndex();
         list.emplace_back(ind);
     }
