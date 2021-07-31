@@ -877,5 +877,5 @@ bool Board::checkWon() {
 }
 
 void endCurTurn() {
-    
+    curTurn = curTurn < 3 ? curTurn++ : 0;
 }
