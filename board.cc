@@ -544,7 +544,7 @@ char charResourceIdentifier(int resourceType) {
         case 5:
             return 'P'; break;
     } 
-    return '';
+    return 'N';
 }
 
 void Board::initLoadBoard(string file) {
@@ -599,8 +599,8 @@ void Board::loadGame(string file) {
     i = 0;
     while (fileIn >> resourceType >> value) {
         char type = charResourceIdentifier(resourceType);
-        tiles[i]->setResourceType = type;
-        tiles[i]->setValue = value;
+        tiles[i]->setResourceType(type);
+        tiles[i]->setValue(value);
         i += 1;
     } 
     fileIn >> v1;
@@ -612,11 +612,11 @@ string Board::saveGame() {
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
     vector<vector<int>> res;                            // house info
-    for ( int i = 0; i < vertices.size(); i++ ) {
+    for ( size_t i = 0; i < vertices.size(); i++ ) {
         int owner = vertices[i]->getOwnerPos();
         res[owner].emplace_back(i);
     }
-    for (int i = 0; i < players.size(); i++) {          // <builder i's Data>
+    for (size_t i = 0; i < players.size(); i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
