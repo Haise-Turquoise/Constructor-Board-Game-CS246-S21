@@ -12,7 +12,7 @@ class Tile : public Subject {
 
     public:
     Tile(int idx = -1);
-    ~Tile();
+    virtual ~Tile();
     int getIndex();
     char getResourceType();
     int getValue();
