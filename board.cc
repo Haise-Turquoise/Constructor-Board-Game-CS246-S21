@@ -395,6 +395,9 @@ void Board::printCurPlayerRes() {
     }
 }
 
+void Board::loadRes( int curTurn, int pos, char buildType ) {}
+void Board::loadRoad( int curTurn, int pos ) {}
+
 
 bool Board::buildResFree( int pos ) {
     Vertex* destVertex = vertices[pos];
@@ -438,7 +441,7 @@ void Board::improveRes( int pos ) {
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
     if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return;}
-    bool tmp = players[curTurn]->improveRes(destVertex);
+    players[curTurn]->improveRes(destVertex);
     return;
 }
 
@@ -678,6 +681,8 @@ void Board::gainResources(int tileVal){
 void Board::trade( string otherplayer, string ownResources, string otherResource ){}
 void Board::loseHalf(){}
 void Board::moveGeese( int pos ){}
+
+void Board::setGeese( int pos ){posGeese = pos;}
 
 bool Board::checkWon() {
     int points = players[curTurn]->getBuildPoint();
