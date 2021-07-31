@@ -345,7 +345,14 @@ char Player::beStolen(int seed) {
     std::default_random_engine g{sd};
     std::uniform_int_distribution<int> distribution(0,totalRes - 1);
     int ranIdx = distribution(g);
-    return generateBoard[ranIdx];
+    char resoureStolen = generateBoard[ranIdx];
+    //update number of resource
+    if (resoureStolen == 'H') numHeat--;
+    if (resoureStolen == 'W') numWifi--;
+    if (resoureStolen == 'E') numEnergy--;
+    if (resoureStolen == 'B') numBrick--;
+    if (resoureStolen == 'G') numGlass--;
+    return resoureStolen;
 }
 
 void Player::loseHalfResource(int seed) {
