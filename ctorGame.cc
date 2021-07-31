@@ -25,13 +25,13 @@ void CtorGame::info() {
 }
 
 // helper when ask user to input a non-negative integer, return -1 when EOF
-int askForInteger(int range = 100) { // 
+int askForInteger(int up = 100, int lb = 0) { // 
     cin.exceptions(ios::eofbit|ios::failbit);
     int pos = -1; 
     while (true) {
         try { 
             cin >> pos;
-            if ((pos >= 0) && (pos <= range)) break;
+            if ((pos >= lb) && (pos <= up)) break;
             cerr << "Invalid value: index out of range!" << std::endl;
         }  
         catch (ios::failure &) {
@@ -45,13 +45,12 @@ int askForInteger(int range = 100) { //
 }
 
 void CtorGame::endGame(Board & board, string fileName){
-    /*
     cout<< "End game and save all status in file backup.sv" << endl;
     string out = board.saveGame(); 
     ofstream fileOut{fileName}; 
     fileOut << out << endl;
-    */
-   cout << "saving here" << endl;
+    board.clearBoard();
+    cout << "Saved" << endl;
 }
 
 int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
@@ -59,9 +58,13 @@ int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
     for (int j = 0; j < 2; j++) {
         for (int i = 0; i < 4; i++) {
             cout << "Builder " << fourPlayers[i] << ", where do you want to build a basement?" << endl;
-            int pos = askForInteger(53);
-            if (pos == -1) { endGame(board); return -1;}
-            //board.buildRes(pos);
+            bool built = false;
+            while (!built) {
+                int pos = askForInteger(53);
+                if (pos == -1) { endGame(board); return -1;}
+                built = true; // for debug
+                //built = board.buildResFree(pos);
+            }
             //board.endCurTurn();
         }
     }
@@ -94,22 +97,29 @@ bool CtorGame::play() {
         cout << "Builder " << fourPlayers[board.getCurTurn()] << "'s turn." << endl;
         string cmd;  
         
-        // roll dice
-        bool fairDice = false;
-        bool rolled = false;
+        // roll dice 
+        bool rolled = false;        
+        bool fair = false;
         int dice = 0;
         while (true) {
             if (rolled) break;
             if (!(cin>>cmd)) { endGame(board); return 0; }
             if (cmd == "roll") {
-                //dice = board.rollDice(fairDice);
+                if (!fair) {                        // load dice
+                    dice = askForInteger(2,12);
+                    board.rollDice(dice);
+                } else {
+                    board.rollDice();
+                }
                 rolled = true;
-                cout << "finish rolling" << endl;
+                cout<< "finish rolling" << endl;
             } else if (cmd == "fair") {
-                fairDice = true;
+                fair = true;
+                board.setDice(fair);
                 cout<< "Player " << fourPlayers[board.getCurTurn()] << " uses fair dice now" << endl;
             } else if (cmd == "load") {
-                fairDice = false;
+                fair = false;
+                board.setDice(fair);
                 cout<< "Player " << fourPlayers[board.getCurTurn()] << " uses loaded dice now" << endl;
             } else {
                 cerr << "Please first roll the Dice, remember to enter 'fair' if needed" << endl;
@@ -122,10 +132,9 @@ bool CtorGame::play() {
             //board.gainResources(dice);
         } else {    // move geese
             cout<<"dice is 7, lose half and move geese"<<endl;
-            //int movePos = board.geeseRolled();
+            //int movePos = board.loseHalf();
             //board.moveGeese(movePos);
         }
-
 
         // during the turn 
         while (true) {
@@ -148,7 +157,7 @@ bool CtorGame::play() {
             } 
             else if (cmd == "residences") {
                 cout<<"print cur status"<<endl;
-                //board.printCurPlayerStatus();
+                //board.printCurPlayerRes();
             } 
             else if (cmd == "build-road") {
                 int pos = askForInteger(71);
@@ -186,6 +195,7 @@ bool CtorGame::play() {
                 string fileName;
                 cin >> fileName;    // should we check file name format?
                 endGame(board,fileName);
+                board.clearBoard();
                 return 0;
             } 
             else {
