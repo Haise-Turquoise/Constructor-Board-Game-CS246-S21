@@ -633,12 +633,14 @@ string Board::saveGame() {
     cout<< "run savGame" << endl;
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
-    vector<vector<int>> res;                            // house info
+    vector<int> temp; 
+    size_t playerSize = players.size();
+    vector<vector<int>> res(playerSize,temp);                    // house info
     for ( size_t i = 0; i < vertices.size(); i++ ) {
         int owner = vertices[i]->getOwnerPos();
         if (owner != -1) res[owner].emplace_back(i);
     }
-    for (size_t i = 0; i < players.size(); i++) {          // <builder i's Data>
+    for (size_t i = 0; i < playerSize; i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
