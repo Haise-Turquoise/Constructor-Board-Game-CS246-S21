@@ -365,7 +365,50 @@ void Board::initLoadBoard(string file) {
 void Board::loadGame(string file) {
     cout<< "run loadGame" << endl;
     initAttachBoard();
-    ifstream fileIn{file};
+    ifstream fileIn{file}; 
+    string line;
+    getline(fileIn, line);
+    setCurTurn(stoi(line));                 // curTurn
+
+    int v1,v2,v3,v4,v5,builtRoads,builtHouse;
+    string temp;
+    int i = 0;
+    while (getline(fileIn, line)) {
+        istringstream curLine{line};
+        curLine >> v1 >> v2 >> v3 >> v4 >> v5 >> temp;
+        if (temp != "r") break;             // finish checking player status
+        players[i]->setResource('B', v1);
+        players[i]->setResource('E', v2);
+        players[i]->setResource('G', v3);
+        players[i]->setResource('H', v4);
+        players[i]->setResource('W', v5);
+        while (curLine >> builtRoads) {
+            load(builtRoads);
+        }
+        cin.ignore();
+        cin.clear(); 
+        char type;
+        while (curLine >> v1 >> type) {
+            buildResFree(v1, type);
+        }
+        buildResFree()
+        i += 1;
+
+    }
+    for (int i = 0; i < numPlayer; i++) {   // player Data
+
+    }
+
+    getline(fileIn, line);                  // board
+    int resourceType;
+    int value; 
+    int i = 0;
+    while (fileIn >> resourceType >> value) {
+        char type = charResourceIdentifier(resourceType);
+        tiles[i]->setResourceType = type;
+        tiles[i]->setValue = value;
+        i += 1;
+    } 
     
 }
 
@@ -373,13 +416,31 @@ string Board::saveGame() {
     cout<< "run savGame" << endl;
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
+
+    vector<vector<int>> res;                            // house info
+    for ( int i = 0; i < vertices.size(); i++ ) {
+        int owner = vertices[i]->getOwnerPos();
+        res[owner].emplace_back(i);
+    }
     for (int i = 0; i < players.size(); i++) {          // <builder i's Data>
         out << players[i]->getNumResource('B') << " ";
         out << players[i]->getNumResource('E') << " ";
         out << players[i]->getNumResource('G') << " ";
         out << players[i]->getNumResource('H') << " ";
         out << players[i]->getNumResource('W') << " ";   
-        out << players[i]->getNumBuild() << endl; 
+        // print out roads
+        vector<int> roads = players[i]->getEdgeIndex();
+        sort(roads.begin(), roads.end());
+        out << "r " ;
+        for (auto r : roads) {
+            out << r << " ";
+        }
+        // print out residence
+        for (auto pos: res[i]){
+            char buildType = vertices[pos]->getBuildType();
+            out << pos << " " << buildType << " ";
+        }
+        out << endl;
     }
     for (int i = 0; i < tiles.size(); i++) {            // <board>
         char type = tiles[i]->getResourceType();
