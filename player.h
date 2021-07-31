@@ -3,6 +3,8 @@
 #include <vector>
 #include "vertex.h"
 #include "edge.h"
+#include "dice.h"
+#include "strategy.h"
 
 class Player {
     int numHeat;
@@ -33,7 +35,7 @@ class Player {
     bool existResource();
 
     char beStolen(int seed);
-    int rollDice( int value );
+    int rollDice( int value , bool randDice, int seed); // if roll random dice -> randDice set to true, otherwise set to false
     void loseHalfResource(int seed);
 };
 
