@@ -1,6 +1,7 @@
 #include "board.h"
 #include <random>
 #include <algorithm>
+#include <sstream>
 #include <vector>
 #include <utility>
 #include "tile.h"
@@ -311,6 +312,8 @@ void Board::initSeedBoard( int seed ) {
     }
 }
 
+
+// Ivy
 void Board::initLoadBoard(std::string file) {
     std::cout<< "run initLoadBoard" << std::endl;
 }
@@ -319,9 +322,47 @@ void Board::loadGame(std::string file) {
     std::cout<< "run loadGame" << std::endl;
 }
 
+// a helper
+int intResourceIdentifier(char resource) {
+    switch( resourceType ) {
+        case 'B':
+            return 0; break;
+        case 'E':
+            return 1; break;
+        case 'G':
+            return 2; break;
+        case 'H':
+            return 3; break;
+        case 'W':
+            return 4; break; 
+        case 'P':
+            return 5; break;
+    }
+}
+
 std::string Board::saveGame() {
     std::cout<< "run savGame" << std::endl;
+    ostringstream out;
+    out << curTurn << endl;
+    for (int i = 0; i < players.size(); i++) {
+        out << players[i]->getNumResource('B') << " ";
+        out << players[i]->getNumResource('E') << " ";
+        out << players[i]->getNumResource('G') << " ";
+        out << players[i]->getNumResource('H') << " ";
+        out << players[i]->getNumResource('W') << " ";   
+        out << players[i]->getNumBuild() << endl; 
+    }
+    for (int i = 0; i < tiles.size(); i++) {
+        char type = tiles[i]->getResourceType();
+        out << intResourceIdentifier(type) << " ";
+        out << tiles[i]->getValue() << " ";
+        if (i == tiles.size()-1) out << endl;
+    }
+    out << posGeese;
+    return out.str();
 }
+
+
 void Board::setDice(bool fair) {
     std::cout<< "set Dice" << std::endl;
 }
@@ -389,6 +430,8 @@ void Board::loseHalf(){}
 void Board::moveGeese( int pos ){}
 
 bool Board::checkWon() {
+    int points = players[curTurn]->getBuildPoint();
+    if (points >= 10) return true;
     return false;
 }
 
