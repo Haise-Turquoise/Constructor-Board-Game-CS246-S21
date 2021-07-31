@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <queue>
+#include "dice.h"
+#include "strategy.h"
 
 class Board {
     int posGeese = 7 ;
