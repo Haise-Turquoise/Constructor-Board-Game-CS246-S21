@@ -39,6 +39,7 @@ class Board {
     void rollDice(bool fair);
     void gainResources(int tileVal);
 
+    bool buildResFree( int pos );
     void buildRes( int pos );
     void buildRoad( int pos );
     void improveRes( int pos );
