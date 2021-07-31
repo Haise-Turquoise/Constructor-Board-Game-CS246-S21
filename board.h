@@ -35,7 +35,7 @@ class Board {
     void clearBoard();
     void printBoard();
     void printAllPlayerStatus();
-    void printCurPlayerStatus();
+    void printCurPlayerRes();
 
     void initAttachBoard();
     void initRandBoard();
