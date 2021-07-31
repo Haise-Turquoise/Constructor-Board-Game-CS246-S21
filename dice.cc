@@ -15,4 +15,6 @@ int Dice::getPoint() {
     return dicePoint;
 }
 
-void Dice::setPoint(int value) {}
+void Dice::setPoint(int value) {
+    dicePoint = value;
+}
