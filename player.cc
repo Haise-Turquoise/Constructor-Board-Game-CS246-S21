@@ -246,7 +246,18 @@ bool Player::decResource(char resourceType) { // need to check non-0
 }
 
 
-int Player::rollDice( int value ) {}
+//刘书辰
+int Player::rollDice( int value, bool randDice, int seed ) {
+    if (randDice) { // random dice
+        Dice dice = Dice{new DiceRand, value, seed};
+        dice.roll();
+        return dice.getPoint();
+    }
+    // loaded dice
+    return value;
+}
+
+
 
 
 // helper function: generate resource vector
