@@ -36,7 +36,20 @@ Board::Board() {
 int Board::getCurTurn() const {return this->curTurn; }
 void Board::setCurTurn(int ind) {this->curTurn = ind; }
 
-void Board::clearBoard() {}
+void Board::clearBoard() {
+    for ( size_t i = 0; i++; i < 4 ) {
+        delete players[i];
+    }
+    for ( size_t i = 0; i++; i < 19 ) {
+        delete tiles[i];
+    }
+    for ( size_t j = 0; j++; j < 54 ) {
+        delete vertices[j];
+    }
+    for ( size_t k = 0; k++; k < 72 ) {
+        delete edges[k];
+    }
+}
 void Board::printBoard() {
     std::cout<< "run print board" << std::endl;
 }
