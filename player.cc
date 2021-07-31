@@ -247,14 +247,19 @@ bool Player::decResource(char resourceType) { // need to check non-0
 
 
 //刘书辰
-int Player::rollDice( int value, bool randDice, int seed ) {
-    if (randDice) { // random dice
-        Dice dice = Dice{new DiceRand, value, seed};
-        dice.roll();
-        return dice.getPoint();
+int Player::rollDice( int value, int seed ) {
+    if (strategy == 'L') {
+        dice.setStrategy(new DiceLoad());
+        dice.setPoint(value);
+    } else {
+        dice.setStrategy(new DiceRand());
     }
-    // loaded dice
-    return value;
+    dice.roll();
+    return dice.getPoint();
+}
+
+void Player::setStrategyState(char state) {
+    strategy = state;
 }
 
 
