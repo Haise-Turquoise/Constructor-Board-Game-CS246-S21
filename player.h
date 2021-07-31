@@ -24,11 +24,12 @@ class Player {
     int getNumBuild();
     int getBuildPoint();
     
-    void buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
-    void buildRoad( Edge* ptre ); 
-    void improveRes( Vertex* ptrv );
+    bool buildResFree( Vertex* ptrv );
+    bool buildRes( Vertex* ptrv ); // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
+    bool buildRoad( Edge* ptre ); 
+    bool improveRes( Vertex* ptrv );
     void addResource(char resourceType);
-    void decResource(char resourceType);  // need to check non-0
+    bool decResource(char resourceType);  // need to check non-0
     bool existResource();
 
     char beStolen(int seed);
