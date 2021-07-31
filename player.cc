@@ -32,8 +32,11 @@ int Player::getNumResource(char resourceType) {
             return -1; break;
     }
 }
+
 int Player::getNumBuild() { return numBuild; }
+
 int Player::getBuildPoint() { return buildPoints; }
+
 
 // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
 bool Player::buildResFree( Vertex* ptrv ) {
@@ -196,8 +199,6 @@ bool Player::improveRes( Vertex* ptrv ) {
 }
 
 
-
-
 bool Player::existResource() {
     return ( (numHeat==0) && (numWifi==0) && (numEnergy==0) && (numBrick==0) && (numGlass==0) );
 }
@@ -219,6 +220,7 @@ void Player::addResource(char resourceType) {
             throw "WRONG RESOURCE TYPE FOR Player::addResource"; break;
     }
 }
+
 
 bool Player::decResource(char resourceType) { // need to check non-0
     switch( resourceType ) {
@@ -243,28 +245,8 @@ bool Player::decResource(char resourceType) { // need to check non-0
     return true;
 }
 
+
 int Player::rollDice( int value ) {}
-
-
-
-
-void Player::addResource(char resourceType) {
-    switch( resourceType ) {
-        case 'H':
-            numHeat +=1; break;
-        case 'W':
-            numWifi +=1; break;
-        case 'E':
-            numEnergy +=1; break;
-        case 'B':
-            numBrick +=1; break;
-        case 'G':
-            numGlass +=1; break;
-        default:
-            throw "WRONG RESOURCE TYPE FOR Player::addResource"; break;
-    }
-}
-int Player::rollDice( int value ) { return value; }
 
 
 // helper function: generate resource vector
