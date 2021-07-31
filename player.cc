@@ -46,6 +46,42 @@ vector<int> Player::getEdgeIndex(){
     return list;
 }
 
+
+void Player::loadRes( Vertex* ptrv, char buildType ) {
+    if ( ptrv == nullptr ) {cout << "FATAL WARNING: Player::buildRes pass a nullptr ";return;}
+    if ( ptrv->getOwner() != nullptr || ptrv->getBuildType() != '-' ) {cout << "WARNING: this place is occupied by other or self" << endl;return;}
+    if ( ptrv->getIndex() == -1 ) {cout << "WARNING: vertex index unitialized" << endl;return;}
+    if ( ptrv->getIndex() < 0 || ptrv->getIndex() > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
+    numBuild += 1;
+    if ( buildType == 'B' ) {
+        ptrv->setBuildType('B');
+        buildPoints += 1;
+    } else if ( buildType == 'H' ) {
+        ptrv->setBuildType('B');
+        buildPoints += 2;
+    } else if ( buildType == 'T' ) {
+        ptrv->setBuildType('B');
+        buildPoints += 3;
+    } else {
+        cout << "WARNING: Player::buildRes wrong buildType" << endl;
+    }
+    ownVertices.emplace_back(ptrv);
+    ptrv->setOwner(this);
+    return;
+}
+
+
+void Player::loadRoad( Edge* ptre ) { 
+    if ( ptre == nullptr ) {cout << "FATAL WARNING: Player::buildRoad pass a nullptr ";return;}
+    if ( ptre->getOwner() != nullptr ) {cout << "WARNING: this road is occupied by other or self" << endl;return;}
+    if ( ptre->getIndex() == -1 ) {cout << "WARNING: edges index unitialized" << endl;return;}
+    if ( ptre->getIndex() < 0 || ptre->getIndex() > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
+    ownEdges.emplace_back(ptre);
+    ptre->setOwner(this);
+    return;
+}
+
+
 // WARNING: need to set <ownerPos in Vertex *ptrv> in Board::buildRes
 bool Player::buildResFree( Vertex* ptrv ) {
     if ( ptrv == nullptr ) {cout << "FATAL WARNING: Player::buildResFree pass a nullptr ";return false;}
