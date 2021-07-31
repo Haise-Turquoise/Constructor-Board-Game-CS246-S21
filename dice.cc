@@ -14,3 +14,5 @@ void Dice::roll() {
 int Dice::getPoint() {
     return dicePoint;
 }
+
+void Dice::setPoint(int value) {}
