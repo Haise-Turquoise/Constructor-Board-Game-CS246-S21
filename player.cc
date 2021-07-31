@@ -60,7 +60,7 @@ void Player::loadRes( Vertex* ptrv, char buildType ) {
         ptrv->setBuildType('H');
         buildPoints += 2;
     } else if ( buildType == 'T' ) {
-        ptrv->setBuildType('H');
+        ptrv->setBuildType('T');
         buildPoints += 3;
     } else {
         cout << "WARNING: Player::buildRes wrong buildType" << endl;
