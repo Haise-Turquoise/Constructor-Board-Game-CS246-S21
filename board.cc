@@ -596,30 +596,31 @@ void Board::loadGame(string file) {
     string temp;
     int i = 0;
     while (getline(fileIn, line)) {
-        istringstream curLine{line};
-        curLine >> v1 >> v2 >> v3 >> v4 >> v5 >> temp;
+        istringstream builderLine{line};
+        builderLine >> v1 >> v2 >> v3 >> v4 >> v5 >> temp;
         if (temp != "r") break;             // finish checking player status
         players[i]->setResource('B', v1);
         players[i]->setResource('E', v2);
         players[i]->setResource('G', v3);
         players[i]->setResource('H', v4);
         players[i]->setResource('W', v5);
-        while (curLine >> builtRoads) {
+        while (builderLine >> builtRoads) {
             loadRoad(i, builtRoads);
         }
-        cin.ignore();
-        cin.clear(); 
+        curLine.ignore();
+        curLine.clear(); 
         char type;
-        while (curLine >> v1 >> type) {
+        builderLine >> temp; 
+        while (builderLine >> v1 >> type) {
             loadRes(i, v1, type);
         }
         i += 1;
     }
-    getline(fileIn, line);                  // board
+    istringstream boardLine{line};           // board
     int resourceType;
     int value; 
     i = 0;
-    while (fileIn >> resourceType >> value) {
+    while (boardLine >> resourceType >> value) {
         char type = charResourceIdentifier(resourceType);
         tiles[i]->setResourceType(type);
         tiles[i]->setValue(value);
