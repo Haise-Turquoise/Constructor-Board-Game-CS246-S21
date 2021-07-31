@@ -44,8 +44,8 @@ class Board {
     void initLoadBoard( std::string file );
     void initSeedBoard( int seed );
     void loadGame( std::string file );
-    void loadRes( int curTurn, int pos, char buildType = 'B' );
-    void loadRoad( int curTurn, int pos );
+    void loadRes( int posPlayer, int pos, char buildType = 'B' );
+    void loadRoad( int posPlayer, int pos );
     std::string saveGame();
 
     void setDice(bool fair);
