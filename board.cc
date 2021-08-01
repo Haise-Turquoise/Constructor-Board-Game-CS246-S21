@@ -716,9 +716,9 @@ string Board::saveGame() {
 
 void Board::setDice(bool fair) {
     if (fair) {// set loaded strategy
-        players[curTurn]->setStrategyState('L');
-    } else {
         players[curTurn]->setStrategyState('R');
+    } else {
+        players[curTurn]->setStrategyState('L');
     }
 }
 
