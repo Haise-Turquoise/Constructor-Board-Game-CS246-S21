@@ -543,6 +543,7 @@ void Board::initRandBoard() {
     for (int i = 0; i < 19; i++) { 
         tiles[i]->setResourceType(resource[i]);
         tiles[i]->setValue(value[i]); 
+        if ( resource[i] == 'P' ) posGeese = i;
     }
 }
 
@@ -568,6 +569,7 @@ void Board::initSeedBoard( int seed ) {
     for (int i = 0; i < 19; i++) { 
         tiles[i]->setResourceType(resource[i]);
         tiles[i]->setValue(value[i]); 
+        if ( resource[i] == 'P' ) posGeese = i;
     }
 }
 
@@ -911,6 +913,7 @@ bool Board::checkWon() {
     return false;
 }
 
-void endCurTurn() {
-    curTurn = curTurn < 3 ? curTurn++ : 0;
+void Board::endCurTurn() {
+    curTurn += 1;
+    if (curTurn == 4) curTurn = 0;
 }
