@@ -816,8 +816,6 @@ void Board::loseHalf() {
 
 
 void Board::moveGeese( int pos ){
-    loseHalf();
-    cout << "Choose where to place the GEESE." << endl;
     // get potential-to-be-stolen player
     // getneighbour vertices
     vector<int> neighbour;
