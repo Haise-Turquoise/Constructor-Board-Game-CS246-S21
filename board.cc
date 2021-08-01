@@ -716,9 +716,9 @@ string Board::saveGame() {
 
 void Board::setDice(bool fair) {
     if (fair) {// set loaded strategy
-        players[curTurn]->setStrategyState('L');
-    } else {
         players[curTurn]->setStrategyState('R');
+    } else {
+        players[curTurn]->setStrategyState('L');
     }
 }
 
@@ -909,7 +909,7 @@ void Board::moveGeese( int pos ){
         if (resourceStolen == 'G') resStolen = "GLASS";
         cout << "Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
         // update player resource
-        players[curTurn]->decResource(resourceStolen);
+        players[curTurn]->addResource(resourceStolen);
     }
     // move GEESE display
     posGeese = pos;
