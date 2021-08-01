@@ -1,14 +1,14 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Werror=vla -g -Wall -MMD
-OBJECTS = main.o ctorGame.o board.o  player.o strategy.o dice.o subject.o tile.o vertex.o edge.o 
+OBJECTS = main.o ctorgame.o board.o  player.o strategy.o dice.o subject.o tile.o vertex.o edge.o 
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = ctor
 
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 
-main.o: main.cc ctorGame.h board.h player.h tile.h vertex.h edge.h subject.h observer.h dice.h strategy.h
-ctorGame.o: ctorGame.cc ctorGame.h board.h player.h tile.h vertex.h edge.h subject.h observer.h dice.h strategy.h
+main.o: main.cc ctorgame.h board.h player.h tile.h vertex.h edge.h subject.h observer.h dice.h strategy.h
+ctorgame.o: ctorgame.cc ctorgame.h board.h player.h tile.h vertex.h edge.h subject.h observer.h dice.h strategy.h
 board.o: board.cc board.h tile.h player.h vertex.h edge.h subject.h observer.h dice.h strategy.h
 player.o: player.cc player.h edge.h vertex.h observer.h tile.h subject.h dice.h strategy.h
 dice.o: dice.cc dice.h strategy.h
