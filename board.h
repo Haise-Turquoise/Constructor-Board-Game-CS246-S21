@@ -58,6 +58,7 @@ class Board {
     void buildRoad( int pos );
     void improveRes( int pos );
 
+    void printUsingChoice();
     int trade( std::string otherplayer, std::string ownResources, std::string otherResource );
     void loseHalf();
     void moveGeese( int pos );
