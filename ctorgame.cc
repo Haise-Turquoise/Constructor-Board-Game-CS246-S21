@@ -92,8 +92,10 @@ bool CtorGame::play() {
     board.printBoard();
 
     cout << ">  Play game" << endl;
+    vector<bool> fairOrLoad = {0,0,0,0};
     while (true) {
-        cout << ">  Builder " << fourPlayers[board.getCurTurn()] << "'s turn." << endl;
+        int curTurn = board.getCurTurn();
+        cout << ">  Builder " << fourPlayers[curTurn] << "'s turn." << endl;
         string cmd;  
         // roll dice 
         bool rolled = false;        
@@ -103,7 +105,7 @@ bool CtorGame::play() {
             if (rolled) break;
             if (!(cin>>cmd)) { endGame(board); return 0; }
             if (cmd == "roll") {
-                if (!fair) {                        // load dice
+                if (!fairOrLoad[curTurn]) {                        // load dice
                     cout << ">  Input a dice value between 2 to 12 (inclusive):"<< endl;
                     dice = askForInteger(12,2);
                     if (dice == -1) { endGame(board); return 0;}
@@ -114,13 +116,13 @@ bool CtorGame::play() {
                 rolled = true;
                 cout<< ">  Finish rolling" << endl;
             } else if (cmd == "fair") {
-                fair = true;
-                board.setDice(fair);
-                cout<< ">  Player " << fourPlayers[board.getCurTurn()] << " uses fair dice now" << endl;
+                fairOrLoad[curTurn] = true;
+                board.setDice(true);
+                cout<< ">  Player " << fourPlayers[curTurn] << " uses fair dice now" << endl;
             } else if (cmd == "load") {
-                fair = false;
-                board.setDice(fair);
-                cout<< ">  Player " << fourPlayers[board.getCurTurn()] << " uses loaded dice now" << endl;
+                fairOrLoad[curTurn] = false;
+                board.setDice(false);
+                cout<< ">  Player " << fourPlayers[curTurn] << " uses loaded dice now" << endl;
             } else {
                 cerr << ">  Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
             } 
