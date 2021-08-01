@@ -882,7 +882,20 @@ void Board::moveGeese( int pos ){
         cout << "Choose a builder to steal from." << endl;
         // ask for respone
         string response;
-        cin >> response;
+        while (true) {
+            cin >> response;
+            // check if response is valid
+            char res;
+            if (response == "Blue") res = 'B';
+            if (response == "Red") res = 'R';
+            if (response == "Orange") res = 'O';
+            if (response == "Yellow") res = 'Y';
+            if (find(neighbourPlayer.begin(),neighbourPlayer.end(),res) == neighbourPlayer.end()) {
+                cout << "Please select a builder mentioned above." << endl;
+            } else {
+                break;
+            }
+        }
         char resourceStolen;
         if (response == "Blue") resourceStolen = players[0]->beStolen(seed);
         if (response == "Red") resourceStolen = players[1]->beStolen(seed);
