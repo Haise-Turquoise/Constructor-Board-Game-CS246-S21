@@ -83,7 +83,7 @@ bool CtorGame::play() {
     } else {
         board.initLoadBoard(file);          // using default file "layout.txt"
     }
-
+    board.printBoard();
     cout << ">  Seting up game..." << endl;
     vector<string> fourPlayers = {"Blue", "Red", "Orange", "Yellow"};
     if (!load) { 
