@@ -806,7 +806,7 @@ void Board::loseHalf() {
             cout << "BUilder " << currPlayer << " loses " << totalLost << " resources to the geese. They lose:" << endl;
             if (lostHeat != 0) cout << lostHeat << " HEAT" << endl;
             if (lostWifi != 0) cout << lostWifi << " WIFI" << endl;
-            if (lostEnergy != 0) cout << lostEnergy << " Energy" << endl;
+            if (lostEnergy != 0) cout << lostEnergy << " ENERGY" << endl;
             if (lostBrick != 0) cout << lostBrick << " BRICK" << endl;
             if (lostGlass != 0) cout << lostGlass << " GLASS" << endl;
         }
