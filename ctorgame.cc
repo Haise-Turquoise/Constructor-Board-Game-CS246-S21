@@ -149,6 +149,8 @@ bool CtorGame::play() {
             } 
         }
 
+        board.printUsingChoice();
+
         // during the turn 
         while (true) {
             if (!(cin>>cmd)) { endGame(board); return 0; }
