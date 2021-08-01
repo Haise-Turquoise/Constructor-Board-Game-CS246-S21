@@ -38,7 +38,7 @@ Board::Board() {
 
 int Board::getCurTurn() const {return this->curTurn; }
 void Board::setCurTurn(int ind) {this->curTurn = ind; }
-int Board::getGeese() const {return posGeese};
+int Board::getGeese() const {return posGeese;};
 
 void Board::clearBoard() {
     for ( int i = 0; i < 4; i++ ) {
@@ -751,7 +751,7 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
     if ((numResOwn != 0) && (numResOther != 0)) {
-        cout << ">  " >> fourPlayer[cur]<<" offers " << otherplayer;
+        cout << ">  " << fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
         cout << ">  Dose " << otherplayer << " accept this offer?" << endl;
         string choice; 
