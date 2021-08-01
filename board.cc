@@ -752,7 +752,7 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
         if (fourPlayer[i][0] == otherplayer[0]) {other = i; break;}
     }
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
-    int numResOther = players[cur]->getNumResource(otherResource[0]);
+    int numResOther = players[other]->getNumResource(otherResource[0]);
     if ((numResOwn != 0) && (numResOther != 0)) {
         cout << fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
