@@ -109,7 +109,7 @@ bool CtorGame::play() {
                     if (dice == -1) { endGame(board); return 0;}
                     board.rollDice(dice);
                 } else {
-                    board.rollDice();
+                    dice = board.rollDice();
                 }
                 rolled = true;
                 cout<< ">  Finish rolling" << endl;
