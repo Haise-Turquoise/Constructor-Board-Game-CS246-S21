@@ -858,21 +858,21 @@ void Board::moveGeese( int pos ){
             neighbourPlayer.emplace_back(playerqueue[ownerIdx]);
         }
     }
+    // current player
+    string currPlayer;
+    if (curTurn == 0) currPlayer = "Blue";
+    if (curTurn == 1) currPlayer = "Red";
+    if (curTurn == 2) currPlayer = "Orange";
+    if (curTurn == 3) currPlayer = "Yellow";
     // if no neighbour player
     if (neighbourPlayer.size() == 0) {
-        cout << "Builder <colour1> has no builders to steal from." << endl;
+        cout << "Builder " << currPlayer << " has no builders to steal from." << endl;
     } else {
         // remove duplicates
         sort( neighbourPlayer.begin(), neighbourPlayer.end() );
         neighbourPlayer.erase(unique( neighbourPlayer.begin(), neighbourPlayer.end() ), neighbourPlayer.end() );
-        // current player
-        string currPlayer;
-        if (curTurn == 0) currPlayer = "Blue";
-        if (curTurn == 1) currPlayer = "Red";
-        if (curTurn == 2) currPlayer = "Orange";
-        if (curTurn == 3) currPlayer = "Yellow";
         // print message
-        cout << "BUilder " << currPlayer << " can choose to steal from ";
+        cout << "Builder " << currPlayer << " can choose to steal from ";
         for (size_t i = 0; i < neighbourPlayer.size(); i++) {
             if (neighbourPlayer[i] == 'B') cout << "Blue";
             if (neighbourPlayer[i] == 'R') cout << "Red";
