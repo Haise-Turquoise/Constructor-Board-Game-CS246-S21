@@ -35,7 +35,7 @@ int askForInteger(int up = 100, int lb = 0) { //
             cerr << ">  Invalid value: index out of range!" << std::endl;
         }  
         catch (ios::failure &) {
-            if (cin.eof())  break;
+            if (cin.eof())  return -1;
             cerr << ">  Invalid command." << endl;
             cin.clear();
             cin.ignore();
