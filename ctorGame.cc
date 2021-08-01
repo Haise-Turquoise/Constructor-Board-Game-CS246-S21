@@ -212,7 +212,7 @@ bool CtorGame::play() {
             }
             bool won = board.checkWon();
             if (won) {
-                cout << ">  Builder " >> fourPlayers[board.getCurTurn()] << " won the game!" << endl;
+                cout << ">  Builder " << fourPlayers[board.getCurTurn()] << " won the game!" << endl;
                 cout << ">  Would you like to play again?" << endl;
                 
                 if (!(cin >> cmd)) return 0;
