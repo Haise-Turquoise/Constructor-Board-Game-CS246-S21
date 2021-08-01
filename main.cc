@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "ctorGame.h"
+#include "ctorgame.h"
 using namespace std;
 
 bool checkFile(string file) { 
