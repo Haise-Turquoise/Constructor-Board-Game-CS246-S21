@@ -1,5 +1,6 @@
 #include "tile.h"
 #include "observer.h"
+#include <iostream>
 using namespace std;
 
 Tile::Tile(int idx): index{idx}, resourceType{'-'}, value{-1} {}
