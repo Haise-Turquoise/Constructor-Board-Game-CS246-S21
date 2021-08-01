@@ -354,11 +354,11 @@ void Board::printBoard() {
     cout << "        |         |"<<ttype(5*i+6)<<"|         |"<<ttype(5*i+7)<<"|         |" << endl;
     cout << "      "<<vfo(12*i+18)<<"--"<<efo(17*i+26)<<"--"<<vfo(12*i+19)<<tval(5*i+6)<<vfo(12*i+20)<<"--"<<efo(17*i+27)<<"--"<<vfo(12*i+21)<<tval(5*i+7)<<vfo(12*i+22)<<"--"<<efo(17*i+28)<<"--"<<vfo(12*i+23) << endl;
     }
-    cout << "                  |         |         |         |" << endl;
+    cout << "                  |"<<gfo(16)<<"|         |"<<gfo(17)<<"|" << endl;
     cout << "                 "<<efo(63)<<"        "<<efo(64)<<"   18   "<<efo(65)<<"        "<<efo(66)<<endl;
     cout << "                  |         |"<<ttype(18)<<"|         |"<<endl;
     cout <<"                "<<vfo(48)<<"--"<<efo(67)<<"--"<<vfo(49)<<tval(18)<<vfo(50)<<"--"<<efo(68)<<"--"<<vfo(51)<<endl;
-    cout << "                            |         |" << endl;
+    cout << "                            |"<<gfo(18)<<"|" << endl;
     cout << "                           "<<efo(69)<<"        "<<efo(70) << endl;
     cout << "                            |         |" << endl;
     cout << "                          "<<vfo(52)<<"--"<<efo(71)<<"--"<<vfo(53) << endl;
