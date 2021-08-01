@@ -125,7 +125,7 @@ bool CtorGame::play() {
                 cerr << ">  Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
             } 
         }
-
+        cout << "You have rolled: " << dice << endl;
         // obtaining resources or move geese
         if (dice != 7) {
             cout<<">  Dice not 7, builder gain resources"<< endl;
