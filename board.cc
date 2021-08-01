@@ -894,6 +894,8 @@ void Board::moveGeese( int pos ){
         if (resourceStolen == 'O') resStolen = "Orange";
         if (resourceStolen == 'Y') resStolen = "Yellow";
         cout << "Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
+        // update player resource
+        players[curTurn]->decResource(resourceStolen);
     }
     // move GEESE display
     posGeese = pos;
