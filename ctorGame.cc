@@ -50,7 +50,7 @@ void CtorGame::endGame(Board & board, string fileName){
     ofstream fileOut{fileName}; 
     fileOut << out << endl;
     board.clearBoard();
-    cout << ">  Saved!" << endl;
+    cout << ">  Saved in "<< fileName << " !" << endl;
 }
 
 int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
@@ -62,8 +62,8 @@ int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
         while (!built) { 
             int pos = askForInteger(53);
             if ( pos == -1 ) { endGame(board); return -1;}      // eof
-            //built = true; // for debug
-            built = board.buildResFree(i, pos);
+            //built = true; // for debug 
+            built = board.buildResFree(sequence[i], pos);
         } 
     }
     
