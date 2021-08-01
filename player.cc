@@ -232,10 +232,12 @@ bool Player::improveRes( Vertex* ptrv ) {
     if ( ptrv->getBuildType() == 'B' ) {
         numGlass -= 2; numHeat -= 3;
         buildPoints += 1;
+        ptrv->setBuildType('H');
         return true;
     } else if ( ptrv->getBuildType() == 'H' ) {
         numBrick -= 3 ; numEnergy -= 2 ; numGlass -= 2 ; numWifi -= 1 ; numHeat -= 2;
         buildPoints += 1;
+        ptrv->setBuildType('T');
         return true;
     } else {
         cout << "WARNING: wrong type for building type" << endl;return false;
