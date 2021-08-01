@@ -53,7 +53,7 @@ class Board {
     int rollDice(int value = 0); // if roll loaded dice, pass value
     void gainResources(int tileVal);
 
-    bool buildResFree( int pos );
+    bool buildResFree( int posPlayer, int pos );
     void buildRes( int pos );
     void buildRoad( int pos );
     void improveRes( int pos );
