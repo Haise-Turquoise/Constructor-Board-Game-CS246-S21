@@ -613,8 +613,7 @@ char charResourceIdentifier(int resourceType) {
     return 'N';
 }
 
-void Board::initLoadBoard(string file) {
-    cout<< "run initLoadBoard" << endl; 
+void Board::initLoadBoard(string file) { 
     ifstream fileIn{file};
     int resourceType;
     int value; 
@@ -627,8 +626,7 @@ void Board::initLoadBoard(string file) {
     } 
 }
 
-void Board::loadGame(string file) {
-    cout<< "run loadGame" << endl;
+void Board::loadGame(string file) { 
     ifstream fileIn{file}; 
     string line;
     getline(fileIn, line);
@@ -672,8 +670,7 @@ void Board::loadGame(string file) {
     setGeese(v1);                           // geese
 }
 
-string Board::saveGame() {
-    cout<< "run savGame" << endl;
+string Board::saveGame() { 
     ostringstream out;
     out << curTurn << endl;                             // <curTurn>
     vector<int> temp; 
@@ -754,14 +751,14 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
     if ((numResOwn != 0) && (numResOther != 0)) {
-        cout << fourPlayer[cur]<<" offers " << otherplayer;
+        cout << ">  " >> fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
-        cout << "Dose " << otherplayer << " accept this offer?" << endl;
+        cout << ">  Dose " << otherplayer << " accept this offer?" << endl;
         string choice; 
         while (true) {
             if (!(cin >> choice)) return -1;
             if (choice != "yes" && choice != "no") {
-                cout << "Please enter either: yes or no" << endl;
+                cout << ">  Please enter either: yes or no" << endl;
             } else if (choice == "yes") {
                 players[cur]->addResource(otherResource[0]);
                 players[cur]->decResource(ownResources[0]);
@@ -773,9 +770,9 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
             }
         }
     } else if (numResOwn == 0){
-        cerr << "You do not have enough resources." << endl;
+        cerr << ">  You do not have enough resources." << endl;
     } else {
-        cerr << otherplayer << " do not have enough resources." << endl;
+        cerr << ">  " << otherplayer << " do not have enough resources." << endl;
     }
     return 0;
 }
