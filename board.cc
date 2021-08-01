@@ -741,6 +741,28 @@ void Board::gainResources(int tileVal){
 
 
 // Ivy
+void Board::printUsingChoice() {
+    cout << ">  You can:" << endl;
+    int cur = getCurTurn();
+    int numHeat = players[cur]->getNumResource('H');
+    int numGlass = players[cur]->getNumResource('G');
+    int numBrick = players[cur]->getNumResource('B');
+    int numEnergy = players[cur]->getNumResource('E');
+    int numWifi = players[cur]->getNumResource('W');
+    if (numHeat >= 0 && numWifi >= 0) { cout << ">          build a road; "; }
+    if (numGlass >= 1 && numBrick >= 1 && numEnergy >= 1 && numWifi >= 1) {
+        cout << ">          build a basement; ";
+    }
+    if (numHeat >= 3 && numGlass >= 2) { cout << ">          improve a basement to House; "; }
+    if (numHeat >= 1 && numGlass >= 2 && numBrick >= 3 && numEnergy >= 2 && numWifi >= 1) { 
+        cout << ">          improve a House to Tower; "; 
+    }
+    if (numHeat > 0 | numGlass > 0 | numBrick > 0 | numEnergy > 0 && numWifi > 0) {
+        cout << ">          trade with other players who have resources you want; ";
+    }
+}
+
+
 int Board::trade( string otherplayer, string ownResources, string otherResource ){
     int cur = getCurTurn();
     vector<string> fourPlayer = {"Blue", "Red", "Orange", "Yellow"};
@@ -764,8 +786,10 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
                 players[cur]->decResource(ownResources[0]);
                 players[other]->addResource(ownResources[0]);
                 players[other]->decResource(otherResource[0]);
+                cout << ">  Successfully traded!" << endl;
                 return 0;
             } else { 
+                cout << ">  Trade request was refused!" << endl;
                 return 0;
             }
         }
@@ -803,12 +827,12 @@ void Board::loseHalf() {
             if (i == 2) currPlayer = 'O';
             if (i == 3) currPlayer = 'Y';
             // print message
-            cout << "BUilder " << currPlayer << " loses " << totalLost << " resources to the geese. They lose:" << endl;
-            if (lostHeat != 0) cout << lostHeat << " HEAT" << endl;
-            if (lostWifi != 0) cout << lostWifi << " WIFI" << endl;
-            if (lostEnergy != 0) cout << lostEnergy << " ENERGY" << endl;
-            if (lostBrick != 0) cout << lostBrick << " BRICK" << endl;
-            if (lostGlass != 0) cout << lostGlass << " GLASS" << endl;
+            cout << ">  Builder " << currPlayer << " loses " << totalLost << " resources to the geese. They lose:" << endl;
+            if (lostHeat != 0) cout << ">  " << lostHeat << " HEAT" << endl;
+            if (lostWifi != 0) cout << ">  " << lostWifi << " WIFI" << endl;
+            if (lostEnergy != 0) cout << ">  " << lostEnergy << " ENERGY" << endl;
+            if (lostBrick != 0) cout << ">  " << lostBrick << " BRICK" << endl;
+            if (lostGlass != 0) cout << ">  " << lostGlass << " GLASS" << endl;
         }
     }
 }
@@ -864,13 +888,13 @@ void Board::moveGeese( int pos ){
     if (curTurn == 3) currPlayer = "Yellow";
     // if no neighbour player
     if (neighbourPlayer.size() == 0) {
-        cout << "Builder " << currPlayer << " has no builders to steal from." << endl;
+        cout << ">  Builder " << currPlayer << " has no builders to steal from." << endl;
     } else {
         // remove duplicates
         sort( neighbourPlayer.begin(), neighbourPlayer.end() );
         neighbourPlayer.erase(unique( neighbourPlayer.begin(), neighbourPlayer.end() ), neighbourPlayer.end() );
         // print message
-        cout << "Builder " << currPlayer << " can choose to steal from ";
+        cout << ">  Builder " << currPlayer << " can choose to steal from ";
         for (size_t i = 0; i < neighbourPlayer.size(); i++) {
             if (neighbourPlayer[i] == 'B') cout << "Blue";
             if (neighbourPlayer[i] == 'R') cout << "Red";
@@ -879,7 +903,7 @@ void Board::moveGeese( int pos ){
             if (i != neighbourPlayer.size() - 1) cout << ", ";
         }
         cout << "." << endl;
-        cout << "Choose a builder to steal from." << endl;
+        cout << ">  Choose a builder to steal from." << endl;
         // ask for respone
         string response;
         while (true) {
@@ -907,7 +931,7 @@ void Board::moveGeese( int pos ){
         if (resourceStolen == 'E') resStolen = "ENERGY";
         if (resourceStolen == 'B') resStolen = "BRICK";
         if (resourceStolen == 'G') resStolen = "GLASS";
-        cout << "Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
+        cout << ">  Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
         // update player resource
         players[curTurn]->addResource(resourceStolen);
     }
