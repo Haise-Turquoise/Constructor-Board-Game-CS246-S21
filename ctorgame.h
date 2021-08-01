@@ -1,6 +1,7 @@
 #ifndef _CTORGAME_H_
 #define _CTORGAME_H_
 #include <string>
+#include <vector>
 #include <iostream>
 
 class Board;
