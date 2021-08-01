@@ -38,7 +38,7 @@ Board::Board() {
 
 int Board::getCurTurn() const {return this->curTurn; }
 void Board::setCurTurn(int ind) {this->curTurn = ind; }
-int Board::getGeese() {return posGeese};
+int Board::getGeese() const {return posGeese};
 
 void Board::clearBoard() {
     for ( int i = 0; i < 4; i++ ) {
