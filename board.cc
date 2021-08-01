@@ -459,14 +459,14 @@ void Board::loadRoad( int posPlayer, int pos ) {
 }
 
 
-bool Board::buildResFree( int pos ) {
+bool Board::buildResFree( int posPlayer, int pos ) {
     Vertex* destVertex = vertices[pos];
     size_t position = pos;
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return false;}
     if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildResFree access nullptr to pass ";return false;}
-    bool tmp = players[curTurn]->buildResFree(destVertex);
-    if (tmp == true) destVertex->setOwnerPos(curTurn);
+    bool tmp = players[posPlayer]->buildResFree(destVertex);
+    if (tmp == true) destVertex->setOwnerPos(posPlayer);
     return tmp;
 }
 
