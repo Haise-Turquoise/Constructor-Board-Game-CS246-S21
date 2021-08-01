@@ -889,10 +889,11 @@ void Board::moveGeese( int pos ){
         if (response == "Orange") resourceStolen = players[2]->beStolen(seed);
         if (response == "Yellow") resourceStolen = players[3]->beStolen(seed);
         string resStolen;
-        if (resourceStolen == 'B') resStolen = "Blue";
-        if (resourceStolen == 'R') resStolen = "Red";
-        if (resourceStolen == 'O') resStolen = "Orange";
-        if (resourceStolen == 'Y') resStolen = "Yellow";
+        if (resourceStolen == 'H') resStolen = "HEAT";
+        if (resourceStolen == 'W') resStolen = "WIFI";
+        if (resourceStolen == 'E') resStolen = "ENERGY";
+        if (resourceStolen == 'B') resStolen = "BRICK";
+        if (resourceStolen == 'G') resStolen = "GLASS";
         cout << "Builder " << currPlayer << " steals " << resStolen << " from builder " << response << "." << endl;
         // update player resource
         players[curTurn]->decResource(resourceStolen);
