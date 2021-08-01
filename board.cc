@@ -732,7 +732,7 @@ void Board::gainResources(int tileVal){
     // only notify which has been build
     for ( size_t i = 0; i < tiles.size(); i++ ) {
         if ( tiles[i] == nullptr ) { cout << "WARNING: Board::gainResources dereference nullptr at line:" << __LINE__ << endl; return; }
-        if ( i == posGeese ) continue;
+        if ( static_cast<int>(i) == posGeese ) continue;
         if ( tiles[i]->getResourceType() == 'P' ) continue;
         if ( tiles[i]->getValue() == tileVal ) {
             tiles[i]->notifyObservers();
