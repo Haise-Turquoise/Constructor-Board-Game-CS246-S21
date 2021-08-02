@@ -1,0 +1,38 @@
+Piazza:
+1. can discussion get extra point
+2. method comment required?
+3. Markers will not assign values to individual bonus features during the demo grading. Your plan walks the TA through
+how to show what you have done, and the TA will take notes, but values will be decided once all demos are completed.
+
+Final design document:
+formatting ivy
+• ivy Introduction (if needed)
+• Jim Overview (describe the overall structure of your project)
+• Mason Design (describe the specific techniques you used to solve the various design challenges in the project)
+• Jim Resilience to Change (describe how your design supports the possibility of various changes to the program specification)
+• Mason Answers to 5 Questions (the ones in your project specification)
+• ivy Mason Extra Credit Features (what you did, why they were challenging, how you solved them—if necessary)
+• Jim 2 Final Questions (the last two questions in this document).
+
+demo.pdf ivy    8.6
+UML.pdf Jim     8.6
+
+extra feature:
+- smart pointer   8.4
+One enhancement that is available for all projects is offered as a challenge: complete the entire project, without leaks,
+and without explicitly managing your own memory. In other words, handle all memory management via STL containers
+and smart pointers. If you do this, there should be no delete statements in your program at all, and very few raw
+pointers (the only raw pointers you would be permitted to have are those that are not meant to express ownership).
+Successful completion of this challenge will earn you 4 of the available 10 bonus marks. If your program leaks, these
+marks cannot be earned. Also note that these 4 marks are not reserved for this feature; it is theoretically possible to get
+all 10 bonus marks without implementing this challenge.
+- graphic 
+
+test: 8.8
+ivy part tester: Mason
+Jim part tester: ivy
+Mason part tester: Jim
+
+0t-list (comment of test cases)
+
+reminder: delete all playerQueue in board.h board.cc (注意大小写)
