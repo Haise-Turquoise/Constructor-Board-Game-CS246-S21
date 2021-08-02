@@ -746,18 +746,19 @@ void Board::printUsingChoice() {
     int numBrick = players[cur]->getNumResource('B');
     int numEnergy = players[cur]->getNumResource('E');
     int numWifi = players[cur]->getNumResource('W');
-    if ((numHeat > 0) && (numWifi > 0)) { cout << ">          build a road; " << endl; }
+    if ((numHeat > 0) && (numWifi > 0)) { cout << ">          build-road <edge#>: Build a Road; " << endl; }
     if ((numGlass > 0) && (numBrick > 0) && (numEnergy > 0) && (numWifi > 0)) {
-        cout << ">          build a basement; " << endl;
+        cout << ">          build-res <housing#>: Build a Basement; " << endl;
     }
-    if ((numHeat > 2) && (numGlass > 1)) { cout << ">          improve a basement to House; " << endl; }
+    if ((numHeat > 2) && (numGlass > 1)) { cout << ">          improve <housing#>: Improve a Basement to House; " << endl; }
     if ((numHeat > 0) && (numGlass > 1) && (numBrick > 2) && (numEnergy > 1) && (numWifi > 0)) { 
-        cout << ">          improve a House to Tower; " << endl; 
+        cout << ">          improve <housing#>: Improve a House to Tower; " << endl; 
     }
     if ((numHeat > 0) || (numGlass > 0) || (numBrick > 0) || (numEnergy > 0) || (numWifi > 0)) {
-        cout << ">          trade with other players who have resources you want; " << endl;
+        cout << ">          trade <colour> <give> <take>: Trade with other players; " << endl;
     }
-    cout << ">          pass control on to the next builder; " << endl;
+    cout << ">          next: Pass control onto the next builder; " << endl;
+    cout << ">  To list all commands, please enter 'help' " << endl;
 }
 
 string askForString() {
@@ -787,7 +788,7 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     if ((numResOwn != 0) && (numResOther != 0)) {
         cout << ">  " << fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
-        cout << ">  Dose " << otherplayer << " accept this offer?" << endl;
+        cout << ">  Dose " << otherplayer << " accept this offer?   yes/no (accept any case)" << endl; 
         while (true) {
             string choice = askForString();
             if (choice == "eof") return -1; 
@@ -855,7 +856,7 @@ void Board::loseHalf() {
 
 
 
-void Board::moveGeese( int pos ){
+int Board::moveGeese( int pos ){
     // get potential-to-be-stolen player
     // getneighbour vertices
     vector<int> neighbour;
@@ -923,7 +924,8 @@ void Board::moveGeese( int pos ){
         // ask for respone
         string response;
         while (true) {
-            cin >> response;
+            response = askForString();
+            if (response == "eof") return -1; 
             // check if response is valid
             char res;
             if (response == "Blue") res = 'B';
@@ -953,6 +955,7 @@ void Board::moveGeese( int pos ){
     }
     // move GEESE display
     posGeese = pos;
+    return 0;
 }
 
 
