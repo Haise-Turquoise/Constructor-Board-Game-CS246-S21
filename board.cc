@@ -739,7 +739,7 @@ void Board::gainResources(int tileVal){
 
 // Ivy
 void Board::printUsingChoice() {
-    cout << ">  You can:" << endl;
+    cout << ">  Based on your current resources, actions avaiable are: " << endl;
     int cur = getCurTurn();
     int numHeat = players[cur]->getNumResource('H');
     int numGlass = players[cur]->getNumResource('G');
@@ -757,6 +757,21 @@ void Board::printUsingChoice() {
     if ((numHeat > 0) || (numGlass > 0) || (numBrick > 0) || (numEnergy > 0) || (numWifi > 0)) {
         cout << ">          trade with other players who have resources you want; " << endl;
     }
+    cout << ">          pass control on to the next builder; " << endl;
+}
+
+string askForString() {
+    cin.exceptions(ios::eofbit|ios::failbit);
+    string cmd = "eof";
+    while (true) {
+        try { 
+            cin >> cmd;  break;
+        }  
+        catch (ios::failure &) {
+            if (cin.eof())  return "eof"; 
+        }       
+    }
+    return cmd;
 }
 
 
@@ -773,21 +788,25 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
         cout << ">  " << fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
         cout << ">  Dose " << otherplayer << " accept this offer?" << endl;
-        string choice; 
         while (true) {
-            if (!(cin >> choice)) return -1;
-            if (choice != "yes" && choice != "no") {
-                cout << ">  Please enter either: yes or no" << endl;
-            } else if ((choice == "yes") || (choice == "YES") || (choice == "Yes")) {
+            string choice = askForString();
+            if (choice == "eof") return -1; 
+            int size = choice.length();
+            for (int i = 0; i < size; i++){
+                choice[i] = toupper(choice[i]);
+            }
+            if (choice == "YES") {
                 players[cur]->addResource(otherResource[0]);
                 players[cur]->decResource(ownResources[0]);
                 players[other]->addResource(ownResources[0]);
                 players[other]->decResource(otherResource[0]);
                 cout << ">  Successfully traded!" << endl;
                 return 0;
-            } else { 
+            } else if (choice == "NO") {
                 cout << ">  Trade request was refused!" << endl;
                 return 0;
+            } else { 
+                cout << ">  Please enter either: 'yes' or 'no' (accept any case)" << endl;
             }
         }
     } else if (numResOwn == 0){
