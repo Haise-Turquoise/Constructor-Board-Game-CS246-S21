@@ -778,7 +778,7 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
             if (!(cin >> choice)) return -1;
             if (choice != "yes" && choice != "no") {
                 cout << ">  Please enter either: yes or no" << endl;
-            } else if (choice == "yes" | choice == "YES" | choice == "Yes") {
+            } else if ((choice == "yes") || (choice == "YES") || (choice == "Yes")) {
                 players[cur]->addResource(otherResource[0]);
                 players[cur]->decResource(ownResources[0]);
                 players[other]->addResource(ownResources[0]);
