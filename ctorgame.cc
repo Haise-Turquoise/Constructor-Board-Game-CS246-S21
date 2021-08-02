@@ -102,37 +102,41 @@ bool CtorGame::play() {
         int dice = 0;
         while (true) {
             if (rolled) break;
-            if (!(cin>>cmd)) { endGame(board); return 0; }
-            if (cmd == "roll") {
-                if (!fairOrLoad[curTurn]) {                        // load dice
-                    cout << ">  Input a dice value between 2 to 12 (inclusive):"<< endl;
-                    dice = askForInteger(12,2);
-                    if (dice == -1) { endGame(board); return 0;}
-                    board.rollDice(dice);
+            try {
+                cin >> cmd;
+                if (cmd == "roll") {
+                    if (!fairOrLoad[curTurn]) {                        // load dice
+                        cout << ">  Input a dice value between 2 to 12 (inclusive):"<< endl;
+                        dice = askForInteger(12,2);
+                        if (dice == -1) { endGame(board); return 0;}
+                        board.rollDice(dice);
+                    } else {
+                        dice = board.rollDice();
+                    }
+                    rolled = true;
+                    cout<< ">  Finish rolling" << endl;
+                } else if (cmd == "fair") {
+                    fairOrLoad[curTurn] = true;
+                    board.setDice(true);
+                    cout<< ">  Player " << fourPlayers[curTurn] << " uses fair dice now" << endl;
+                } else if (cmd == "load") {
+                    fairOrLoad[curTurn] = false;
+                    board.setDice(false);
+                    cout<< ">  Player " << fourPlayers[curTurn] << " uses loaded dice now" << endl;
                 } else {
-                    dice = board.rollDice();
-                }
-                rolled = true;
-                cout<< ">  Finish rolling" << endl;
-            } else if (cmd == "fair") {
-                fairOrLoad[curTurn] = true;
-                board.setDice(true);
-                cout<< ">  Player " << fourPlayers[curTurn] << " uses fair dice now" << endl;
-            } else if (cmd == "load") {
-                fairOrLoad[curTurn] = false;
-                board.setDice(false);
-                cout<< ">  Player " << fourPlayers[curTurn] << " uses loaded dice now" << endl;
-            } else {
-                cerr << ">  Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
+                    cerr << ">  Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
+                } 
+            }
+            catch (ios::failure &) {
+                if (cin.eof()) { endGame(board); return 0; }
             } 
         }
         cout << "You have rolled: " << dice << endl;
         // obtaining resources or move geese
-        if (dice != 7) {
-            cout<<">  Dice not 7, builder gain resources"<< endl;
+        if (dice != 7) { 
             board.gainResources(dice);
         } else {    // move geese
-            cout<<" Dice is 7, lose half and move geese"<<endl;
+            cout<<" Dice is 7. Geese attack!"<<endl;
             
             board.loseHalf();
             cout << ">  Choose where to place the Geese" << endl;
@@ -152,67 +156,73 @@ bool CtorGame::play() {
 
         // during the turn 
         while (true) {
-            if (!(cin>>cmd)) { endGame(board); return 0; }
-
-            if (cmd == "help") {
-                cout << "Valid commands:" << endl;
-                cout << "board" << endl << "status" << endl << "residences" << endl;
-                cout << "build-road <edge#>" << endl << "build-res <housing#>" << endl;
-                cout << "improve <housing#>" << endl << "trade <colour> <give> <take>" << endl;
-                cout << "next" << endl << "save <file>" << endl << "help" << endl;
-            } 
-            else if (cmd == "board") {
-                cout<<">  Print Board"<<endl;
-                board.printBoard();
-            } 
-            else if (cmd == "status") {
-                cout<<">  Print all status"<<endl;
-                board.printAllPlayerStatus();
-            } 
-            else if (cmd == "residences") {
-                cout<<">  Print cur status"<<endl;
-                board.printCurPlayerRes();
-            } 
-            else if (cmd == "build-road") {
-                int pos = askForInteger(71);
-                if (pos == -1) {endGame(board); return 0;}
-                cout<<">  Build road "<< pos <<endl;
-                board.buildRoad(pos);
-            } 
-            else if (cmd == "build-res") {
-                int pos = askForInteger(53);
-                if (pos == -1) {endGame(board); return 0;}
-                cout<<">  Build residence "<< pos <<endl;
-                board.buildRes(pos);
-            } 
-            else if (cmd == "improve") {
-                int pos = askForInteger(53);
-                if (pos == -1) {endGame(board); return 0;}
-                cout<<">  Improve res "<< pos <<endl;
-                board.improveRes(pos);
-            } 
-            else if (cmd == "trade") {
-                string colour, give, take;
-                if (!(cin >> colour >> give >> take)) {     // read fail: eof
-                    endGame(board); return 0;
+            try {
+                cin >> cmd;
+                if (cmd == "help") {
+                    cout << "Valid commands:" << endl;
+                    cout << "board" << endl << "status" << endl << "residences" << endl;
+                    cout << "build-road <edge#>" << endl << "build-res <housing#>" << endl;
+                    cout << "improve <housing#>" << endl << "trade <colour> <give> <take>" << endl;
+                    cout << "next" << endl << "save <file>" << endl << "help" << endl;
                 } 
-                int pos = board.trade(colour,give,take);
-                if (pos == -1) {endGame(board); return 0;}
-            } 
-            else if (cmd == "next") {
-                break;
-            } 
-            else if (cmd == "save") {
-                string fileName;
-                cin >> fileName;    // should we check file name format?
-                endGame(board,fileName);
-                board.clearBoard();
-                return 0;
-            } 
-            else {
-                cerr << ">  Error: " << cmd << ": command not found! ";
-                cerr << ">  Using command 'help' to check all commands." << endl;
+                else if (cmd == "board") {
+                    cout<<">  Print Board"<<endl;
+                    board.printBoard();
+                } 
+                else if (cmd == "status") {
+                    cout<<">  Print all status"<<endl;
+                    board.printAllPlayerStatus();
+                } 
+                else if (cmd == "residences") {
+                    cout<<">  Print cur status"<<endl;
+                    board.printCurPlayerRes();
+                } 
+                else if (cmd == "build-road") {
+                    int pos = askForInteger(71);
+                    if (pos == -1) {endGame(board); return 0;}
+                    cout<<">  Build road "<< pos <<endl;
+                    board.buildRoad(pos);
+                } 
+                else if (cmd == "build-res") {
+                    int pos = askForInteger(53);
+                    if (pos == -1) {endGame(board); return 0;}
+                    cout<<">  Build residence "<< pos <<endl;
+                    board.buildRes(pos);
+                } 
+                else if (cmd == "improve") {
+                    int pos = askForInteger(53);
+                    if (pos == -1) {endGame(board); return 0;}
+                    cout<<">  Improve res "<< pos <<endl;
+                    board.improveRes(pos);
+                } 
+                else if (cmd == "trade") {
+                    string colour, give, take;
+                    if (!(cin >> colour >> give >> take)) {     // read fail: eof
+                        endGame(board); return 0;
+                    } 
+                    int pos = board.trade(colour,give,take);
+                    if (pos == -1) {endGame(board); return 0;}
+                } 
+                else if (cmd == "next") {
+                    break;
+                } 
+                else if (cmd == "save") {
+                    string fileName;
+                    try { cin >> fileName; }
+                    catch (ios::failure &) { if (cin.eof()) {endGame(board); return 0;} }
+                    endGame(board,fileName);
+                    board.clearBoard();
+                    return 0;
+                } 
+                else {
+                    cerr << ">  Error: " << cmd << ": command not found! ";
+                    cerr << ">  Using command 'help' to check all commands." << endl;
+                }
             }
+            catch (ios::failure &) {
+                if (cin.eof()) { endGame(board); return 0; }
+            } 
+
             bool won = board.checkWon();
             if (won) {
                 cout << ">  Builder " << fourPlayers[board.getCurTurn()] << " won the game!" << endl;
