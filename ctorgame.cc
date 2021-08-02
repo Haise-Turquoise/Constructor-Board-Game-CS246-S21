@@ -44,7 +44,7 @@ int askForInteger(int up = 100, int lb = 0) { //
     return pos;
 }
 // helper when ask user to input a string command, return "eof" when EOF
-string askForString() {
+string askForCommand() {
     cin.exceptions(ios::eofbit|ios::failbit);
     string cmd = "eof";
     while (true) {
@@ -113,7 +113,7 @@ bool CtorGame::play() {
         int dice = 0;
         while (true) {
             if (rolled) break;
-            cmd = askForString();
+            cmd = askForCommand();
             if (cmd == "eof") {endGame(board); return 0;}
 
             if (cmd == "roll") {
@@ -161,7 +161,7 @@ bool CtorGame::play() {
 
         // during the turn 
         while (true) {
-            cmd = askForString();
+            cmd = askForCommand();
             if (cmd == "eof") {endGame(board); return 0;}
 
             if (cmd == "help") {
@@ -199,9 +199,9 @@ bool CtorGame::play() {
                 cout << ">  Player upgraded residence "<< pos <<endl;
             } 
             else if (cmd == "trade") { 
-                string colour = askForString();
-                string give = askForString();
-                string take = askForString();
+                string colour = askForCommand();
+                string give = askForCommand();
+                string take = askForCommand();
                 if ((colour == "eof") || (give == "eof") || (take == "eof")) {
                     endGame(board); return 0;
                 }
@@ -212,7 +212,7 @@ bool CtorGame::play() {
                 break;
             } 
             else if (cmd == "save") {
-                string fileName = askForString();
+                string fileName = askForCommand();
                 if (fileName == "eof") {endGame(board); return 0;} 
                 endGame(board,fileName);
                 board.clearBoard();
@@ -227,7 +227,7 @@ bool CtorGame::play() {
             if (won) {
                 cout << ">  Builder " << fourPlayers[board.getCurTurn()] << " won the game!" << endl;
                 cout << ">  Would you like to play again? (yes/no)" << endl;
-                string yesOrNo = askForString();
+                string yesOrNo = askForCommand();
                 if (yesOrNo == "yes") return 1;
                 if (yesOrNo == "eof") {endGame(board); return 0;} 
                 if (yesOrNo == "no") return 0;
