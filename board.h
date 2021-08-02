@@ -5,8 +5,7 @@
 #include "edge.h"
 #include "player.h"
 #include <vector>
-#include <string>
-#include <queue>
+#include <string> 
 #include "dice.h"
 #include "strategy.h"
 
@@ -16,8 +15,7 @@ class Board {
     std::vector<Tile*> tiles;
     std::vector<Vertex*> vertices;
     std::vector<Edge*> edges;
-    std::vector<Player*> players;
-    std::queue<char> playerQueue;
+    std::vector<Player*> players; 
     int curTurn = 0;
     
     // 5 helper function for Board::printBoard()
