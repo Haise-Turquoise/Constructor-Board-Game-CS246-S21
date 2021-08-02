@@ -28,11 +28,7 @@ Board::Board() {
     for ( int k = 0; k < 72; k++ ) {
         Edge* tmpEdge = new Edge{k};
         edges.emplace_back(tmpEdge);
-    }
-    playerQueue.push('B');
-    playerQueue.push('R');
-    playerQueue.push('O');
-    playerQueue.push('Y');
+    } 
     initAttachBoard();
 }
 
@@ -758,7 +754,7 @@ void Board::printUsingChoice() {
     if ((numHeat >= 1) && (numGlass >= 2) && (numBrick >= 3) && (numEnergy >= 2) && (numWifi >= 1)) { 
         cout << ">          improve a House to Tower; "; 
     }
-    if ((numHeat > 0) | (numGlass > 0) | (numBrick > 0) | (numEnergy > 0) | (numWifi > 0)) {
+    if ((numHeat > 0) || (numGlass > 0) || (numBrick > 0) || (numEnergy > 0) || (numWifi > 0)) {
         cout << ">          trade with other players who have resources you want; ";
     }
 }
