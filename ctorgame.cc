@@ -151,7 +151,8 @@ bool CtorGame::play() {
                 if (pos == board.getGeese()) {
                     cout << ">  Geese should be moved to the tile not previously on." << endl;
                 } else {
-                    board.moveGeese(pos);
+                    int eofVal = board.moveGeese(pos);
+                    if (eofVal == -1) { endGame(board); return 0;}
                     break;
                 }
             } 
