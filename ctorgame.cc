@@ -98,8 +98,7 @@ bool CtorGame::play() {
         cout << ">  Builder " << fourPlayers[curTurn] << "'s turn." << endl;
         string cmd;  
         // roll dice 
-        bool rolled = false;        
-        bool fair = false;
+        bool rolled = false;    
         int dice = 0;
         while (true) {
             if (rolled) break;
