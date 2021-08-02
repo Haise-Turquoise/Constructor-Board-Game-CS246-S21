@@ -746,7 +746,7 @@ void Board::printUsingChoice() {
     int numBrick = players[cur]->getNumResource('B');
     int numEnergy = players[cur]->getNumResource('E');
     int numWifi = players[cur]->getNumResource('W');
-    if ((numHeat >= 0) && (numWifi >= 0) { cout << ">          build a road; "; }
+    if ((numHeat >= 0) && (numWifi >= 0)) { cout << ">          build a road; "; }
     if ((numGlass >= 1) && (numBrick >= 1) && (numEnergy >= 1) && (numWifi >= 1)) {
         cout << ">          build a basement; ";
     }
