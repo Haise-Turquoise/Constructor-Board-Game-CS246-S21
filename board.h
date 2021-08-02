@@ -59,7 +59,7 @@ class Board {
     void printUsingChoice();
     int trade( std::string otherplayer, std::string ownResources, std::string otherResource );
     void loseHalf();
-    void moveGeese( int pos );
+    int moveGeese( int pos );       // return -1 when receives an eof
 
     bool checkWon();
 
