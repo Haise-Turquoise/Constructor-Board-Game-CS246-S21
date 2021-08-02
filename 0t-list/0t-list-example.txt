@@ -1,0 +1,18 @@
+guesstime-8 guesslimit-1   (win and lost message, guessslimit check)  corner light, edge light
+guesstime-8 guesslimit-7   (win and lost message, guessslimit check)  corner light, edge light
+guesstime-8 guesslimit-8  (win and lost message, guessslimit check)  corner light, edge light
+guesstime-8 guesslimit-9  (win and lost message, guessslimit check)  corner light, edge light
+guesstime-20 guesslimit-100  (win and lost message, guessslimit check)  corner light, edge light repeat same location
+no init game
+init -1 -1 (no init but with init command) game
+init out of range(rubbish test!!!)
+neighbours 9 or 10/ double new
+large grid 25
+switch out of range (rubbish test)
+tiny grid 3 neighbour
+tiny grid 2 neighbour
+tiny grid 1 neighbour
+tiny grid 1 neighbour with no init content
+tiny grid 1 neighbour with no init
+input in one line
+
