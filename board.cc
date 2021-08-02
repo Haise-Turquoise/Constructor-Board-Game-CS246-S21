@@ -746,16 +746,16 @@ void Board::printUsingChoice() {
     int numBrick = players[cur]->getNumResource('B');
     int numEnergy = players[cur]->getNumResource('E');
     int numWifi = players[cur]->getNumResource('W');
-    if ((numHeat > 0) && (numWifi > 0)) { cout << ">          build a road; "; }
-    if ((numGlass >= 1) && (numBrick >= 1) && (numEnergy >= 1) && (numWifi >= 1)) {
-        cout << ">          build a basement; ";
+    if ((numHeat > 0) && (numWifi > 0)) { cout << ">          build a road; " << endl; }
+    if ((numGlass > 0) && (numBrick > 0) && (numEnergy > 0) && (numWifi > 0)) {
+        cout << ">          build a basement; " << endl;
     }
-    if ((numHeat >= 3) && (numGlass >= 2)) { cout << ">          improve a basement to House; "; }
-    if ((numHeat >= 1) && (numGlass >= 2) && (numBrick >= 3) && (numEnergy >= 2) && (numWifi >= 1)) { 
-        cout << ">          improve a House to Tower; "; 
+    if ((numHeat > 2) && (numGlass > 1)) { cout << ">          improve a basement to House; " << endl; }
+    if ((numHeat > 0) && (numGlass > 1) && (numBrick > 2) && (numEnergy > 1) && (numWifi > 0)) { 
+        cout << ">          improve a House to Tower; " << endl; 
     }
     if ((numHeat > 0) || (numGlass > 0) || (numBrick > 0) || (numEnergy > 0) || (numWifi > 0)) {
-        cout << ">          trade with other players who have resources you want; ";
+        cout << ">          trade with other players who have resources you want; " << endl;
     }
 }
 
