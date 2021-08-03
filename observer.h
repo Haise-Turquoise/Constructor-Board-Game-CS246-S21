@@ -1,9 +1,7 @@
 #ifndef _OBSERVER_H_
-#define _OBSERVER_H_
-#include "subject.h"
+#define _OBSERVER_H_ 
 #include <string>
-
-class Vertex;
+ 
 class Tile;
 
 class Observer {
