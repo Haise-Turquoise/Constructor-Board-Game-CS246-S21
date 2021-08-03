@@ -10,6 +10,7 @@
 #include "vertex.h"
 #include "edge.h"
 #include "player.h"
+#include <memory>
 using namespace std;
 
 Board::Board() {
