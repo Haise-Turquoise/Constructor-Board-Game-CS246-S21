@@ -1,6 +1,5 @@
 #ifndef __DICE_H__
 #define __DICE_H__
-#include "strategy.h"
 #include <memory>
 
 
@@ -9,6 +8,7 @@
 // Dice dice = Dice{new DiceRand, 0 (placeholder), seed};       --- roll random dice
 // strategy should be wrapped insmart pointer
 
+class Strategy;
 
 class Dice {
     std::shared_ptr<Strategy> strategy;
