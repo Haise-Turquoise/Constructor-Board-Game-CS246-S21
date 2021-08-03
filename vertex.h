@@ -1,6 +1,7 @@
 #ifndef __VERTEX_H__
 #define __VERTEX_H__
 #include <vector>
+#include <memory>
 #include "observer.h"
 
 class Player;
@@ -12,23 +13,23 @@ class Vertex : public Observer {
     char buildType;
     int ownerPos; // position of owner in the players vector in Board (0-3)
     Player* owner;
-    std::vector<Vertex*> neighbourVertices;
-    std::vector<Edge*> neighbourEdges;
+    std::vector<std::shared_ptr<Vertex>> neighbourVertices;
+    std::vector<std::shared_ptr<Edge>> neighbourEdges;
 
     public:
     Vertex(int idx = -1);
     ~Vertex();
-    int getIndex();
-    char getBuildType();
-    int getOwnerPos();
-    Player* getOwner();
-    std::vector<Edge*> getNeighbourEdges();
+    int getIndex() const;
+    char getBuildType() const;
+    int getOwnerPos() const;
+    Player* getOwner() const;
+    std::vector<Edge*> getNeighbourEdges() const;
 
     void setIndex(int idx);
     void setBuildType(char bt);
     void setOwnerPos(int op);
     void setOwner( Player* ptrp );
-    void attachVertex( Vertex* ptrv );
+    //void attachVertex( Vertex* ptrv );
     void attachEdge( Edge* ptre );
     void attachEdgeDoubly( Edge* ptre );
 
