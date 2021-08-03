@@ -6,9 +6,9 @@ using namespace std;
 Tile::Tile(int idx): index{idx}, resourceType{'-'}, value{-1} {}
 Tile::~Tile() {}
 
-int Tile::getIndex() { return index; }
-char Tile::getResourceType() { return resourceType; }
-int Tile::getValue() { return value; }
+int Tile::getIndex() const { return index; }
+char Tile::getResourceType() const { return resourceType; }
+int Tile::getValue() const { return value; }
 
 void Tile::setIndex(int idx) { index = idx; }
 void Tile::setResourceType(char rt) { resourceType = rt; }
