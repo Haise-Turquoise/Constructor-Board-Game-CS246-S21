@@ -13,7 +13,7 @@ int Vertex::getIndex() const { return index; }
 char Vertex::getBuildType() const { return buildType; }
 int Vertex::getOwnerPos() const { return ownerPos; }
 Player* Vertex::getOwner() const { return owner; }
-shared_ptr<Edge>> Vertex::getNeighbourEdges() const { return neighbourEdges; }
+vector<Edge*> Vertex::getNeighbourEdges() const { return neighbourEdges; }
 
 void Vertex::setIndex(int idx) { index = idx; }
 void Vertex::setBuildType(char bt) { buildType = bt; }
@@ -27,12 +27,12 @@ void Vertex::attachVertex( Vertex* ptrv ) {
 }
 */
 
-void Vertex::attachEdge( shared_ptr<Edge> ptre ) {
+void Vertex::attachEdge( Edge* ptre ) {
     if ( ptre == nullptr ) cout << "WARNING: NULLPTR parameter in Vertex::attachEdge!" << endl; 
     neighbourEdges.emplace_back(ptre);
 }
 
-void Vertex::attachEdgeDoubly( shared_ptr<Edge> ptre ) {
+void Vertex::attachEdgeDoubly( Edge* ptre ) {
     if ( ptre == nullptr ) cout << "WARNING: NULLPTR parameter in Vertex::attachEdgeDoubly!" << endl;
     neighbourEdges.emplace_back(ptre);
     ptre->attachVertex(this);
