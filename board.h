@@ -5,17 +5,18 @@
 #include "edge.h"
 #include "player.h"
 #include <vector>
-#include <string> 
+#include <string>
+#include <memory>
 #include "dice.h"
 #include "strategy.h"
 
 class Board {
     int posGeese = 7 ;
     int seed = 0;
-    std::vector<Tile*> tiles;
-    std::vector<Vertex*> vertices;
-    std::vector<Edge*> edges;
-    std::vector<Player*> players; 
+    std::vector<std::shared_ptr<Tile>> tiles;
+    std::vector<std::shared_ptr<Vertex>> vertices;
+    std::vector<std::shared_ptr<Edge>> edges;
+    std::vector<std::shared_ptr<Player>> players; 
     int curTurn = 0;
     
     // 5 helper function for Board::printBoard()
@@ -66,3 +67,4 @@ class Board {
     void endCurTurn();
     
 };
+
