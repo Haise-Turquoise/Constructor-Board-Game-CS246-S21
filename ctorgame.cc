@@ -61,8 +61,7 @@ string askForCommand() {
 void CtorGame::endGame(Board & board, string fileName){ 
     string out = board.saveGame(); 
     ofstream fileOut{fileName}; 
-    fileOut << out << endl;
-    board.clearBoard();
+    fileOut << out << endl; 
     cout << ">  Saved in "<< fileName << " !" << endl;
 }
 
@@ -215,8 +214,7 @@ bool CtorGame::play() {
             else if (cmd == "save") {
                 string fileName = askForCommand();
                 if (fileName == "eof") {endGame(board); return 0;} 
-                endGame(board,fileName);
-                board.clearBoard();
+                endGame(board,fileName); 
                 return 0;
             } 
             else {
