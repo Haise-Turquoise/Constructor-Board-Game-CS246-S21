@@ -1,4 +1,3 @@
-#include "board.h"
 #include <random>
 #include <algorithm>
 #include <sstream>
@@ -6,33 +5,26 @@
 #include <fstream>
 #include <utility>
 #include <iomanip>
+#include <memory>
+#include "board.h"
 #include "tile.h"
 #include "vertex.h"
 #include "edge.h"
 #include "player.h"
-#include <memory>
+
 using namespace std;
 
 Board::Board() {
-    for ( int i = 0; i < 4; i++ ) {
-        //Player* tmpPlayer = new Player;
-        //players.emplace_back(tmpPlayer);
-
+    for ( int i = 0; i < 4; i++ ) { 
         players.emplace_back(make_shared<Player>());
     }
-    for ( int i = 0; i < 19; i++ ) {
-        // Tile* tmpTile = new Tile{i};
-        // tiles.emplace_back(tmpTile);
+    for ( int i = 0; i < 19; i++ ) { 
         tiles.emplace_back(make_shared<Tile>(i));
     }
-    for ( int j = 0; j < 54; j++ ) {
-        //Vertex* tmpVertex = new Vertex{j};
-        //vertices.emplace_back(tmpVertex);
+    for ( int j = 0; j < 54; j++ ) { 
         vertices.emplace_back(make_shared<Vertex>(j));
     }
-    for ( int k = 0; k < 72; k++ ) {
-        //Edge* tmpEdge = new Edge{k};
-        //edges.emplace_back(tmpEdge);
+    for ( int k = 0; k < 72; k++ ) { 
         edges.emplace_back(make_shared<Edge>(k));
     } 
     initAttachBoard();
@@ -42,26 +34,9 @@ int Board::getCurTurn() const {return this->curTurn; }
 void Board::setCurTurn(int ind) {this->curTurn = ind; }
 int Board::getGeese() const {return posGeese;};
 
-void Board::clearBoard() {
-    // for ( int i = 0; i < 4; i++ ) {
-    //     delete players[i];
-    // }
-    // for ( int i = 0; i < 19; i++ ) {
-    //     delete tiles[i];
-    // }
-    // for ( int j = 0; j < 54; j++ ) {
-    //     delete vertices[j];
-    // }
-    // for ( int k = 0; k < 72; k++ ) {
-    //     delete edges[k];
-    // }
-}
-
-
-void Board::initAttachBoard() {
-    // resource type on Tile still need to be set
+void Board::initAttachBoard() { 
     // attach Vertex neighbours to Tile
-    tiles[0]->attach(vertices[0].get());              // tile 0
+    tiles[0]->attach(vertices[0].get());        // tile 0
     tiles[0]->attach(vertices[1].get());
     tiles[0]->attach(vertices[3].get());
     tiles[0]->attach(vertices[4].get());
@@ -391,7 +366,7 @@ cout << "        |         |"<<gfo(6)<<"|         |"<<gfo(7)<<"|         |"<<end
 
 void Board::printAllPlayerStatus() {
     for ( int i = 0; i < 4; i++ ) {
-        cout << "Builder ";
+        cout << ">  Builder ";
         switch( i ) {
             case 0:
                 cout << "Blue     "; break;
@@ -419,13 +394,13 @@ void Board::printAllPlayerStatus() {
 void Board::printCurPlayerRes() {
     switch( curTurn ) {
         case 0:
-            cout << "Blue "; break;
+            cout << ">  Blue "; break;
         case 1:
-            cout << "Red "; break;
+            cout << ">  Red "; break;
         case 2:
-            cout << "Orange "; break;
+            cout << ">  Orange "; break;
         case 3:
-            cout << "Yellow "; break;
+            cout << ">  Yellow "; break;
         default:
             throw "WRONG curTurn TYPE FOR Board::printCurPlayerRes"; return; break;
     }
@@ -939,7 +914,7 @@ int Board::moveGeese( int pos ){
             if (response == "Orange") res = 'O';
             if (response == "Yellow") res = 'Y';
             if (find(neighbourPlayer.begin(),neighbourPlayer.end(),res) == neighbourPlayer.end()) {
-                cout << "Please select a builder mentioned above." << endl;
+                cout << ">  Please select a builder mentioned above." << endl;
             } else {
                 break;
             }
