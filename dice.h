@@ -1,6 +1,7 @@
 #ifndef __DICE_H__
 #define __DICE_H__
 #include "strategy.h"
+#include <memory>
 
 
 // use of Dice:
@@ -10,12 +11,12 @@
 
 
 class Dice {
-    Strategy* strategy;
+    std::shared_ptr<Strategy> strategy;
     int dicePoint;
     int seed;
     public:
-    Dice(Strategy* strategy, int dicePoint = 0, int seed = 0);
-    void setStrategy(Strategy* strategy);
+    Dice(std::shared_ptr<Strategy> strategy, int dicePoint = 0, int seed = 0);
+    void setStrategy(std::shared_ptr<Strategy> strategy);
     void roll();
     void setPoint(int value);
     int getPoint();
