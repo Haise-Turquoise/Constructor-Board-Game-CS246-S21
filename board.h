@@ -1,14 +1,12 @@
-#include "subject.h"
-#include "observer.h"
-#include "tile.h"
-#include "vertex.h"
-#include "edge.h"
-#include "player.h"
 #include <vector>
 #include <string>
-#include <memory>
-#include "dice.h"
+#include <memory> 
 #include "strategy.h"
+
+class Tile;
+class Vertex;
+class Edge;
+class Player;
 
 class Board {
     int posGeese = 7 ;
@@ -33,8 +31,7 @@ class Board {
     void setCurTurn(int ind);
     void setGeese( int ind );
     int getGeese() const;
-
-    void clearBoard();
+ 
     void printBoard();
     void printAllPlayerStatus();
     void printCurPlayerRes();
