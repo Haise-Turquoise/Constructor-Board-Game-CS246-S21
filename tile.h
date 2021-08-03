@@ -13,9 +13,9 @@ class Tile : public Subject {
     public:
     Tile(int idx = -1);
     virtual ~Tile();
-    int getIndex();
-    char getResourceType();
-    int getValue();
+    int getIndex() const;
+    char getResourceType() const;
+    int getValue() const;
     void setIndex(int idx);
     void setResourceType(char rt);
     void setValue(int v);
