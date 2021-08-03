@@ -6,13 +6,14 @@
 #include <stdexcept>
 #include <algorithm>
 #include <random>
+#include <memory>
 #include <chrono>
 using namespace std;
 
 
 Player::Player(): 
     numHeat{0}, numWifi{0}, numEnergy{0}, numBrick{0}, numGlass{0}
-    ,numBuild{0}, buildPoints{0}, dice{Dice(new DiceLoad())} { }
+    ,numBuild{0}, buildPoints{0}, dice{Dice(make_shared<DiceLoad>())} { }
 Player::~Player() {}
 
 int Player::getNumResource(char resourceType) { 
@@ -313,10 +314,10 @@ bool Player::decResource(char resourceType) { // need to check non-0
 //刘书辰
 int Player::rollDice( int value, int seed ) {
     if (strategy == 'L') {
-        dice.setStrategy(new DiceLoad());
+        dice.setStrategy(make_shared<DiceLoad>());
         dice.setPoint(value);
     } else {
-        dice.setStrategy(new DiceRand());
+        dice.setStrategy(make_shared<DiceRand>()); 
     }
     dice.roll();
     return dice.getPoint();
