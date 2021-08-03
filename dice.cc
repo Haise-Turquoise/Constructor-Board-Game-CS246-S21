@@ -1,4 +1,5 @@
 #include "dice.h"
+#include "strategy.h"
 
 Dice::Dice(std::shared_ptr<Strategy> strategy, int dicePoint, int seed)
     : strategy{strategy}, dicePoint{dicePoint}, seed{seed} {}
