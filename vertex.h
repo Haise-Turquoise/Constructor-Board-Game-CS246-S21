@@ -28,11 +28,8 @@ class Vertex : public Observer {
     void setIndex(int idx);
     void setBuildType(char bt);
     void setOwnerPos(int op);
-    void setOwner( Player* ptrp );
-    //void attachVertex( Vertex* ptrv );
-    void attachEdge( Edge* ptre );
+    void setOwner( Player* ptrp );  
     void attachEdgeDoubly( Edge* ptre );
-
 
     virtual void wasNotified( Tile& whoNotified ) override;
 };
