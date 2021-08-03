@@ -1,4 +1,7 @@
 #include "player.h"
+#include "vertex.h"
+#include "edge.h"
+#include "strategy.h"
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -126,13 +129,13 @@ bool Player::buildRes( Vertex* ptrv ) {
         }
         if ( noNearBuilding == false ) break;
     }
-    if ( noNearBuilding == false ) { cout << "adjacent building nearby, cannot build here" << endl; return false; }
+    if ( noNearBuilding == false ) { cout << ">  Adjacent building nearby, cannot build here" << endl; return false; }
     // exist same color neighbour road around
     bool sameColorNearRoad = false;
     for ( size_t i = 0; i < ne.size(); i++ ) {
         if ( ne[i]->getOwner() == this ) { sameColorNearRoad = true; break; }
     }
-    if ( sameColorNearRoad == false ) { cout << "no adjacent same color road nearby, cannot build here" << endl; return false; }
+    if ( sameColorNearRoad == false ) { cout << ">  No adjacent same color road nearby, cannot build here" << endl; return false; }
     // update Player field, need to dec resource
     numBrick -= 1; numEnergy -= 1; numGlass -= 1; numWifi -= 1;
     numBuild += 1; buildPoints += 1;
@@ -176,7 +179,7 @@ bool Player::buildRoad( Edge* ptre ) {
         }
         if ( sameColorNear == true ) break;
     }
-    if ( sameColorNear == false ) { cout << "no adjacent same color road or vertice nearby, cannot build here" << endl; return false; }
+    if ( sameColorNear == false ) { cout << ">  No adjacent same color road or vertice nearby, cannot build here" << endl; return false; }
     
     
     // cannot cross existing other color building if only road there
@@ -207,7 +210,7 @@ bool Player::buildRoad( Edge* ptre ) {
         }
         if ( noCrossOther == true ) break;
     }
-    if ( noCrossOther == false ) { cout << "no nearby same color building and all nearby same color road cross nearby other color building, cannot build here" << endl; return false; }
+    if ( noCrossOther == false ) { cout << ">  No nearby same color building and all nearby same color road cross nearby other color building, cannot build here" << endl; return false; }
     
 
     numHeat -= 1; numWifi -= 1;
