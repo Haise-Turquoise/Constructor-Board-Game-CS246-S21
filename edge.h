@@ -2,6 +2,7 @@
 #define __EDGE_H__
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "vertex.h"
 
 class Player;
@@ -11,8 +12,8 @@ class Edge {
     int index;
     int ownerPos;
     Player* owner;
-    std::vector<Vertex*> neighbourVertices;
-    std::vector<Edge*> neighbourEdges;
+    std::vector<shared_ptr<Vertex>> neighbourVertices;
+    //std::vector<shared_ptr<Edge>> neighbourEdges;
 
     public:
     Edge(int idx = -1);
@@ -20,14 +21,14 @@ class Edge {
     int getIndex();
     int getOwnerPos();
     Player* getOwner();
-    std::vector<Vertex*> getNeighbourVertices();
+    std::vector<share_ptr<Vertex>> getNeighbourVertices();
 
     void setIndex(int idx);
     void setOwnerPos(int op);
     void setOwner(Player* ow);
-    void attachVertex( Vertex* ptrv );
-    void attachEdge( Edge* ptre );
-    void attachVertexDoubly( Vertex* ptrv );
+    void attachVertex( shared_ptr<Vertex> ptrv );
+    //void attachEdge( Edge* ptre );
+    //void attachVertexDoubly( Vertex* ptrv );
 };
 
 #endif
