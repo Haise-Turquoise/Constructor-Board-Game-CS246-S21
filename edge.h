@@ -12,7 +12,7 @@ class Edge {
     int index;
     int ownerPos;
     Player* owner;
-    std::vector<shared_ptr<Vertex>> neighbourVertices;
+    std::vector<Vertex*> neighbourVertices;
     //std::vector<shared_ptr<Edge>> neighbourEdges;
 
     public:
@@ -21,12 +21,12 @@ class Edge {
     int getIndex();
     int getOwnerPos();
     Player* getOwner();
-    std::vector<share_ptr<Vertex>> getNeighbourVertices();
+    std::vector<Vertex*> getNeighbourVertices();
 
     void setIndex(int idx);
     void setOwnerPos(int op);
     void setOwner(Player* ow);
-    void attachVertex( shared_ptr<Vertex> ptrv );
+    void attachVertex( Vertex* ptrv );
     //void attachEdge( Edge* ptre );
     //void attachVertexDoubly( Vertex* ptrv );
 };
