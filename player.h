@@ -1,10 +1,10 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
-#include <vector>
-#include "vertex.h"
-#include "edge.h"
+#include <vector> 
 #include "dice.h"
-#include "strategy.h"
+
+class Vertex;
+class Edge;
 
 class Player {
     int numHeat;
