@@ -14,20 +14,25 @@ using namespace std;
 
 Board::Board() {
     for ( int i = 0; i < 4; i++ ) {
-        Player* tmpPlayer = new Player;
-        players.emplace_back(tmpPlayer);
+        //Player* tmpPlayer = new Player;
+        //players.emplace_back(tmpPlayer);
+
+        players.emplace_back(make_shared<Player>());
     }
     for ( int i = 0; i < 19; i++ ) {
-        Tile* tmpTile = new Tile{i};
-        tiles.emplace_back(tmpTile);
+        // Tile* tmpTile = new Tile{i};
+        // tiles.emplace_back(tmpTile);
+        tiles.emplace_back(make_shared<Tile>(i));
     }
     for ( int j = 0; j < 54; j++ ) {
-        Vertex* tmpVertex = new Vertex{j};
-        vertices.emplace_back(tmpVertex);
+        //Vertex* tmpVertex = new Vertex{j};
+        //vertices.emplace_back(tmpVertex);
+        vertices.emplace_back(make_shared<Vertex>(j));
     }
     for ( int k = 0; k < 72; k++ ) {
-        Edge* tmpEdge = new Edge{k};
-        edges.emplace_back(tmpEdge);
+        //Edge* tmpEdge = new Edge{k};
+        //edges.emplace_back(tmpEdge);
+        edges.emplace_back(make_shared<Edge>(k));
     } 
     initAttachBoard();
 }
@@ -37,38 +42,38 @@ void Board::setCurTurn(int ind) {this->curTurn = ind; }
 int Board::getGeese() const {return posGeese;};
 
 void Board::clearBoard() {
-    for ( int i = 0; i < 4; i++ ) {
-        delete players[i];
-    }
-    for ( int i = 0; i < 19; i++ ) {
-        delete tiles[i];
-    }
-    for ( int j = 0; j < 54; j++ ) {
-        delete vertices[j];
-    }
-    for ( int k = 0; k < 72; k++ ) {
-        delete edges[k];
-    }
+    // for ( int i = 0; i < 4; i++ ) {
+    //     delete players[i];
+    // }
+    // for ( int i = 0; i < 19; i++ ) {
+    //     delete tiles[i];
+    // }
+    // for ( int j = 0; j < 54; j++ ) {
+    //     delete vertices[j];
+    // }
+    // for ( int k = 0; k < 72; k++ ) {
+    //     delete edges[k];
+    // }
 }
 
 
 void Board::initAttachBoard() {
     // resource type on Tile still need to be set
     // attach Vertex neighbours to Tile
-    tiles[0]->attach(vertices[0]);              // tile 0
-    tiles[0]->attach(vertices[1]);
-    tiles[0]->attach(vertices[3]);
-    tiles[0]->attach(vertices[4]);
-    tiles[0]->attach(vertices[8]);
-    tiles[0]->attach(vertices[9]);
+    tiles[0]->attach(vertices[0].get());              // tile 0
+    tiles[0]->attach(vertices[1].get());
+    tiles[0]->attach(vertices[3].get());
+    tiles[0]->attach(vertices[4].get());
+    tiles[0]->attach(vertices[8].get());
+    tiles[0]->attach(vertices[9].get());
 
     for (int i = 1; i < 3; i++){                // tile 1,2
-        tiles[i]->attach(vertices[i*2]);
-        tiles[i]->attach(vertices[i*2+1]);
-        tiles[i]->attach(vertices[i*2+5]);
-        tiles[i]->attach(vertices[i*2+6]);
-        tiles[i]->attach(vertices[i*2+11]);
-        tiles[i]->attach(vertices[i*2+12]);
+        tiles[i]->attach(vertices[i*2].get());
+        tiles[i]->attach(vertices[i*2+1].get());
+        tiles[i]->attach(vertices[i*2+5].get());
+        tiles[i]->attach(vertices[i*2+6].get());
+        tiles[i]->attach(vertices[i*2+11].get());
+        tiles[i]->attach(vertices[i*2+12].get());
     }
 
     for (int i = 3; i < 16; i++) {               // tile 3-15
@@ -77,160 +82,160 @@ void Board::initAttachBoard() {
         if (i > 7) j += 1;
         if (i > 10) j += 1;
         if (i > 12) j += 1;
-        tiles[i]->attach(vertices[i*2+j]);
-        tiles[i]->attach(vertices[i*2+1+j]);
-        tiles[i]->attach(vertices[i*2+6+j]);
-        tiles[i]->attach(vertices[i*2+7+j]);
-        tiles[i]->attach(vertices[i*2+12+j]);
-        tiles[i]->attach(vertices[i*2+13+j]);
+        tiles[i]->attach(vertices[i*2+j].get());
+        tiles[i]->attach(vertices[i*2+1+j].get());
+        tiles[i]->attach(vertices[i*2+6+j].get());
+        tiles[i]->attach(vertices[i*2+7+j].get());
+        tiles[i]->attach(vertices[i*2+12+j].get());
+        tiles[i]->attach(vertices[i*2+13+j].get());
     }
  
     for (int i = 16; i < 18; i++) {               // tile 16,17
-        tiles[i]->attach(vertices[i*2+5]);
-        tiles[i]->attach(vertices[i*2+6]);
-        tiles[i]->attach(vertices[i*2+11]);
-        tiles[i]->attach(vertices[i*2+12]);
-        tiles[i]->attach(vertices[i*2+16]);
-        tiles[i]->attach(vertices[i*2+17]);
+        tiles[i]->attach(vertices[i*2+5].get());
+        tiles[i]->attach(vertices[i*2+6].get());
+        tiles[i]->attach(vertices[i*2+11].get());
+        tiles[i]->attach(vertices[i*2+12].get());
+        tiles[i]->attach(vertices[i*2+16].get());
+        tiles[i]->attach(vertices[i*2+17].get());
     }
 
-    tiles[18]->attach(vertices[44]);            // tile 18
-    tiles[18]->attach(vertices[45]);
-    tiles[18]->attach(vertices[49]);
-    tiles[18]->attach(vertices[50]);
-    tiles[18]->attach(vertices[52]);
-    tiles[18]->attach(vertices[53]);
+    tiles[18]->attach(vertices[44].get());            // tile 18
+    tiles[18]->attach(vertices[45].get());
+    tiles[18]->attach(vertices[49].get());
+    tiles[18]->attach(vertices[50].get());
+    tiles[18]->attach(vertices[52].get());
+    tiles[18]->attach(vertices[53].get());
 
 
     // attach Edge neighbours to Vertex
-    vertices[0]->attachEdgeDoubly(edges[0]);
-    vertices[0]->attachEdgeDoubly(edges[1]); 
+    vertices[0]->attachEdgeDoubly(edges[0].get());
+    vertices[0]->attachEdgeDoubly(edges[1].get()); 
 
-    vertices[1]->attachEdgeDoubly(edges[0]);
-    vertices[1]->attachEdgeDoubly(edges[2]);
+    vertices[1]->attachEdgeDoubly(edges[0].get());
+    vertices[1]->attachEdgeDoubly(edges[2].get());
 
-    vertices[2]->attachEdgeDoubly(edges[3]);
-    vertices[2]->attachEdgeDoubly(edges[5]);
+    vertices[2]->attachEdgeDoubly(edges[3].get());
+    vertices[2]->attachEdgeDoubly(edges[5].get());
 
     for (int i = 3; i < 5; i++) {
-        vertices[i]->attachEdgeDoubly(edges[i-2]);
-        vertices[i]->attachEdgeDoubly(edges[i]);
-        vertices[i]->attachEdgeDoubly(edges[i+3]);
+        vertices[i]->attachEdgeDoubly(edges[i-2].get());
+        vertices[i]->attachEdgeDoubly(edges[i].get());
+        vertices[i]->attachEdgeDoubly(edges[i+3].get());
     }
 
-    vertices[5]->attachEdgeDoubly(edges[4]);
-    vertices[5]->attachEdgeDoubly(edges[8]);
+    vertices[5]->attachEdgeDoubly(edges[4].get());
+    vertices[5]->attachEdgeDoubly(edges[8].get());
 
-    vertices[6]->attachEdgeDoubly(edges[9]);
-    vertices[6]->attachEdgeDoubly(edges[12]);
+    vertices[6]->attachEdgeDoubly(edges[9].get());
+    vertices[6]->attachEdgeDoubly(edges[12].get());
 
     for (int i = 7; i < 11; i++) {
         int j = 2;
         if (i > 8) j -= 1;
-        vertices[i]->attachEdgeDoubly(edges[i-2]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+6]);
+        vertices[i]->attachEdgeDoubly(edges[i-2].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+6].get());
     }
 
-    vertices[11]->attachEdgeDoubly(edges[11]);
-    vertices[11]->attachEdgeDoubly(edges[17]);
+    vertices[11]->attachEdgeDoubly(edges[11].get());
+    vertices[11]->attachEdgeDoubly(edges[17].get());
 
-    vertices[12]->attachEdgeDoubly(edges[12]);
-    vertices[12]->attachEdgeDoubly(edges[20]);
+    vertices[12]->attachEdgeDoubly(edges[12].get());
+    vertices[12]->attachEdgeDoubly(edges[20].get());
 
     for (int i = 13; i < 17; i++) {
         int j = 5;
         if (i > 13) j -= 1;
         if (i > 15) j -= 1;
-        vertices[i]->attachEdgeDoubly(edges[i]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+8]);
+        vertices[i]->attachEdgeDoubly(edges[i].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+8].get());
     }
 
-    vertices[17]->attachEdgeDoubly(edges[17]);
-    vertices[17]->attachEdgeDoubly(edges[25]); 
+    vertices[17]->attachEdgeDoubly(edges[17].get());
+    vertices[17]->attachEdgeDoubly(edges[25].get()); 
 
     for (int i = 18; i < 24; i++) {
         int j = 8;
         if (i > 18) j -= 1;
         if (i > 20) j -= 1;
         if (i > 22) j -= 1;
-        vertices[i]->attachEdgeDoubly(edges[i+2]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+11]);
+        vertices[i]->attachEdgeDoubly(edges[i+2].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+11].get());
     }
 
-    vertices[24]->attachEdgeDoubly(edges[29]);
-    vertices[24]->attachEdgeDoubly(edges[37]);
+    vertices[24]->attachEdgeDoubly(edges[29].get());
+    vertices[24]->attachEdgeDoubly(edges[37].get());
 
     for (int i = 25; i < 29; i++) {
         int j = 10;
         if (i > 25) j -= 1;
         if (i > 27) j -= 1; 
-        vertices[i]->attachEdgeDoubly(edges[i+5]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+13]);
+        vertices[i]->attachEdgeDoubly(edges[i+5].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+13].get());
     }
 
-    vertices[29]->attachEdgeDoubly(edges[34]);
-    vertices[29]->attachEdgeDoubly(edges[42]);
+    vertices[29]->attachEdgeDoubly(edges[34].get());
+    vertices[29]->attachEdgeDoubly(edges[42].get());
 
     for (int i = 30; i < 36; i++) {
         int j = 13;
         if (i > 30) j -= 1;
         if (i > 32) j -= 1; 
         if (i > 34) j -= 1;
-        vertices[i]->attachEdgeDoubly(edges[i+7]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+16]);
+        vertices[i]->attachEdgeDoubly(edges[i+7].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+16].get());
     }
 
-    vertices[36]->attachEdgeDoubly(edges[46]);
-    vertices[36]->attachEdgeDoubly(edges[54]);
+    vertices[36]->attachEdgeDoubly(edges[46].get());
+    vertices[36]->attachEdgeDoubly(edges[54].get());
 
     for (int i = 37; i < 41; i++) {
         int j = 15;
         if (i > 37) j -= 1;
         if (i > 39) j -= 1; 
-        vertices[i]->attachEdgeDoubly(edges[i+10]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+18]);
+        vertices[i]->attachEdgeDoubly(edges[i+10].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+18].get());
     }
 
-    vertices[41]->attachEdgeDoubly(edges[51]);
-    vertices[41]->attachEdgeDoubly(edges[59]);
+    vertices[41]->attachEdgeDoubly(edges[51].get());
+    vertices[41]->attachEdgeDoubly(edges[59].get());
 
-    vertices[42]->attachEdgeDoubly(edges[54]);
-    vertices[42]->attachEdgeDoubly(edges[60]);
+    vertices[42]->attachEdgeDoubly(edges[54].get());
+    vertices[42]->attachEdgeDoubly(edges[60].get());
 
     for (int i = 43; i < 47; i++) {
         int j = 17;
         if (i > 44) j -= 1; 
-        vertices[i]->attachEdgeDoubly(edges[i+12]);
-        vertices[i]->attachEdgeDoubly(edges[i+j]);
-        vertices[i]->attachEdgeDoubly(edges[i+20]);
+        vertices[i]->attachEdgeDoubly(edges[i+12].get());
+        vertices[i]->attachEdgeDoubly(edges[i+j].get());
+        vertices[i]->attachEdgeDoubly(edges[i+20].get());
     }
 
-    vertices[47]->attachEdgeDoubly(edges[59]);
-    vertices[47]->attachEdgeDoubly(edges[62]);
+    vertices[47]->attachEdgeDoubly(edges[59].get());
+    vertices[47]->attachEdgeDoubly(edges[62].get());
 
-    vertices[48]->attachEdgeDoubly(edges[63]);
-    vertices[48]->attachEdgeDoubly(edges[67]);
+    vertices[48]->attachEdgeDoubly(edges[63].get());
+    vertices[48]->attachEdgeDoubly(edges[67].get());
 
     for (int i = 49; i < 51; i++) { 
-        vertices[i]->attachEdgeDoubly(edges[i+15]);
-        vertices[i]->attachEdgeDoubly(edges[i+18]);
-        vertices[i]->attachEdgeDoubly(edges[i+20]);
+        vertices[i]->attachEdgeDoubly(edges[i+15].get());
+        vertices[i]->attachEdgeDoubly(edges[i+18].get());
+        vertices[i]->attachEdgeDoubly(edges[i+20].get());
     }
 
-    vertices[51]->attachEdgeDoubly(edges[66]);
-    vertices[51]->attachEdgeDoubly(edges[68]);
+    vertices[51]->attachEdgeDoubly(edges[66].get());
+    vertices[51]->attachEdgeDoubly(edges[68].get());
 
-    vertices[52]->attachEdgeDoubly(edges[69]);
-    vertices[52]->attachEdgeDoubly(edges[71]);
+    vertices[52]->attachEdgeDoubly(edges[69].get());
+    vertices[52]->attachEdgeDoubly(edges[71].get());
 
-    vertices[53]->attachEdgeDoubly(edges[70]);
-    vertices[53]->attachEdgeDoubly(edges[71]);
+    vertices[53]->attachEdgeDoubly(edges[70].get());
+    vertices[53]->attachEdgeDoubly(edges[71].get());
 }
 
 // Jim Part_________________________________________________________________
@@ -433,7 +438,7 @@ void Board::printCurPlayerRes() {
 
 
 void Board::loadRes( int posPlayer, int pos, char buildType ) {
-    Vertex* destVertex = vertices[pos];
+    Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
@@ -444,7 +449,7 @@ void Board::loadRes( int posPlayer, int pos, char buildType ) {
 
 
 void Board::loadRoad( int posPlayer, int pos ) {
-    Edge* destEdge = edges[pos];
+    Edge* destEdge = edges[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
     if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
@@ -456,7 +461,7 @@ void Board::loadRoad( int posPlayer, int pos ) {
 
 
 bool Board::buildResFree( int posPlayer, int pos ) {
-    Vertex* destVertex = vertices[pos];
+    Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return false;}
@@ -468,7 +473,7 @@ bool Board::buildResFree( int posPlayer, int pos ) {
 
 
 void Board::buildRes( int pos ) {
-    Vertex* destVertex = vertices[pos];
+    Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
@@ -480,7 +485,7 @@ void Board::buildRes( int pos ) {
 
 
 void Board::buildRoad( int pos ) {
-    Edge* destEdge = edges[pos];
+    Edge* destEdge = edges[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
     if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
@@ -492,7 +497,7 @@ void Board::buildRoad( int pos ) {
 
 
 void Board::improveRes( int pos ) {
-    Vertex* destVertex = vertices[pos];
+    Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
     if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
     if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
