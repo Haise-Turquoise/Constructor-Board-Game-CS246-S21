@@ -24,23 +24,23 @@ void CtorGame::info() { // for debug
     cout  << ">  randBoard?: " << randBoard << endl;
 }
 
-// helper when ask user to input a non-negative integer, return -1 when EOF
-int askForInteger(int up = 100, int lb = 0) { // 
+// helper when ask user to input a non-negative integer, return -1 when EOF, return -2 when invalid value
+int askForInteger(int up = 1000000, int lb = 0) { // 
     cin.exceptions(ios::eofbit|ios::failbit);
-    int pos = -1; 
-    while (true) {
-        try { 
-            cin >> pos;
-            if ((pos >= lb) && (pos <= up)) break;
-            cerr << ">  Invalid value: index out of range!" << std::endl;
-        }  
-        catch (ios::failure &) {
-            if (cin.eof())  return -1;
-            cerr << ">  Invalid command." << endl;
-            cin.clear();
-            cin.ignore();
-        }       
-    }
+    int pos = -2;  
+    try { 
+        cin >> pos;
+        if ((pos >= lb) && (pos <= up)) return pos;
+        cerr << ">  Invalid value: index out of range!" << endl;
+        return -2;
+    }  
+    catch (ios::failure &) {
+        if (cin.eof())  return -1;
+        cerr << ">  Invalid value: Only non-negative integer accept!" << endl;
+        cin.clear();
+        cin.ignore();
+        return -2;
+    }       
     return pos;
 }
 // helper when ask user to input a string command, return "eof" when EOF
@@ -74,7 +74,7 @@ int CtorGame::setUp(Board & board, const vector<string> &fourPlayers) {
         while (!built) { 
             int pos = askForInteger(53);
             if ( pos == -1 ) { endGame(board); return -1;}      // eof 
-            built = board.buildResFree(sequence[i], pos);
+            if ( pos != -2 ) { built = board.buildResFree(sequence[i], pos); } // not invalid index
         } 
     }
     return 0;
@@ -102,24 +102,29 @@ bool CtorGame::play() {
     }
 
     cout << ">  Start!" << endl;
-    vector<bool> fairOrLoad = {0,0,0,0};
+    int numPlayer = 4;
+    vector<bool> fairOrLoad(numPlayer,0);                   // remember dice mode for each player
     while (true) {
         int curTurn = board.getCurTurn();
         cout << ">  Builder " << fourPlayers[curTurn] << "'s turn." << endl;
         string cmd;  
         // roll dice 
         bool rolled = false;    
-        int dice = 0;
+        int dice = -2;
         while (true) {
-            if (rolled) break;
+            if (rolled) break;                      // if not rolled yet, then ask for commands and roll
             cmd = askForCommand();
             if (cmd == "eof") {endGame(board); return 0;}
 
             if (cmd == "roll") {
                 if (!fairOrLoad[curTurn]) {         // load dice
                     cout << ">  Input a dice value between 2 to 12 (inclusive):"<< endl;
-                    dice = askForInteger(12,2);
-                    if (dice == -1) { endGame(board); return 0;}
+                    while (true) {            // -2 when invalid dice number provided
+                        dice = askForInteger(12,2);
+                        if (dice == -1) { endGame(board); return 0;}
+                        if (dice != -2) break;
+                        cout << ">  Please re-enter the dice value: integer between 2-12 (inclusive)" << endl;
+                    }
                     board.rollDice(dice);
                 } else {                            // fair dice
                     dice = board.rollDice();
@@ -141,37 +146,43 @@ bool CtorGame::play() {
         if (dice != 7) {                            // obtaining resources
             board.gainResources(dice);
         } else {                                    // move geese
-            cout<<">  Dice is 7. Geese attack!"<<endl;
-            board.loseHalf();
+            cout<<">  Geese attack!"<<endl;
+            board.loseHalf();                       // builder more than 10 resources lose half
             cout << ">  Choose where to place the Geese" << endl;
             while (true) {
                 int pos = askForInteger(18);        
                 if (pos == -1) { endGame(board); return 0;}
-                if (pos == board.getGeese()) {
-                    cout << ">  Geese should be moved to the tile not previously on." << endl;
-                } else {
-                    int eofVal = board.moveGeese(pos);
-                    if (eofVal == -1) { endGame(board); return 0;}
-                    break;
+                if (pos != -2) {                    // -2 when invalid index given
+                    if (pos == board.getGeese()) {
+                        cout << ">  Geese should be moved to the tile not previously on." << endl;
+                    } else {
+                        int eofVal = board.moveGeese(pos);
+                        if (eofVal == -1) { endGame(board); return 0;}
+                        break;
+                    }
                 }
             } 
         }
 
         board.printUsingChoice();
-
         // during the turn 
         while (true) {
+            bool built = false;
             cmd = askForCommand();
             if (cmd == "eof") {endGame(board); return 0;}
 
             if (cmd == "help") {
                 cout << ">  Valid commands:" << endl;
-                cout << ">    board" << endl << ">    status" << endl << ">    residences" << endl;
+                cout << ">    board" << endl;
+                cout << ">    status" << endl;
+                cout << ">    residences" << endl;
                 cout << ">    build-road <edge#>    e.g. build-road 7"<< endl;
                 cout << ">    build-res <housing#>    e.g. build-res 25" << endl;
                 cout << ">    improve <housing#>    e.g. improve 25"<< endl;
-                cout << ">    trade <colour> <give> <take>    Note: making sure the first letter is capitalized: trade Orange Brick HEAT" << endl;
-                cout << ">    next" << endl << ">    save <file>    e.g. save backup.sv" << endl << ">    help" << endl;
+                cout << ">    trade <colour> <give> <take>    Note: makk sure the first letter is capitalized: trade Orange Brick HEAT" << endl;
+                cout << ">    next" << endl;
+                cout << ">    save <file>    e.g. save backup.sv" << endl;
+                cout << ">    help" << endl;
             } 
             else if (cmd == "board") { 
                 board.printBoard();
@@ -185,20 +196,28 @@ bool CtorGame::play() {
             else if (cmd == "build-road") {
                 int pos = askForInteger(71);
                 if (pos == -1) {endGame(board); return 0;}
-                board.buildRoad(pos);
-                cout<<">  Player built road "<< pos <<endl;
+                if (pos != -2) {                    // -2 when invalid index given
+                    built = board.buildRoad(pos);
+                    if (built) cout << ">  Player " << fourPlayers[curTurn] << " built road "<< pos << endl;
+                }
+                
             } 
             else if (cmd == "build-res") {
                 int pos = askForInteger(53);
                 if (pos == -1) {endGame(board); return 0;}
-                board.buildRes(pos);
-                cout << ">  Player built residence "<< pos <<endl;
+                if (pos != -2) {                    // -2 when invalid index given
+                    built = board.buildRes(pos);
+                    if (built) cout << ">  Player " << fourPlayers[curTurn] << " built Basement "<< pos << endl;
+                }
+                 
             } 
             else if (cmd == "improve") {
                 int pos = askForInteger(53);
                 if (pos == -1) {endGame(board); return 0;}
-                board.improveRes(pos);
-                cout << ">  Player upgraded residence "<< pos <<endl;
+                if (pos != -2) {                    // -2 when invalid index given
+                    board.improveRes(pos); 
+                    if (built) cout << ">  Player " << fourPlayers[curTurn] << " improved residence "<< pos << endl;
+                }
             } 
             else if (cmd == "trade") { 
                 string colour = askForCommand();
