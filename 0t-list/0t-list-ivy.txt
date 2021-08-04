@@ -1,1 +1,41 @@
-
+Tests are sorted by the features
+1. buildResFree: 
+	adjacent res, 
+	overlapped, 
+	out of bound, 
+2. printBoard: 
+	before setup, 
+	after setup, 
+	after load game, 
+	during the game, 
+	after build res/road
+3. gainResources:
+	tile with nothing, 
+	tile with only roads
+	tile with 3 different basement
+	tile with 2 same color basement
+	tile with house
+	tile with tower
+4. printStatus (test together with 3)
+	before/after trade
+	before/after build
+	before/after improve
+	before/after roll
+	before/after geese losehalf
+5. printCurRes (test togther with 3)
+6. buildRoad
+	adjacent res exist?
+	overlap
+	adjacent road exist?
+	out of bound
+	no resources
+7. buildRes
+	adjacent road exist?
+	adjacent otehr res exist?
+	overlap
+	no resources
+8. improve
+	exist res?
+	recources?
+	yours?
+9. endCurTurn (next)
