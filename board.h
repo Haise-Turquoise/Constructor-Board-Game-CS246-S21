@@ -50,9 +50,9 @@ class Board {
     void gainResources(int tileVal);
 
     bool buildResFree( int posPlayer, int pos );
-    void buildRes( int pos );
-    void buildRoad( int pos );
-    void improveRes( int pos );
+    bool buildRes( int pos );
+    bool buildRoad( int pos );
+    bool improveRes( int pos );
 
     void printUsingChoice();
     int trade( std::string otherplayer, std::string ownResources, std::string otherResource );
