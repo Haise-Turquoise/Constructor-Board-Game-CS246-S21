@@ -451,9 +451,9 @@ bool Board::buildResFree( int posPlayer, int pos ) {
 bool Board::buildRes( int pos ) {
     Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
-    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
-    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
-    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildRes access nullptr to pass ";return;}
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return 0;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return 0;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::buildRes access nullptr to pass ";return 0;}
     bool tmp = players[curTurn]->buildRes(destVertex);
     if (tmp == true) destVertex->setOwnerPos(curTurn);
     return tmp;
@@ -463,9 +463,9 @@ bool Board::buildRes( int pos ) {
 bool Board::buildRoad( int pos ) {
     Edge* destEdge = edges[pos].get();
     size_t position = pos;
-    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return;}
-    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return;}
-    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::buildRoad access nullptr to pass ";return;}
+    if ( pos < 0 || pos > 71 ) {cout << "WARNING: edge index out of range" << endl;return 0;}
+    if ( position > edges.size() - 1 ){cout << "WARNING: edges length wrong" << endl;return 0;}
+    if ( destEdge == nullptr ){cout << "FATAL WARNING: Board::buildRoad access nullptr to pass ";return 0;}
     bool tmp = players[curTurn]->buildRoad(destEdge);
     if (tmp == true) destEdge->setOwnerPos(curTurn);
     return tmp;
@@ -475,9 +475,9 @@ bool Board::buildRoad( int pos ) {
 bool Board::improveRes( int pos ) {
     Vertex* destVertex = vertices[pos].get();
     size_t position = pos;
-    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return;}
-    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return;}
-    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return;}
+    if ( pos < 0 || pos > 53 ) {cout << "WARNING: vertex index out of range" << endl;return 0;}
+    if ( position > vertices.size() - 1 ){cout << "WARNING: vertices length wrong" << endl;return 0;}
+    if ( destVertex == nullptr ){cout << "FATAL WARNING: Board::improveRes access nullptr to pass ";return 0;}
     bool tmp = players[curTurn]->improveRes(destVertex);
     return tmp;
 }
