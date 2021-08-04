@@ -92,6 +92,23 @@ bool Player::buildResFree( Vertex* ptrv ) {
     if ( ptrv->getOwner() != nullptr || ptrv->getBuildType() != '-' ) {cout << "WARNING: this place is occupied by other or self" << endl;return false;}
     if ( ptrv->getIndex() == -1 ) {cout << "WARNING: vertex index unitialized" << endl;return false;}
     if ( ptrv->getIndex() < 0 || ptrv->getIndex() > 53 ) {cout << "WARNING: vertex index out of range" << endl;return false;}
+    vector<Edge*> ne = ptrv->getNeighbourEdges();
+    vector<Vertex*> nev;
+    bool noNearBuilding = true;
+    for ( size_t i = 0; i < ne.size(); i++ ) {
+        nev = ne[i]->getNeighbourVertices();
+        // get neighbour edge's neighbour vertice (ok to check self vertex)
+        for ( size_t j = 0; j < nev.size(); j++ ) {
+            // if exist nearby building, break
+            if ( nev[j]->getBuildType() != '-' || nev[j]->getOwner() != nullptr) {
+                noNearBuilding = false;
+                break;
+            }
+        }
+        if ( noNearBuilding == false ) break;
+    }
+    if ( noNearBuilding == false ) { cout << ">  Error: Adjacent building nearby, cannot build here" << endl; return false; }
+    
     // update Player field, no need to dec resource
     numBuild += 1; buildPoints += 1;
     ownVertices.emplace_back(ptrv);
