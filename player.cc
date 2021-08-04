@@ -107,7 +107,7 @@ bool Player::buildResFree( Vertex* ptrv ) {
         }
         if ( noNearBuilding == false ) break;
     }
-    if ( noNearBuilding == false ) { cout << ">  Error: Adjacent building nearby, cannot build here" << endl; return false; }
+    if ( noNearBuilding == false ) { cout << "WARNING: Adjacent building nearby, cannot build here" << endl; return false; }
     
     // update Player field, no need to dec resource
     numBuild += 1; buildPoints += 1;
