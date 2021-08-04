@@ -94,12 +94,12 @@ bool CtorGame::play() {
         board.initLoadBoard(file);          // using default file "layout.txt"
     }
     board.printBoard();
-    cout << ">  Seting up game..." << endl;
     vector<string> fourPlayers = {"Blue", "Red", "Orange", "Yellow"};
     if (!load) {                                            // each builder chooce two location to build basement
+        cout << ">  Seting up game..." << endl;
         if (setUp(board, fourPlayers) == -1) return 0;      // eof
+        board.printBoard();
     }
-    board.printBoard();
 
     cout << ">  Start!" << endl;
     vector<bool> fairOrLoad = {0,0,0,0};
