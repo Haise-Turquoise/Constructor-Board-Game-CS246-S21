@@ -22,7 +22,7 @@ class CtorGame {
     void setRandBoard(bool randBoard);
     
     
-    int setUp(Board & board, const std::vector<std::string> fourPlayers); // return -1 when get EOF
+    int setUp(Board & board, const std::vector<std::string> &fourPlayers); // return -1 when get EOF
     void endGame(Board & board, std::string fileName = "backup.sv");
     bool play();
     
