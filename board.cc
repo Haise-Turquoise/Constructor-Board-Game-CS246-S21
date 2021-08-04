@@ -590,6 +590,23 @@ char charResourceIdentifier(int resourceType) {
     return 'N';
 }
 
+string autoCorrect(string resource) {
+    char first = resource[0];
+    switch( first ) {
+        case 'B':
+            return "BRICK"; break;
+        case 'E':
+            return "ENERGY"; break;
+        case 'G':
+            return "GLASS"; break;
+        case 'H':
+            return "HEAT"; break;
+        case 'W':
+            return "WIFI"; break;
+    } 
+    return "DNE";
+}
+
 void Board::initLoadBoard(string file) { 
     ifstream fileIn{file};
     int resourceType;
@@ -764,6 +781,13 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     for (int i = 0; i<4; i++) {
         if (fourPlayer[i][0] == otherplayer[0]) {other = i; break;}
     }
+
+    ownResources = autoCorrect(ownResources);
+    otherResource = autoCorrect(otherResource);
+    if ((ownResources == "DNE") || (otherResource == "DNE")) {
+        cerr << ">  Wrong resources type!" << endl; return 0;
+    }
+
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
     if ((numResOwn != 0) && (numResOther != 0)) {
