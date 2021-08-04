@@ -66,7 +66,7 @@ void CtorGame::endGame(Board & board, string fileName){
 }
 
 // set up the game: each builder chooce two location to build basement
-int CtorGame::setUp(Board & board, const vector<string> fourPlayers) {
+int CtorGame::setUp(Board & board, const vector<string> &fourPlayers) {
     vector<int> sequence = {0,1,2,3,3,2,1,0};
     for (int i = 0; i < 8; i++) {
         cout << ">  Builder " << fourPlayers[sequence[i]] << ", where do you want to build a basement?" << endl;
@@ -165,11 +165,13 @@ bool CtorGame::play() {
             if (cmd == "eof") {endGame(board); return 0;}
 
             if (cmd == "help") {
-                cout << "Valid commands:" << endl;
-                cout << "board" << endl << "status" << endl << "residences" << endl;
-                cout << "build-road <edge#>" << endl << "build-res <housing#>" << endl;
-                cout << "improve <housing#>" << endl << "trade <colour> <give> <take>" << endl;
-                cout << "next" << endl << "save <file>" << endl << "help" << endl;
+                cout << ">  Valid commands:" << endl;
+                cout << ">    board" << endl << ">    status" << endl << ">    residences" << endl;
+                cout << ">    build-road <edge#>    e.g. build-road 7"<< endl;
+                cout << ">    build-res <housing#>    e.g. build-res 25" << endl;
+                cout << ">    improve <housing#>    e.g. improve 25"<< endl;
+                cout << ">    trade <colour> <give> <take>    Note: making sure the first letter is capitalized: trade Orange Brick HEAT" << endl;
+                cout << ">    next" << endl << ">    save <file>    e.g. save backup.sv" << endl << ">    help" << endl;
             } 
             else if (cmd == "board") { 
                 board.printBoard();
