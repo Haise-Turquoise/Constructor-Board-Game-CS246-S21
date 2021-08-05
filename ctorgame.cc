@@ -15,6 +15,7 @@ void CtorGame::setSeed(int seed){ this->seed = seed; }
 void CtorGame::setLoad(bool load){ this->load = load; }
 void CtorGame::setBoard(bool boardGiven){ this->boardGiven = boardGiven; }
 void CtorGame::setRandBoard(bool randBoard){ this->randBoard = randBoard; }
+void CtorGame::setCustomized(bool customized){ this->customized = customized; }
 
 void CtorGame::info() { // for debug
     cout  << ">  file: " << file << endl;
@@ -80,6 +81,7 @@ int CtorGame::setUp(Board & board, const vector<string> &fourPlayers) {
     return 0;
 }
 
+
 bool CtorGame::play() {
     Board board;
     if (load) {                             // given an exist game
@@ -93,6 +95,43 @@ bool CtorGame::play() {
     } else {
         board.initLoadBoard(file);          // using default file "layout.txt"
     }
+
+    if (customized) {
+        cout << ">  Customize the Game: " << endl;
+        cout << ">  Enter building points to win the game: (integer between 3-20)" << endl;
+        while (true) {
+            int points = askForInteger(20,3);
+            if (points == -1) {return 0;}
+            if (points != -2) {board.setWinPoints(points); break;}
+        }
+        string choice;
+        cout << ">  Do you want to have geese in the game? (yes/no)" << endl;
+        while (true) {
+            choice = askForCommand();
+            if (choice == "eof") return 0;  
+            if (choice == "yes") {
+                haveGeese = true; break;
+            } else if (choice == "no") {
+                haveGeese = false; break;
+            } else { 
+                cout << ">  Please enter either: 'yes' or 'no'" << endl;
+            }
+        }
+        cout << ">  Do you want to get building suggestions in each turn? (yes/no)" << endl;
+        while (true) {
+            choice = askForCommand();
+            if (choice == "eof") return 0;  
+            if (choice == "yes") {
+                suggestion = true; break;
+            } else if (choice == "no") {
+                suggestion = false; break;
+            } else { 
+                cout << ">  Please enter either: 'yes' or 'no'" << endl;
+            }
+        }
+        cout << ">  Completed!" << endl;
+    }
+
     board.printBoard();
     vector<string> fourPlayers = {"Blue", "Red", "Orange", "Yellow"};
     if (!load) {                                            // each builder chooce two location to build basement
@@ -144,8 +183,8 @@ bool CtorGame::play() {
         }
         cout << ">  You have rolled: " << dice << endl; 
         if (dice != 7) {                            // obtaining resources
-            board.gainResources(dice);
-        } else {                                    // move geese
+            board.gainResources(dice); 
+        } else if (haveGeese && (dice == 7)) {      // move geese
             cout<<">  Geese attack!"<<endl;
             board.loseHalf();                       // builder more than 10 resources lose half
             cout << ">  Choose where to place the Geese" << endl;
@@ -163,8 +202,7 @@ bool CtorGame::play() {
                 }
             } 
         }
-
-        board.printUsingChoice();
+        if (suggestion) board.printUsingChoice();
         // during the turn 
         while (true) {
             bool built = false;
