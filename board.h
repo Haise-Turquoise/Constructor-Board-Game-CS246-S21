@@ -40,7 +40,7 @@ class Board {
 
     void initAttachBoard();
     void initRandBoard();
-    void initLoadBoard( std::string file );
+    bool initLoadBoard( std::string file );
     void initSeedBoard( int seed );
     void loadGame( std::string file );
     void loadRes( int posPlayer, int pos, char buildType = 'B' );
