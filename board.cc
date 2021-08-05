@@ -787,10 +787,10 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     if ((ownResources == "DNE") || (otherResource == "DNE")) {
         cerr << ">  Wrong resources type!" << endl; return 0;
     }
-    if (otherplayer[i] == 'B') otherplayer = "Blue";
-    if (otherplayer[i] == 'R') otherplayer = "Red";
-    if (otherplayer[i] == 'O') otherplayer = "Orange";
-    if (otherplayer[i] == 'Y') otherplayer = "Yellow";
+    if (otherplayer[0] == 'B') otherplayer = "Blue";
+    if (otherplayer[0] == 'R') otherplayer = "Red";
+    if (otherplayer[0] == 'O') otherplayer = "Orange";
+    if (otherplayer[0] == 'Y') otherplayer = "Yellow";
 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
@@ -970,9 +970,11 @@ int Board::moveGeese( int pos ){
 
 void Board::setGeese( int pos ){posGeese = pos;}
 
+void Board::setWinPoints( int winPoints ){ this->winPoints = winPoints;};
+
 bool Board::checkWon() {
     int points = players[curTurn]->getBuildPoint();
-    if (points >= 10) return true;
+    if (points >= winPoints) return true;
     return false;
 }
 
