@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
             string cmd{argv[i]};
             if (cmd == "-random-board") {
                 game.setRandBoard(1);
+            } else if (cmd == "-customize") { 
+                game.setCustomized(1);
             } else {
                 if (i == (argc-1)) {    // rest commands should in pairs 
                     cerr << "ERROR: Commands for " << argv[i] << " should be provided!"<< endl;
@@ -59,7 +61,7 @@ int main(int argc, char *argv[]) {
                     game.setFile(argv[i+1]); 
                     i += 1;
                 }  
-                
+
                 else {
                     cerr << "ERROR: Invalid command line arguments!" << endl;
                     return 1;
