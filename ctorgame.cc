@@ -87,7 +87,8 @@ bool CtorGame::play() {
     if (load) {                             // given an exist game
         board.loadGame(file);
     } else if (boardGiven) {                // given board
-        board.initLoadBoard(file);
+        bool valid = board.initLoadBoard(file);
+        if (!valid) {return 0;}
     } else if (randBoard && (seed != -1)) { // given seed
         board.initSeedBoard(seed);
     } else if (randBoard) {                 // not given seed 
