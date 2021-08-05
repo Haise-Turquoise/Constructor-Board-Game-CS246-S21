@@ -12,6 +12,9 @@ class CtorGame {
     bool load;
     bool boardGiven;
     bool randBoard;
+    bool customized;
+    bool haveGeese = true;
+    bool suggestion = false;
 
     public:
     CtorGame(std::string file = "", int seed = -1, bool load = 0, bool boardGiven = 0, bool randBoard = 0);
@@ -20,6 +23,7 @@ class CtorGame {
     void setLoad(bool load);
     void setBoard(bool boardGiven);
     void setRandBoard(bool randBoard);
+    void setCustomized(bool customized);
     
     
     int setUp(Board & board, const std::vector<std::string> &fourPlayers); // return -1 when get EOF
