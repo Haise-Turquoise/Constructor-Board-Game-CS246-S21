@@ -29,6 +29,7 @@ void Vertex::attachEdgeDoubly( Edge* ptre ) {
 void Vertex::wasNotified( Tile& whoNotified ) {
     if ( owner != nullptr ) {
         char tileResourceType = whoNotified.getResourceType();
+        if ( buildType != 'B' && buildType != 'H' && buildType != 'T' ) { cout << "WARNING: owner exist but buildType not any of B, H, T!" << endl; return; }
         if ( buildType == 'B' || buildType == 'H' || buildType == 'T') { owner->addResource(tileResourceType); }
         if ( buildType == 'H' || buildType == 'T') { owner->addResource(tileResourceType); }
         if ( buildType == 'T') { owner->addResource(tileResourceType); }
