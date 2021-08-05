@@ -1,3 +1,6 @@
+#ifndef _BOARD_H
+#define _BOARD_H
+
 #include <vector>
 #include <string>
 #include <memory> 
@@ -66,4 +69,6 @@ class Board {
     void endCurTurn();
     
 };
+
+#endif
 
