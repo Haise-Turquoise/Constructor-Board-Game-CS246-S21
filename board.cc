@@ -787,13 +787,17 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     if ((ownResources == "DNE") || (otherResource == "DNE")) {
         cerr << ">  Wrong resources type!" << endl; return 0;
     }
+    if (otherplayer[i] == 'B') otherplayer = "Blue";
+    if (otherplayer[i] == 'R') otherplayer = "Red";
+    if (otherplayer[i] == 'O') otherplayer = "Orange";
+    if (otherplayer[i] == 'Y') otherplayer = "Yellow";
 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
     if ((numResOwn != 0) && (numResOther != 0)) {
         cout << ">  " << fourPlayer[cur]<<" offers " << otherplayer;
         cout << " one " << ownResources << " for one " << otherResource << "." << endl;
-        cout << ">  Dose " << otherplayer << " accept this offer?   yes/no (accept any case)" << endl; 
+        cout << ">  Does " << otherplayer << " accept this offer?   yes/no (accept any case)" << endl; 
         while (true) {
             string choice = askForString();
             if (choice == "eof") return -1; 
