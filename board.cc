@@ -777,10 +777,15 @@ string askForString() {
 int Board::trade( string otherplayer, string ownResources, string otherResource ){
     int cur = getCurTurn();
     vector<string> fourPlayer = {"Blue", "Red", "Orange", "Yellow"};
-    int other = 0;
+    int other = -1;
     for (int i = 0; i<4; i++) {
-        if (fourPlayer[i][0] == otherplayer[0]) {other = i; break;}
+        if (fourPlayer[i][0] == otherplayer[0]) {
+            other = i; 
+            otherplayer = fourPlayer[i];
+            break;
+        }
     }
+    if (other == -1) {cerr << ">  Wrong player's name color!" << endl; return 0;}
 
     ownResources = autoCorrect(ownResources);
     otherResource = autoCorrect(otherResource);
