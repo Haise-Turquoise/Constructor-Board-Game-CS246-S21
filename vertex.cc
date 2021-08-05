@@ -29,6 +29,8 @@ void Vertex::attachEdgeDoubly( Edge* ptre ) {
 void Vertex::wasNotified( Tile& whoNotified ) {
     if ( owner != nullptr ) {
         char tileResourceType = whoNotified.getResourceType();
-        owner->addResource(tileResourceType);
+        if ( buildType == 'B' || buildType == 'H' || buildType == 'T') { owner->addResource(tileResourceType); }
+        if ( buildType == 'H' || buildType == 'T') { owner->addResource(tileResourceType); }
+        if ( buildType == 'T') { owner->addResource(tileResourceType); }
     }
 }
