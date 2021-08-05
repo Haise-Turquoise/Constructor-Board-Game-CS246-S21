@@ -16,6 +16,7 @@ class Board {
     std::vector<std::shared_ptr<Edge>> edges;
     std::vector<std::shared_ptr<Player>> players; 
     int curTurn = 0;
+    int winPoints = 10;
     
     // 5 helper function for Board::printBoard()
     std::string ttype(int pos); 
@@ -31,6 +32,7 @@ class Board {
     void setCurTurn(int ind);
     void setGeese( int ind );
     int getGeese() const;
+    void setWinPoints( int winPoints);
  
     void printBoard();
     void printAllPlayerStatus();
