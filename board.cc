@@ -607,17 +607,22 @@ string autoCorrect(string resource) {
     return "DNE";
 }
 
-void Board::initLoadBoard(string file) { 
+bool Board::initLoadBoard(string file) { 
     ifstream fileIn{file};
     int resourceType;
     int value; 
     int i = 0;
     while (fileIn >> resourceType >> value) {
+        if ((resourceType < 0) || (resourceType > 5) || (value < 2) || (value > 12) || (i >= 19)) {
+            cerr << ">  Invalid file! Check if recourcesNum is between 0-5, tileValue between 2-12, 38 numbers in total." << endl;
+            return false;
+        }
         char type = charResourceIdentifier(resourceType);
         tiles[i]->setResourceType(type);
         tiles[i]->setValue(value);
         i += 1;
     } 
+    return true;
 }
 
 void Board::loadGame(string file) { 
