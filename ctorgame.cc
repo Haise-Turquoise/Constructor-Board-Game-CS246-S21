@@ -285,6 +285,9 @@ bool CtorGame::play() {
                 endGame(board,fileName); 
                 return 0;
             } 
+            else if (cmd == "suggestion") {
+                board.printUsingChoice();
+            }
             else {
                 cerr << ">  Error: " << cmd << ": command not found! ";
                 cerr << "Using command 'help' to check all commands." << endl;
