@@ -254,7 +254,7 @@ bool CtorGame::play() {
                 int pos = askForInteger(53);
                 if (pos == -1) {endGame(board); return 0;}
                 if (pos != -2) {                    // -2 when invalid index given
-                    board.improveRes(pos); 
+                    built = board.improveRes(pos); 
                     if (built) cout << ">  Player " << fourPlayers[curTurn] << " improved residence "<< pos << endl;
                 }
             } 
@@ -279,7 +279,7 @@ bool CtorGame::play() {
             } 
             else {
                 cerr << ">  Error: " << cmd << ": command not found! ";
-                cerr << ">  Using command 'help' to check all commands." << endl;
+                cerr << "Using command 'help' to check all commands." << endl;
             } 
 
             bool won = board.checkWon();
