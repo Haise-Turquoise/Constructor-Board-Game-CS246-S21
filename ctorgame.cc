@@ -195,7 +195,8 @@ bool CtorGame::play() {
         } else if (haveGeese && (dice == 7)) {      // move geese
             cout<<">  Geese attack!"<<endl;
             board.loseHalf();                       // builder more than 10 resources lose half
-            cout << ">  Choose where to place the Geese" << endl;
+            cout << ">  Choose where to place the Geese. They are on tile ";
+            cout << board.getGeese() << " now." << endl;
             while (true) {
                 int pos = askForInteger(18);        
                 if (pos == -1) { endGame(board); return 0;}
