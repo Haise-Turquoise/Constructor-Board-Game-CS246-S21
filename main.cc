@@ -31,7 +31,6 @@ int main(int argc, char *argv[]) {
                     cerr << "ERROR: Commands for " << argv[i] << " should be provided!"<< endl;
                     return 1;
                 }
-                
                 if (cmd == "-seed") {  
                     istringstream is{argv[i+1]};
                     if (!(is >> seed)) {
@@ -44,6 +43,8 @@ int main(int argc, char *argv[]) {
                 
                 else if (cmd == "-load"){
                     game.setLoad(1);
+                    game.setRandBoard(0);
+                    game.setBoard(0);
                     if (!checkFile(argv[i+1])) {
                         cerr << "Load File is empty or dose not exist!" << endl;
                         return 1;
@@ -54,6 +55,8 @@ int main(int argc, char *argv[]) {
                 
                 else if (cmd == "-board"){
                     game.setBoard(1);
+                    game.setLoad(0);
+                    game.setRandBoard(0);
                     if (!checkFile(argv[i+1])) {
                         cerr << "Board File is empty or dose not exist!" << endl;
                         return 1;
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-    game.info();
+    //game.info();
     while (true) {
         if (!game.play()) break;
     }
