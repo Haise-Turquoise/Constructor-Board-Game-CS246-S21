@@ -1,1 +1,28 @@
+random roll dice until all numbers been rolled  check
+load dice for 1-13 check
+load dice and try to directly roll, check whether stay dice status cgecj
+load 7 and steal from 1 player for multiple times and replace back
+removehalf 1 or 3 player with 10+ resources
+
+initRandBoard for number of tile type
+initSeedBoard for check whether same
+
+trade reject
+trade not exist own resource
+trade not exist other resource
+trade not exist color
+
+
+
+
+
+
+Methods:
+-	rollDice: an integer (between 2-12) read from the input, which will be set to the current dice value
+
+-	beStolen: return resource type that is be stolen from the player, used in Geese movement. The probability is calculated by number of each resources to the total resources.
+-	loseHalfResource: randomly lose a half of total resources, probability is determined by uniform
+
+-	initRandBoard: used for command line argument “-random-board”, initialize the board resource type distribution and tile value randomly
+-	initSeedBoard: used for command line argument “-seed”, initialize the board resource type distribution and tile value by seed number
 
