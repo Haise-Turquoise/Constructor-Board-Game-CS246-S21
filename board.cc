@@ -617,6 +617,7 @@ bool Board::initLoadBoard(string file) {
             cerr << ">  Invalid file! Check if recourcesNum is between 0-5, tileValue between 2-12, 38 numbers in total." << endl;
             return false;
         }
+        if (resourceType == 5) setGeese(i);
         char type = charResourceIdentifier(resourceType);
         tiles[i]->setResourceType(type);
         tiles[i]->setValue(value);
