@@ -1,1 +1,36 @@
+Dice: concrete class for strategy design pattern
+
+Fields: 
+-	strategy: a Strategy pointer, used to alter strategies
+
+Methods:
+-	setStrategy: setting the strategy to be either random or loaded whenever necessary
+-	roll: perform the current strategy and roll the dice
+
+
+Strategy: abstract class for two different strategy 
+
+Methods:
+-	rollDice: a virtual method will be implemented in the derived classes
+
+
+DiceRand: random dice, inherited from Strategy class
+
+Methods:
+-	rollDice: generate the random a number from 2-12, which will be set to the current dice value 
+
+
+DiceLoad: load dice, inherited from Strategy class 
+
+Methods:
+-	rollDice: an integer (between 2-12) read from the input, which will be set to the current dice value
+
+
+
+
+-	beStolen: return resource type that is be stolen from the player, used in Geese movement. The probability is calculated by number of each resources to the total resources.
+-	loseHalfResource: randomly lose a half of total resources, probability is determined by uniform
+
+-	initRandBoard: used for command line argument “-random-board”, initialize the board resource type distribution and tile value randomly
+-	initSeedBoard: used for command line argument “-seed”, initialize the board resource type distribution and tile value by seed number
 
