@@ -8,11 +8,11 @@ class Board;
 
 class CtorGame {
     std::string file = "layout.txt";
-    int seed;
-    bool load;
-    bool boardGiven;
-    bool randBoard;
-    bool customized;
+    int seed = -1;
+    bool load = false;
+    bool boardGiven = false;
+    bool randBoard = false;
+    bool customized = false;
     bool haveGeese = true;
     bool suggestion = false;
 
