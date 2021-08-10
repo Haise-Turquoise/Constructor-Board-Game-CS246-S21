@@ -798,10 +798,10 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
     if ((ownResources == "DNE") || (otherResource == "DNE")) {
         cerr << ">  Wrong resources type!" << endl; return 0;
     }
-    if (otherplayer[0] == 'B') otherplayer = "Blue";
-    if (otherplayer[0] == 'R') otherplayer = "Red";
-    if (otherplayer[0] == 'O') otherplayer = "Orange";
-    if (otherplayer[0] == 'Y') otherplayer = "Yellow";
+    if ((otherplayer[0] == 'B') || (otherplayer[0] == 'b')) otherplayer = "Blue";
+    if ((otherplayer[0] == 'R') || (otherplayer[0] == 'r')) otherplayer = "Red";
+    if ((otherplayer[0] == 'O') || (otherplayer[0] == 'o')) otherplayer = "Orange";
+    if ((otherplayer[0] == 'Y') || (otherplayer[0] == 'y')) otherplayer = "Yellow";
 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
