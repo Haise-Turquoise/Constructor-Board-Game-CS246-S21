@@ -7,7 +7,7 @@
 class Board;
 
 class CtorGame {
-    std::string file;
+    std::string file = "layout.txt";
     int seed;
     bool load;
     bool boardGiven;
