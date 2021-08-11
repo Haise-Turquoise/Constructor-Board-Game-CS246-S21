@@ -97,9 +97,9 @@ bool CtorGame::play() {
 
     if (customized) {
         cout << ">  Customize the Game: " << endl;
-        cout << ">  Enter building points to win the game: (integer between 3-20)" << endl;
+        cout << ">  Enter building points to win the game: (integer between 3-15)" << endl;
         while (true) {
-            int points = askForInteger(20,3);
+            int points = askForInteger(15,3);
             if (points == -1) {return 0;}
             if (points != -2) {board.setWinPoints(points); break;}
         }
