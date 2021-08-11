@@ -7,8 +7,7 @@
 using namespace std;
 
 
-CtorGame::CtorGame( string file, int seed, bool load, bool boardGiven, bool randBoard):
-    file{file}, seed{seed}, load{load}, boardGiven{boardGiven}, randBoard{randBoard} {}
+CtorGame::CtorGame() {}
 
 void CtorGame::setFile( string file){ this->file = file; }
 void CtorGame::setSeed(int seed){ this->seed = seed; }
@@ -16,14 +15,6 @@ void CtorGame::setLoad(bool load){ this->load = load; }
 void CtorGame::setBoard(bool boardGiven){ this->boardGiven = boardGiven; }
 void CtorGame::setRandBoard(bool randBoard){ this->randBoard = randBoard; }
 void CtorGame::setCustomized(bool customized){ this->customized = customized; }
-
-void CtorGame::info() { // for debug
-    cout  << ">  file: " << file << endl;
-    cout  << ">  seed: " << seed << endl;
-    cout  << ">  load?: " << load << endl;
-    cout  << ">  boardGiven?: " << boardGiven << endl;
-    cout  << ">  randBoard?: " << randBoard << endl;
-}
 
 // helper when ask user to input a non-negative integer, return -1 when EOF, return -2 when invalid value
 int askForInteger(int up = 1000000, int lb = 0) { // 
