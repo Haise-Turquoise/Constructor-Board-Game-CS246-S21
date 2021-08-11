@@ -592,18 +592,11 @@ char charResourceIdentifier(int resourceType) {
 
 string autoCorrect(string resource) {
     char first = resource[0];
-    switch( first ) {
-        case 'B':
-            return "BRICK"; break;
-        case 'E':
-            return "ENERGY"; break;
-        case 'G':
-            return "GLASS"; break;
-        case 'H':
-            return "HEAT"; break;
-        case 'W':
-            return "WIFI"; break;
-    } 
+    if ((first == 'B') || (first == 'b')) { return "BRICK"; }
+    if ((first == 'E') || (first == 'e')) { return "ENERGY"; }
+    if ((first == 'G') || (first == 'g')) { return "GLASS"; }
+    if ((first == 'H') || (first == 'h')) { return "HEAT"; }
+    if ((first == 'W') || (first == 'w')) { return "WIFI"; }
     return "DNE";
 }
 
@@ -782,26 +775,26 @@ string askForString() {
 
 int Board::trade( string otherplayer, string ownResources, string otherResource ){
     int cur = getCurTurn();
-    vector<string> fourPlayer = {"Blue", "Red", "Orange", "Yellow"};
-    int other = -1;
-    for (int i = 0; i<4; i++) {
-        if (fourPlayer[i][0] == otherplayer[0]) {
-            other = i; 
-            otherplayer = fourPlayer[i];
-            break;
-        }
-    }
-    if (other == -1) {cerr << ">  Wrong player's name color!" << endl; return 0;}
-
-    ownResources = autoCorrect(ownResources);
-    otherResource = autoCorrect(otherResource);
-    if ((ownResources == "DNE") || (otherResource == "DNE")) {
-        cerr << ">  Wrong resources type!" << endl; return 0;
-    }
     if ((otherplayer[0] == 'B') || (otherplayer[0] == 'b')) otherplayer = "Blue";
     if ((otherplayer[0] == 'R') || (otherplayer[0] == 'r')) otherplayer = "Red";
     if ((otherplayer[0] == 'O') || (otherplayer[0] == 'o')) otherplayer = "Orange";
     if ((otherplayer[0] == 'Y') || (otherplayer[0] == 'y')) otherplayer = "Yellow";
+
+    vector<string> fourPlayer = {"Blue", "Red", "Orange", "Yellow"};
+    int other = -1;
+    for (int i = 0; i<4; i++) {
+        if (fourPlayer[i] == otherplayer) {
+            other = i; break;
+        }
+    }
+    if (other == -1) {cerr << ">  Invalid player's name color!" << endl; return 0;}
+
+    ownResources = autoCorrect(ownResources);
+    otherResource = autoCorrect(otherResource);
+    if ((ownResources == "DNE") || (otherResource == "DNE")) {
+        cerr << ">  Invalid resources type!" << endl; return 0;
+    }
+    
 
     int numResOwn = players[cur]->getNumResource(ownResources[0]);
     int numResOther = players[other]->getNumResource(otherResource[0]);
