@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-    //game.info();
+
     while (true) {
         if (!game.play()) break;
     }
