@@ -226,7 +226,7 @@ bool CtorGame::play() {
                 cout << ">    build-road <edge#>    e.g. build-road 7"<< endl;
                 cout << ">    build-res <housing#>    e.g. build-res 25" << endl;
                 cout << ">    improve <housing#>    e.g. improve 25"<< endl;
-                cout << ">    trade <colour> <give> <take>    Note: makk sure the first letter is capitalized: trade Orange Brick HEAT" << endl;
+                cout << ">    trade <colour> <give> <take>    Note: make sure the first letter is capitalized: trade Orange Brick HEAT" << endl;
                 cout << ">    next" << endl;
                 cout << ">    save <file>    e.g. save backup.sv" << endl;
                 cout << ">    help" << endl;
