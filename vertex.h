@@ -13,7 +13,6 @@ class Vertex : public Observer {
     char buildType;
     int ownerPos; // position of owner in the players vector in Board (0-3)
     Player* owner;
-    std::vector<Vertex*> neighbourVertices;
     std::vector<Edge*> neighbourEdges;
 
     public:
