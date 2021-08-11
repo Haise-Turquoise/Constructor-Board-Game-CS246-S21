@@ -18,7 +18,7 @@ class Player {
     std::vector<Edge*> ownEdges;
     Dice dice;
     char strategy = 'L'; // 'L' -> Loaded; 'R' -> Random
-    std::vector<char> generateResBoard(); //刘书辰的helper啊
+    std::vector<char> generateResBoard(); // helper
 
     public:
     Player();
