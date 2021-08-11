@@ -13,7 +13,7 @@ class Player;
 
 class Board {
     int posGeese = 7 ;
-    int seed = 0;
+    int seed = -1;
     std::vector<std::shared_ptr<Tile>> tiles;
     std::vector<std::shared_ptr<Vertex>> vertices;
     std::vector<std::shared_ptr<Edge>> edges;
