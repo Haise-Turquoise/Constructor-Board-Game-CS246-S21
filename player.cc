@@ -331,7 +331,7 @@ bool Player::decResource(char resourceType) { // need to check non-0
 }
 
 
-//刘书辰
+//Shuchen
 int Player::rollDice( int value, int seed ) {
     if (strategy == 'L') {
         dice.setStrategy(make_shared<DiceLoad>());
