@@ -1,11 +1,11 @@
 random roll dice until all numbers been rolled  check
 load dice for 1-13 check
-load dice and try to directly roll, check whether stay dice status cgecj
+load dice and try to directly roll, check whether stay dice status check
 load 7 and steal from 1 player for multiple times and replace back
-removehalf 1 or 3 player with 10+ resources
+removehalf 1 or 3 player with 10+ resources uncheck
 
-initRandBoard for number of tile type
-initSeedBoard for check whether same
+initRandBoard for number of tile type number of tile value check
+initSeedBoard for check whether same check
 
 trade reject
 trade not exist own resource
