@@ -384,7 +384,7 @@ void Player::loseHalfResource(int seed) {
     std::shuffle(generateBoard.begin(), generateBoard.end(), std::default_random_engine(sd));
     // the first half of generateResBoard
     size_t half_size = generateBoard.size() / 2;
-    vector<char> firstHalf(generateBoard.begin(), generateBoard.begin() + half_size + 1);
+    vector<char> firstHalf(generateBoard.begin(), generateBoard.begin() + half_size);
     // update number of resource
     numHeat = count(firstHalf.begin(), firstHalf.end(), 'H');
     numWifi = count(firstHalf.begin(), firstHalf.end(), 'W');
