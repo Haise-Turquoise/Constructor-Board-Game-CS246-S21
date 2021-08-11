@@ -483,7 +483,7 @@ bool Board::improveRes( int pos ) {
 }
 
 
-//刘书辰____________________________________________________________________
+//Shuchen____________________________________________________________________
 
 // helper function: generate random number
 int myrandom (int i) { return std::rand()%i;}
@@ -524,7 +524,7 @@ void Board::initRandBoard() {
     }
 }
 
-// 刘书辰
+// Shuchen
 void Board::initSeedBoard( int seed ) {
     // set seed
     unsigned sd = seed;
@@ -571,7 +571,7 @@ int intResourceIdentifier(char resource) {
     } 
     return -1;
 }
-
+// a helper
 char charResourceIdentifier(int resourceType) { 
     switch( resourceType ) {
         case 0:
@@ -589,7 +589,7 @@ char charResourceIdentifier(int resourceType) {
     } 
     return 'N';
 }
-
+// a helper
 string autoCorrect(string resource) {
     char first = resource[0];
     if ((first == 'B') || (first == 'b')) { return "BRICK"; }
@@ -706,7 +706,7 @@ string Board::saveGame() {
 
 
 
-//刘书辰
+//Shuchen
 
 void Board::setDice(bool fair) {
     if (fair) {// set loaded strategy
@@ -833,7 +833,7 @@ int Board::trade( string otherplayer, string ownResources, string otherResource 
 
 
 
-//刘书辰
+//Shuchen
 void Board::loseHalf() {
     // iterate each player & find 10 or more resource
     for (size_t i = 0; i < players.size(); i++) {
