@@ -721,6 +721,15 @@ int Board::rollDice(int value) {
 }
 
 void Board::gainResources(int tileVal){
+    vector<int> oldHeat, oldWifi, oldEnergy, oldBrick, oldGlass;
+    for ( size_t i = 0; i < players.size(); i++ ) {
+        oldHeat.emplace_back(players[i]->getNumResource('H'));
+        oldWifi.emplace_back(players[i]->getNumResource('W'));
+        oldEnergy.emplace_back(players[i]->getNumResource('E'));
+        oldBrick.emplace_back(players[i]->getNumResource('B'));
+        oldGlass.emplace_back(players[i]->getNumResource('G'));
+    }
+
     // notify observers of tileVal
     // only notify which has been build
     for ( size_t i = 0; i < tiles.size(); i++ ) {
@@ -730,6 +739,22 @@ void Board::gainResources(int tileVal){
         if ( tiles[i]->getValue() == tileVal ) {
             tiles[i]->notifyObservers();
         }
+    }
+    vector<string> fourPlayers = {"Blue", "Red", "Orange", "Yellow"};
+    for ( size_t i = 0; i < players.size(); i++ ) {
+        int Heat = players[i]->getNumResource('H') - oldHeat[i];
+        int Wifi = players[i]->getNumResource('W') - oldWifi[i];
+        int Energy = players[i]->getNumResource('E') - oldEnergy[i];
+        int Brick = players[i]->getNumResource('B') - oldBrick[i];
+        int Glass = players[i]->getNumResource('G') - oldGlass[i];
+        int sumR = Heat+Wifi+Energy+Brick+Glass;
+        if (sumR > 0) cout << "Builder " << fourPlayers[i] << " gained: ";
+        if (Heat > 0) cout << Heat << " HEAT ";
+        if (Wifi > 0) cout << Wifi << " WIFI ";
+        if (Energy > 0) cout << Energy << " ENERGY ";
+        if (Brick > 0) cout << Brick << " BRICK ";
+        if (Glass > 0) cout << Glass << " GLASS ";
+        if (sumR > 0) cout << endl;
     }
 }
 
