@@ -156,7 +156,7 @@ bool CtorGame::play() {
 
             if (cmd == "roll") {
                 if (!fairOrLoad[curTurn]) {         // load dice
-                    cout << ">  Input a dice value between 2 to 12 (inclusive):"<< endl;
+                    cout << ">  Input the sum of two dices, value between 2 to 12 (inclusive):"<< endl;
                     while (true) {            // -2 when invalid dice number provided
                         dice = askForInteger(12,2);
                         if (dice == -1) { endGame(board); return 0;}
@@ -176,6 +176,14 @@ bool CtorGame::play() {
                 fairOrLoad[curTurn] = false;
                 board.setDice(false);
                 cout<< ">  Player " << fourPlayers[curTurn] << " uses loaded dice now" << endl;
+            } else if (cmd == "save") {
+                string fileName = askForCommand();
+                if (fileName == "eof") {endGame(board); return 0;} 
+                endGame(board,fileName); 
+                return 0;
+            } else if (cmd == "quit") {
+                cout << ">  Quit the game." << endl;
+                return 0;
             } else {
                 cerr << ">  Please first roll the Dice. Remember to enter 'fair' or 'load' when needed" << endl;
             } 
@@ -278,6 +286,10 @@ bool CtorGame::play() {
             } 
             else if (cmd == "suggestion") {
                 board.printUsingChoice();
+            }
+            else if (cmd == "quit") {
+                cout << ">  Quit the game." << endl;
+                return 0;
             }
             else {
                 cerr << ">  Error: " << cmd << ": command not found! ";
