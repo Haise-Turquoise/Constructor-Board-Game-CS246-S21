@@ -5,3 +5,8 @@ Final Project of CS246 in University of Waterloo in Spring 2021 term ( July 26- 
 git clone git@github.com:Haise-Turquoise/Constructor-Board-Game-CS246-S21
 
 git clone https://github.com/Haise-Turquoise/Constructor-Board-Game-CS246-S21.git
+
+key method:
+rough(not perfect) orignal plan
+compile every 20 lines to avoid nested bug
+open to communicate the progress issue when busy and reallocate workload (result oriented)
