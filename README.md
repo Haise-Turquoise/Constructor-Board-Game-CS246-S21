@@ -10,6 +10,8 @@ key method:
 
 rough(not perfect) orignal plan
 
+open to communicate the progress issue when busy and reallocate workload (result oriented)
+
 compile every 20 lines to avoid nested bug
 
-open to communicate the progress issue when busy and reallocate workload (result oriented)
+intensive type and range in the base object
